@@ -1,0 +1,147 @@
+<meta charset="UTF-8">
+<html>
+
+<head>
+  <title>Multi-part strips</title>
+  <script src="../build/out.js"></script>
+  <script type="text/javascript">
+    var fm;
+    var stripContent = { showFoldingOrder: true, showIds: true };
+    var scale;
+    var start = [];
+    var end = [];
+
+    function runScript() {
+      statusMessage("error parsing script");
+      var scriptBox = document.getElementById('script');
+      if (scriptBox === null) {
+        return;
+      }
+      var result = Flexagonator.runScriptString(fm, scriptBox.value);
+      if (Flexagonator.isError(result)) {
+        var str = Flexagonator.errorToString(result);
+        statusMessage(str);
+        return;
+      }
+      fm = result;
+      statusMessage("unfolded strip has " + fm.flexagon.getLeafCount() + " leaves");
+      updateUI();
+    }
+
+    function updateUI() {
+      var captions1 = [{ text: 'a', which: 0 }, { text: 'b', which: -1 }];
+      var captions2 = [{ text: 'b', which: 0 }, { text: 'c', which: -1 }];
+      var captions3 = [{ text: 'c', which: 0 }, { text: 'd', which: -1 }];
+      var captions4 = [{ text: 'd', which: 0 }, { text: 'e', which: -1 }];
+      Flexagonator.drawUnfolded('unfolded1', fm, { captions: captions1, start: start[1], end: end[1], content: stripContent, scale: scale });
+      Flexagonator.drawUnfolded('unfolded2', fm, { captions: captions2, start: start[2], end: end[2], content: stripContent, scale: scale });
+      Flexagonator.drawUnfolded('unfolded3', fm, { captions: captions3, start: start[3], end: end[3], content: stripContent, scale: scale });
+      Flexagonator.drawUnfolded('unfolded4', fm, { captions: captions4, start: start[4], end: end[4], content: stripContent, scale: scale });
+    }
+
+    function statusMessage(message) {
+      var statusDiv = document.getElementById('status');
+      if (statusDiv !== null) {
+        statusDiv.innerHTML = message;
+      }
+    }
+
+    function setScale(keyCode, str, key, which) {
+      scale = asNumber(str, key);
+      if (keyCode == 13) {
+        updateUI();
+      }
+    }
+
+    function setStart(keyCode, str, key, which) {
+      start[which] = asNumber(str, key);
+      if (keyCode == 13) {
+        updateUI();
+      }
+    }
+
+    function setEnd(keyCode, str, key, which) {
+      end[which] = asNumber(str, key);
+      if (keyCode == 13) {
+        updateUI();
+      }
+    }
+
+    function asNumber(str, key) {
+      if ('0' <= key && key <= '9') {
+        return Number.parseInt(str + key);
+      }
+      return Number.parseInt(str);
+    }
+  </script>
+</head>
+
+<body>
+  <h1>Multi-part strips</h1>
+
+  <p>
+    Run a script to describe a flexagon, then specify a subset of the unfolded strip to display. Useful for strips that
+    are too
+    long to fit on a page, or for strips that twist back on themselves. There are letters are the two ends of each
+    sub-strip
+    that indicate how they should be connected to the other strips, e.g. 'a' connects to the end of the last strip, the
+    'b's
+    should be connected together, etc.
+  </p>
+
+  <p>
+    <input onclick="runScript();" type="button" value="run script" />
+  </p>
+  <div id="status"></div>
+
+  <p>
+    <textarea id="script" cols="100" rows="7" spellcheck="false"></textarea>
+  </p>
+
+  <p>
+    <input onclick="stripContent = 0; updateUI();" type="button" value="show folding numbers" />
+    <input onclick="stripContent = 1; updateUI();" type="button" value="folding numbers + ids" />
+    <input onclick="stripContent = 2; updateUI();" type="button" value="front colors and labels" />
+    <input onclick="stripContent = 3; updateUI();" type="button" value="back colors and labels" />
+  </p>
+
+  <div>
+    <label>scale:</label>
+    <input onkeypress="setScale(event.keyCode, event.target.value, event.key, 1)" size="5" />
+  </div>
+
+  <div>
+    <label>start:</label>
+    <input onkeypress="setStart(event.keyCode, event.target.value, event.key, 1)" size="5" />
+    <label>end:</label>
+    <input onkeypress="setEnd(event.keyCode, event.target.value, event.key, 1)" size="5" />
+  </div>
+  <canvas id="unfolded1" width="800" height="600"></canvas>
+
+  <div>
+    <label>start:</label>
+    <input onkeypress="setStart(event.keyCode, event.target.value, event.key, 2)" size="5" />
+    <label>end:</label>
+    <input onkeypress="setEnd(event.keyCode, event.target.value, event.key, 2)" size="5" />
+  </div>
+  <canvas id="unfolded2" width="800" height="600"></canvas>
+
+  <div>
+    <label>start:</label>
+    <input onkeypress="setStart(event.keyCode, event.target.value, event.key, 3)" size="5" />
+    <label>end:</label>
+    <input onkeypress="setEnd(event.keyCode, event.target.value, event.key, 3)" size="5" />
+  </div>
+  <canvas id="unfolded3" width="800" height="600"></canvas>
+
+  <div>
+    <label>start:</label>
+    <input onkeypress="setStart(event.keyCode, event.target.value, event.key, 4)" size="5" />
+    <label>end:</label>
+    <input onkeypress="setEnd(event.keyCode, event.target.value, event.key, 4)" size="5" />
+  </div>
+  <canvas id="unfolded4" width="800" height="600"></canvas>
+
+</body>
+
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>Work Simulator</title>
+    <link href="style.css" rel="stylesheet" type="text/css" />
+  </head>
+  <body>
+    <h1>Level 6-2</h1>
+    <p>Now that Bob's safe at home, Bob can focus on relaxing. Since the radio seems to only play rick rolls, let's watch TV!</p>
+    <button onclick="tv()">Watch TV!</button>
+    <br>
+    <p id="tvText1" hidden>Loading Programs...</p>
+    <p id="tvText2" hidden>Now, here's a 30 second message from our sponsors!</p>
+    <video width="640" height="480" id="tv" hidden>
+      <source src="grammarly.mp4" type=video/ogg>
+    </video>
+    <p id="levelEndText1" hidden>AAAAHH!!! I HATE GRAMMARLY ADS!!!!</p>
+    <h2 id="moral" hidden>The Moral: Don't include advertisements (unless you're a huge corporation or something. But not for hobby projects.)</h2>
+    <h6 id="levelEndText2" hidden>I wonder if Grammarly will give me money for this?</h6>
+    <button id="next" onclick="window.location.href='stage6-3.html'" hidden>Next</button>
+
+    <script>
+      function tv() {
+        let x = document.getElementById("tv");
+        x.play();
+        setTimeout(unhide, 30000);
+        document.getElementById("tv").hidden = false;
+        document.getElementById("tvText1").hidden = false;
+        document.getElementById("tvText2").hidden = false;
+        document.getElementById("levelEndText1").hidden = false;
+      }
+      function unhide() {
+        document.getElementById("moral").hidden = false;
+        document.getElementById("levelEndText2").hidden = false;
+        document.getElementById("next").hidden = false;
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>Work Simulator</title>
+    <link href="style.css" rel="stylesheet" type="text/css" />
+  </head>
+  <body>
+    <h1>Level 2-2</h1>
+    <p>After forcibly waking up Bob myself, we continue to the next stage of our game. Bob wants to listen to something while he makes his breakfast, though... why don't we turn on the radio?</p>
+    <button onclick="radio()">Turn On Radio</button>
+    <p id="levelEndText" hidden>Gah! Rick rolls! Why?</p>
+    <p id="levelEndText1" hidden>You fumble to turn the radio off, but it's not working. Maybe it'll end on its own in 20 seconds.</p>
+    <h2 id="moral" hidden>The Moral: There was none, we just wanted to rickroll you.</h2>
+    <button id="next" hidden onclick="window.location.href='stage2-3.html'">Next</button>
+  
+    <script>
+      var rickRoll = new Audio("rickRoll.mp3");
+      var triggered;
+      function radio() {
+        rickRoll.play();
+        document.getElementById("levelEndText").hidden = false;
+        document.getElementById("levelEndText1").hidden = false;
+        if (!triggered) {
+          setTimeout(unhide, 20000);
+        }
+        var triggered = 1;
+      }
+      function unhide() {
+        document.getElementById("moral").hidden = false;
+        document.getElementById("next").hidden = false;
+      }
+    </script>
+  </body>
+</html>

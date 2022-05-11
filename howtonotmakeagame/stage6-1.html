@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>Work Simulator</title>
+    <link href="style.css" rel="stylesheet" type="text/css" />
+  </head>
+  <body>
+    <h1>Level 6-1</h1>
+    <p>After turning off the treadmill, Bob shoots out of ANGRY BOSS's office and into his car.</p>
+    <p>Oh, how convenient! Bob's working hours are over. Let's drive back to Bob's house! This time, I've made sure to tell Bob to drive more quickly.</p>
+    <button id="driveButton" onclick="drive()">Start Driving</button>
+    <p id="road">🏢🚗==============🏡</p>
+    <p id="levelEndText" hidden>Hmm... It appears like Bob has enlisted the help of CAR TELEPORTATION, INC! </p>
+    <h2 id="moral" hidden>The Moral: Don't make really fast transitions.</h2>
+    <button id="next" onclick="window.location.href='stage6-2.html'" hidden>Next</button>
+  
+    <script>
+      var driven = 0;
+      var started = false;
+
+      function update() {
+        if (driven < 14) driven+=2;
+        let text = "🏢"
+        for (let i = 0; i < 15; i++) {
+          if (driven == i) text += "🚗";
+          else text += "=";
+        }
+        if (driven == 14) {
+          document.getElementById("levelEndText").hidden = false;
+          document.getElementById("moral").hidden = false;
+          document.getElementById("next").hidden = false;
+        }
+        text += "🏡";
+        document.getElementById("road").innerText = text;
+      }
+
+      function drive() {
+        if (!started) setInterval(update, 1);
+        started = true;
+        document.getElementById("driveButton").innerText = "Driving..."
+      }
+
+    </script>
+  </body>
+</html>

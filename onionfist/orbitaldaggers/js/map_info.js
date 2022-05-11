@@ -1,0 +1,55 @@
+var map_info = [{
+	id: "map1",
+	msg: true
+}, {
+	id: "map2",
+	msg: true
+}, {
+	id: "map3",
+	msg: false
+}, {
+	id: "map4",
+	msg: false
+}, {
+	id: "map5",
+	msg: false
+}, {
+	id: "map5a",
+	msg: false
+}, {
+	id: "map5b",
+	msg: false
+}, {
+	id: "map6",
+	msg: false
+}, {
+	id: "map6a",
+	msg: false
+}, {
+	id: "map6b",
+	msg: false
+}, {
+	id: "map7",
+	msg: false
+}, {
+	id: "map8",
+	msg: false
+}, {
+	id: "map9",
+	msg: false
+}, {
+	id: "map10",
+	msg: false
+}, {
+	id: "map10a",
+	msg: false
+}, {
+	id: "map10b",
+	msg: false
+}, {
+	id: "map11",
+	msg: false
+}, {
+	id: "map12",
+	msg: false
+}]

@@ -1,0 +1,5 @@
+var webadd = {
+    init: function() {
+        
+    }
+}

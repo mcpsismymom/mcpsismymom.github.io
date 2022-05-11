@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>Work Simulator</title>
+    <link href="style.css" rel="stylesheet" type="text/css" />
+  </head>
+  <body>
+    <h1>Appendix A - Carne-Bob Hall</h1>
+    <p>Oh, no! As you run for the escape, you're suddenly surrounded by 20 Bob Astleys. They all start singing a tune you bitterly hate... Even worse, BeethoBob is still playing in the background! AAAAAHH!!!</p>
+    <button onclick="run()">RUN!</button>
+    
+    <script>
+      var music = new Audio("beethovenCoffee.wav")
+      music.play();
+      setInterval(function() {
+        let roll = new Audio("rickRoll.mp3");
+        roll.play();
+      }, 1000);
+
+      var attempts = 10;
+      function run() {
+        attempts--;
+        if (attempts > 0) alert("You try to run, but the Bob Astleys surround you! Try again.");
+        else window.location.href = "appendixA-1-3.html";
+      }
+    </script>
+  </body>
+</html>

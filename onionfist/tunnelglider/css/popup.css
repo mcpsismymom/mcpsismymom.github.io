@@ -1,0 +1,184 @@
+
+.screen {
+    visibility: hidden;
+    position: fixed;
+    width: auto;
+    height: auto;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+    top: 0px;
+
+    overflow-y: scroll;
+
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 340px;
+
+    text-align: center;
+    z-index: 5;
+}
+
+
+.screen::-webkit-scrollbar {
+  display: none;
+}
+
+.screen_wide {
+    max-width: none !important;
+}
+
+.screen h1 {
+    font-size: 40px;
+}
+.screen p {
+    font-size: 25px;
+}
+
+
+
+.button {
+    display: inline-block;
+    margin: 5px 10px;
+    padding: 5px 10px;
+    cursor: pointer;
+
+    background: var(--blue);
+    /*border: 2px solid var(--cream);*/
+    color: var(--cream);
+    border-radius: 6px;
+    font-size: 25px;
+    font-family: 'righteous', sans-serif;
+    transition: 0.3s;
+}
+
+.button:hover {
+    background: var(--blue_alt);
+    color: var(--cream);
+}
+
+.big_btn {
+    font-size: 40px;
+}
+
+
+
+
+
+.button_light {
+    display: inline-block;
+    font-size: 20px;
+    margin: 7px 0px;
+    cursor: pointer;
+    text-decoration: none;
+    text-align: center;
+    color: var(--cream);
+    transition: 0.3s;
+}
+.button_light:hover {
+    color: yellow;
+}
+
+
+.main_menu_row {
+    display: flex;
+}
+
+.main_menu_btn {
+    flex: 1;
+}
+.main_menu_btn_wide {
+    flex: 1.5;
+}
+
+
+
+#topbanner {
+    width: 340px;
+    margin-bottom: -45px;
+}
+
+#death_results_h1 {
+    margin-top: 80px;
+    font-size: 40px;
+    font-family: 'righteous', sans-serif;
+}
+
+#death_results_p {
+    font-size: 25px;
+    font-family: 'righteous', sans-serif;
+    line-height: 25px;
+}
+
+
+#screen_credits {
+    padding: 40px 20px;
+}
+
+
+.setting_option {
+    display: inline-block;
+    margin: 5px 10px;
+    padding: 10px 20px;
+    cursor: pointer;
+    
+    border-radius: 6px;
+    font-size: 25px;
+
+    background: var(--blue);
+    border: 4px solid red;
+    color: var(--cream);
+
+}
+
+#locked_from {
+    background: rgba(0,0,0, 0.5);
+
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 20px 40px;
+
+    pointer-events: none;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#locked_from_inner {
+    flex: 1;
+}
+
+#locked_from_inner * {
+    color: white;
+}
+
+#locked_from_inner h1 {
+    font-size: 25px;
+    margin: 0;
+}
+
+.locked {
+    opacity: 0.3;
+}
+
+
+
+.progress_outer {
+    display: inline-block;
+    width: 200px;
+    height: 20px;
+    padding: 5px;
+    background: white;
+    margin: 10px;
+}
+
+.progress_inner {
+    width: 20%;
+    height: 20px;
+    background: red;
+}
+

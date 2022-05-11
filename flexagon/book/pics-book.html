@@ -1,0 +1,846 @@
+<meta charset="UTF-8">
+<html>
+
+<head>
+  <title>book illustrations</title>
+
+  <style>
+    th {
+      font-family: Arial;
+      text-align: center;
+    }
+
+  </style>
+
+  <script src="../build/out.js"></script>
+  <script type="text/javascript">
+    // draw * on the edges that should be taped together
+    const starCaptions = [{ text: "*", which: 0 }, { text: "*", which: -1 }];
+
+    // draw an unfolded strip on the given canvas
+    // canvasId: string, numPats: number, flexes: string, rotation: number, start: number, end: number
+    function drawStripPinch(canvasId, numPats, flexes, rotation, start, end) {
+      var script = [{ numPats: numPats, flexes: flexes, labelAsTree: [] }];
+      var fm = Flexagonator.createFromScript(script);
+      Flexagonator.drawUnfolded(canvasId, fm, { rotation, content: { showLeafProps: true }, captions: starCaptions, start, end });
+    }
+
+    // draw an unfolded strip for a generating sequence that's not just pinch flexes
+    // canvasId: string, numPats: number, flexes: string, rotation: number, angles: [number]
+    function drawStripSequence(canvasId, numPats, flexes, rotation, angles) {
+      var script = [{ numPats: numPats, flexAndColor: { flexes: flexes }, angles: angles }];
+      var fm = Flexagonator.createFromScript(script);
+      var options = { rotation: rotation, content: { showFoldingOrder: true }, captions: [{ text: flexes, which: 0 }, { text: "*", which: -1 }] }
+      Flexagonator.drawUnfolded(canvasId, fm, options);
+    }
+
+    // draw an unfolded strip on the given canvas
+    // pass in a full script & full options for drawUnfolded
+    function drawStripComplex(canvasId, script, drawOptions) {
+      var fm = Flexagonator.createFromScript(script);
+      Flexagonator.drawUnfolded(canvasId, fm, drawOptions);
+    }
+
+    // draw a folded flexagon, just showing the outline of the leaves
+    function drawFlexagonSimple(canvasId, numPats, angles) {
+      var script = angles ? [{ numPats: numPats, angles: angles }] : [{ numPats: numPats }];
+      var fm = Flexagonator.createFromScript(script);
+      Flexagonator.drawEntireFlexagon(canvasId, fm, { showIds: false, showCurrent: false, showNumbers: false });
+    }
+
+    // draw a folded flexagon, showing possible flexes
+    function drawFlexagonComplex(canvasId, script) {
+      var fm = Flexagonator.createFromScript(script);
+      var regions = Flexagonator.drawEntireFlexagon(canvasId, fm, { showIds: false, showCurrent: false, showNumbers: false });
+      Flexagonator.drawScriptButtons(canvasId, fm.flexagon, fm.getAngleInfo(), true, regions);
+    }
+
+    function drawFromName(canvasId, name, rotation) {
+      var fm = Flexagonator.createFromScript([{ name }]);
+      Flexagonator.drawUnfolded(canvasId, fm, { rotation, content: {} });
+    }
+  </script>
+</head>
+
+<body>
+  <h1>Book illustrations</h1>
+
+  <ul>
+    <li><a href="#intro">Introduction</a></li>
+    <li><a href="#part1">Part One: Pinch Flex and Variations</a></li>
+    <ul>
+      <li><a href="#3faces">3 faces</a></li>
+      <li><a href="#456faces">4, 5, 6 faces</a></li>
+      <li><a href="#longer">longer templates</a></li>
+      <li><a href="#tetra-octa">triangle tetra & octaflexagons</a></li>
+      <li><a href="#pinch-variations">pinch variations</a></li>
+    </ul>
+    <li><a href="#part2">Part Two: Flexes</a></li>
+    <ul>
+      <li><a href="#book">book flex</a></li>
+      <li><a href="#box">box flex</a></li>
+      <li><a href="#tuck">tuck flex</a></li>
+      <li><a href="#pyramid shuffle">pyramid shuffle</a></li>
+      <li><a href="#flip">flip flex</a></li>
+      <li><a href="#vflex">v flex</a></li>
+      <li><a href="#silver tetra">silver tetra flex</a></li>
+      <li><a href="#half-flexes">half flexes</a></li>
+      <li><a href="#hexa-silver-dodeca">hexagonal silver dodeca</a></li>
+    </ul>
+    <li><a href="#part3">Part Three: Learning</a></li>
+    <ul>
+      <li><a href="#naming">naming</a></li>
+      <li><a href="#state-diagrams">state diagrams</a></li>
+      <li><a href="#sequences">sequences</a></li>
+      <li><a href="#pat-notation">pat notation</a></li>
+      <li><a href="#atomic-flex-theory">atomic flex theory</a></li>
+      <li><a href="#groups">groups</a></li>
+    </ul>
+    <li><a href="#part4">Part Four: Fun</a></li>
+    <ul>
+      <li><a href="#popups">popups</a></li>
+    </ul>
+  </ul>
+
+  <hr />
+
+  <!-- intro -->
+
+  <h2 id="intro">Introduction</h2>
+
+  <canvas id="intro-tri" width="800" height="180"></canvas>
+  <script type="text/javascript">
+    var script = [{ numPats: 6, flexes: "P*" }];
+    var options = { rotation: 120, content: {} };
+    drawStripComplex("intro-tri", script, options);
+  </script>
+  <br/>
+  <img src="../idyll/static/pinch-flex.jpg" /><br/><br/>
+
+  <canvas id="intro-hexa" width="1200" height="180"></canvas>
+  <script type="text/javascript">
+    var script = [{ numPats: 6, flexes: "P* P* P+ > P P*" }];
+    var options = { rotation: 120, content: {} };
+    drawStripComplex("intro-hexa", script, options);
+  </script>
+
+  <br/>
+  <img src="images/square-book.jpg" />
+  <br/><br/>
+
+  <img src="../idyll/static/flexagon-variety.jpg" /><br/><br/>
+
+  <!-- part 1 -->
+
+  <hr />
+
+  <h2 id="part1">Part One: Pinch Flex and Variations</h2>
+
+  <!-- 3 faces-->
+  <h3 id="3faces">3 faces</h3>
+
+  <h4>tri-hexaflexagon</h4>
+  <img src="../idyll/static/pinch-flex.jpg" /><br/><br/>
+  <canvas id="tri-hexa" width="800" height="180"></canvas>
+  <script type="text/javascript">
+    drawStripPinch("tri-hexa", 6, "P*", 120);
+  </script>
+
+  <!-- 4, 5, & 6 faces-->
+  <h3 id="456faces">4, 5, & 6 faces</h3>
+
+  <h4>tetra-hexaflexagon strip</h4>
+  <canvas id="tetra-hexa" width="1200" height="220"></canvas>
+  <script type="text/javascript">
+    drawStripPinch("tetra-hexa", 6, "(P*)2", 90);
+  </script>
+
+  <h4>penta-hexaflexagon strip</h4>
+  <canvas id="penta-hexa" width="1200" height="500"></canvas>
+  <script type="text/javascript">
+    drawStripPinch("penta-hexa", 6, "(P*)3", 60);
+  </script>
+
+  <h4>hexa-hexaflexagon strips</h4>
+  <canvas id="hexa-hexa1" width="1200" height="180"></canvas>
+  <canvas id="hexa-hexa2" width="700" height="700"></canvas>
+  <canvas id="hexa-hexa3" width="700" height="700"></canvas>
+  <script type="text/javascript">
+    drawStripPinch("hexa-hexa1", 6, "P* P* P+ > P P*", 120);
+    drawStripPinch("hexa-hexa2", 6, "(P*^>)4", 0);
+    drawStripPinch("hexa-hexa3", 6, "(P*)4", 0);
+  </script>
+
+  <!-- longer templates -->
+  <h3 id="longer">longer templates</h3>
+
+  <h4>dodeca-hexaflexagon strip</h4>
+  <canvas id="dodeca-hexa" width="1200" height="180"></canvas>
+  <script type="text/javascript">
+    var A = "P'*>(P*)2";
+    var B = "P'*>(P*)4";
+    var sequence = A + B + A + B + A;
+    drawStripPinch("dodeca-hexa", 6, sequence, 120, 0, 11);
+  </script>
+
+  <h4>icositetra-hexaflexagon strip</h4>
+  <canvas id="icositetra-hexa" width="1200" height="180"></canvas>
+  <script type="text/javascript">
+    var A = "P'*>(P*)2";
+    var B = "P'*>(P*)4";
+    var C = "P'*>(P*)6";
+    var sequence = A + B + A + C + A + B + A + C + A + B + A;
+    drawStripPinch("icositetra-hexa", 6, sequence, 120, 0, 23);
+  </script>
+
+  <!-- triangle tetra & octa -->
+  <h3 id="tetra-octa">triangle tetra & octa</h3>
+
+  <h4>regular tri-tetraflexagon strip</h4>
+  <canvas id="tri-tetra" width="1200" height="220"></canvas>
+  <script type="text/javascript">
+    var script = [{ numPats: 4, flexes: "P*", angles: [60, 60], labelAsTree: [] }];
+    var drawOptions = { rotation: 120, content: { showLeafProps: true }, captions: starCaptions };
+    drawStripComplex("tri-tetra", script, drawOptions);
+  </script>
+
+  <h4>regular penta-tetraflexagon strip</h4>
+  <canvas id="penta-tetra" width="1200" height="500"></canvas>
+  <script type="text/javascript">
+    var script = [{ numPats: 4, flexes: "(P*)3 P'P'", angles: [60, 60], labelAsTree: [] }];
+    var drawOptions = { rotation: 60, content: { showLeafProps: true }, captions: starCaptions };
+    drawStripComplex("penta-tetra", script, drawOptions);
+  </script>
+
+  <h4>regular tri-octaflexagon strip</h4>
+  <canvas id="tri-octa" width="1200" height="220"></canvas>
+  <script type="text/javascript">
+    var script = [{ numPats: 8, flexes: "P*", angles: [60, 60], labelAsTree: [] }];
+    var drawOptions = { rotation: 120, content: { showLeafProps: true }, captions: starCaptions };
+    drawStripComplex("tri-octa", script, drawOptions);
+  </script>
+
+  <h4>regular penta-octaflexagon strip</h4>
+  <canvas id="penta-octa" width="1200" height="500"></canvas>
+  <script type="text/javascript">
+    var script = [{ numPats: 8, flexes: "(P*)3", angles: [60, 60], labelAsTree: [] }];
+    var drawOptions = { rotation: 60, content: { showLeafProps: true }, captions: starCaptions };
+    drawStripComplex("penta-octa", script, drawOptions);
+  </script>
+
+  <!-- pinch flex variations -->
+  <h3 id="pinch-variations">pinch flex variations</h3>
+
+  <h4>P444</h4>
+  <canvas id="P444" width="1200" height="400"></canvas>
+  <script type="text/javascript">
+    drawStripPinch("P444", 12, "P444*");
+  </script>
+
+  <p>
+    you can do a P444h (half of a P444) on this one & it'll still be flat,
+    though the leaves no longer meet in the middle
+  </p>
+  <canvas id="P444-half" width="1200" height="250"></canvas>
+  <script type="text/javascript">
+    var script = [{ "pats": [1, 2, 3, [0, 0], 5, 6, 7, [0, 0], 9, 10, 11, [0, 0]] }, { "angles": [30, 60, 90] }];
+    drawStripComplex("P444-half", script, { rotation: 60, content: { showFoldingOrder: true }, captions: starCaptions });
+  </script>
+
+  <h4>P333</h4>
+  <canvas id="P333" width="1200" height="400"></canvas>
+  <script type="text/javascript">
+    drawStripPinch("P333", 9, "P333*>>");
+  </script>
+  <br/>
+
+  <img src="../idyll/static/P4-4-4/1.jpg" width="150"/>
+  <img src="../idyll/static/P4-4-4/2.jpg" width="150"/>
+  <img src="../idyll/static/P4-4-4/3.jpg" width="150"/>
+  <img src="../idyll/static/P4-4-4/4.jpg" width="150"/>
+  <br/>
+  <img src="../idyll/static/P4-4-4/5.jpg" width="150"/>
+  <img src="../idyll/static/P4-4-4/6.jpg" width="150"/>
+  <img src="../idyll/static/P4-4-4/7.jpg" width="150"/>
+  <img src="../idyll/static/P4-4-4/8.jpg" width="150"/>
+  <br/>
+  <img src="../idyll/static/P4-4-4/9.jpg" width="150"/>
+  <img src="../idyll/static/P4-4-4/10.jpg" width="150"/>
+  <img src="../idyll/static/P4-4-4/11.jpg" width="150"/>
+  <img src="../idyll/static/P4-4-4/12.jpg" width="150"/>
+  <img src="../idyll/static/P4-4-4/13.jpg" width="150"/>
+
+  <h4>P334</h4>
+  <canvas id="P334" width="1200" height="400"></canvas>
+  <script type="text/javascript">
+    drawStripPinch("P334", 10, "P334*");
+  </script>
+  <br/>
+
+  <img src="../idyll/static/P3-3-4/1.jpg" width="150"/>
+  <img src="../idyll/static/P3-3-4/2.jpg" width="150"/>
+  <img src="../idyll/static/P3-3-4/3.jpg" width="150"/>
+  <img src="../idyll/static/P3-3-4/4.jpg" width="150"/>
+  <br/>
+  <img src="../idyll/static/P3-3-4/5.jpg" width="150"/>
+  <img src="../idyll/static/P3-3-4/6.jpg" width="150"/>
+  <img src="../idyll/static/P3-3-4/7.jpg" width="150"/>
+  <img src="../idyll/static/P3-3-4/8.jpg" width="150"/>
+  <br/>
+  <img src="../idyll/static/P3-3-4/9.jpg" width="150"/>
+  <img src="../idyll/static/P3-3-4/10.jpg" width="150"/>
+  <img src="../idyll/static/P3-3-4/11.jpg" width="150"/>
+  <img src="../idyll/static/P3-3-4/12.jpg" width="150"/>
+  <img src="../idyll/static/P3-3-4/13.jpg" width="150"/>
+
+  <hr />
+
+  <!-- Part 2-->
+
+  <h2 id="part2">Part Two: Flexes</h2>
+
+  <h3 id="book">book flex</h3>
+
+  <img src="images/square-book.jpg" /><br/><br/>
+  <img src="images/square-P.png" width=900 /><br/><br/>
+  <img src="images/square-PP.png" width=900 /><br/><br/>
+  <img src="images/square-PPP.png" width=900 /><br/><br/>
+  <img src="images/square-PPPP.png" width=900 /><br/><br/>
+  <img src="images/square-PRP.png" width=900 /><br/><br/>
+  <img src="images/square-PlRPr.png" width=900 /><br/><br/>
+  <img src="images/square-PURx2.png" width=900 /><br/><br/>
+  <img src="images/square-PURx3.png" width=900 /><br/><br/>
+  <img src="images/square-PURx4.png" width=800 /><br/><br/>
+  <img src="images/pentagon-P.png" width=800 /><br/><br/>
+  <img src="images/pentagon-P5-1.png" width=800 /><br/><br/>
+  <img src="images/pentagon-P5-2.png" width=800 /><br/><br/>
+  <img src="images/pentagon-PP.png" width=800 /><br/><br/>
+
+  <h3 id="box">box flex</h3>
+
+  <img src="images/square-box-top.jpg" /><br/><br/>
+  <img src="images/square-Bt.png" width=900 /><br/><br/>
+  <img src="images/square-box-bottom.jpg" /><br/><br/>
+  <img src="images/square-Bb.png" width=900 /><br/><br/>
+  <img src="images/square8.png" width=900 /><br/><br/>
+  <img src="images/square10.png" width=800 /><br/><br/>
+  <img src="images/pentagon-B1.png" width=800 /><br/><br/>
+  <img src="images/pentagon-B2.png" width=800 /><br/><br/>
+
+  <h3 id="tuck">tuck flex</h3>
+
+  <img src="../idyll/static/T/T1.jpg" width="150"/>
+  <img src="../idyll/static/T/T2.jpg" width="150"/>
+  <img src="../idyll/static/T/T3.jpg" width="150"/>
+  <img src="../idyll/static/T/T4.jpg" width="150"/>
+  <br/>
+  <img src="../idyll/static/T/T5.jpg" width="150"/>
+  <img src="../idyll/static/T/T6.jpg" width="150"/>
+  <img src="../idyll/static/T/T7.jpg" width="150"/>
+  <img src="../idyll/static/T/T8.jpg" width="150"/>
+  <br/>
+  <img src="../idyll/static/T/T9.jpg" width="150"/>
+  <img src="../idyll/static/T/T10.jpg" width="150"/>
+  <img src="../idyll/static/T/T11.jpg" width="150"/>
+  <img src="../idyll/static/T/T12.jpg" width="150"/>
+  <br/>
+  <img src="../idyll/static/T/T13.jpg" width="150"/>
+  <img src="../idyll/static/T/T14.jpg" width="150"/>
+  <br/><br/>
+  <canvas id="T-minimal" width="900" height="500"></canvas>
+  <script type="text/javascript">
+    drawStripSequence("T-minimal", 6, "T*", 30);
+  </script>
+
+  <h3 id="pyramid shuffle">pyramid shuffle</h3>
+
+  <img src="../idyll/static/Sh/Sh1.jpg" width="150"/>
+  <img src="../idyll/static/Sh/Sh2.jpg" width="150"/>
+  <img src="../idyll/static/Sh/Sh3.jpg" width="150"/>
+  <img src="../idyll/static/Sh/Sh4.jpg" width="150"/>
+  <br/>
+  <img src="../idyll/static/Sh/Sh5.jpg" width="150"/>
+  <img src="../idyll/static/Sh/Sh6.jpg" width="150"/>
+  <img src="../idyll/static/Sh/Sh7.jpg" width="150"/>
+  <img src="../idyll/static/Sh/Sh8.jpg" width="150"/>
+  <br/>
+  <img src="../idyll/static/Sh/Sh9.jpg" width="150"/>
+  <img src="../idyll/static/Sh/Sh10.jpg" width="150"/>
+  <img src="../idyll/static/Sh/Sh11.jpg" width="150"/>
+  <img src="../idyll/static/Sh/Sh12.jpg" width="150"/>
+  <br/>
+  <img src="../idyll/static/Sh/Sh13.jpg" width="150"/>
+  <img src="../idyll/static/Sh/Sh14.jpg" width="150"/>
+  <img src="../idyll/static/Sh/Sh15.jpg" width="150"/>
+  <img src="../idyll/static/Sh/Sh16.jpg" width="150"/>
+  <img src="../idyll/static/Sh/Sh17.jpg" width="150"/>
+  <br/><br/>
+  <canvas id="S-minimal" width="800" height="500"></canvas>
+  <script type="text/javascript">
+    drawStripSequence("S-minimal", 6, "S*", 60);
+  </script>
+
+  <h3 id="flip">flip flex</h3>
+
+  <img src="../idyll/static/F/F1.jpg" width="150"/>
+  <img src="../idyll/static/F/F2.jpg" width="150"/>
+  <img src="../idyll/static/F/F3.jpg" width="150"/>
+  <img src="../idyll/static/F/F4.jpg" width="150"/>
+  <br/>
+  <img src="../idyll/static/F/F5.jpg" width="150"/>
+  <img src="../idyll/static/F/F6.jpg" width="150"/>
+  <img src="../idyll/static/F/F7.jpg" width="150"/>
+  <img src="../idyll/static/F/F8.jpg" width="150"/>
+  <br/>
+  <img src="../idyll/static/F/F9.jpg" width="150"/>
+  <img src="../idyll/static/F/F10.jpg" width="150"/>
+  <img src="../idyll/static/F/F11.jpg" width="150"/>
+  <img src="../idyll/static/F/F12.jpg" width="150"/>
+  <br/>
+  <img src="../idyll/static/F/F13.jpg" width="150"/>
+  <img src="../idyll/static/F/F14.jpg" width="150"/>
+  <img src="../idyll/static/F/F15.jpg" width="150"/>
+  <img src="../idyll/static/F/F16.jpg" width="150"/>
+  <br/><br/>
+  <canvas id="F-minimal" width="900" height="600"></canvas>
+  <script type="text/javascript">
+    drawStripSequence("F-minimal", 8, "F*", 45, [45, 90]);
+  </script>
+
+  <h3 id="vflex">v flex</h3>
+
+  <img src="../idyll/static/V/V1.jpg" width="150"/>
+  <img src="../idyll/static/V/V2.jpg" width="150"/>
+  <img src="../idyll/static/V/V3.jpg" width="150"/>
+  <img src="../idyll/static/V/V4.jpg" width="150"/>
+  <br/>
+  <img src="../idyll/static/V/V5.jpg" width="150"/>
+  <img src="../idyll/static/V/V6.jpg" width="150"/>
+  <img src="../idyll/static/V/V7.jpg" width="150"/>
+  <img src="../idyll/static/V/V8.jpg" width="150"/>
+  <br/>
+  <img src="../idyll/static/V/V9.jpg" width="150"/>
+  <img src="../idyll/static/V/V10.jpg" width="150"/>
+  <img src="../idyll/static/V/V11.jpg" width="150"/>
+  <img src="../idyll/static/V/V12.jpg" width="150"/>
+  <img src="../idyll/static/V/V13.jpg" width="150"/>
+  <br/><br/>
+  <canvas id="V-minimal" width="900" height="450"></canvas>
+  <script type="text/javascript">
+    drawStripSequence("V-minimal", 6, "V*", 120);
+  </script>
+
+  <h3 id="silver tetra">silver tetra flex</h3>
+
+  <img src="../idyll/static/St/St1.jpg" width="150"/>
+  <img src="../idyll/static/St/St2.jpg" width="150"/>
+  <img src="../idyll/static/St/St3.jpg" width="150"/>
+  <img src="../idyll/static/St/St4.jpg" width="150"/>
+  <br/>
+  <img src="../idyll/static/St/St5.jpg" width="150"/>
+  <img src="../idyll/static/St/St6.jpg" width="150"/>
+  <img src="../idyll/static/St/St7.jpg" width="150"/>
+  <img src="../idyll/static/St/St8.jpg" width="150"/>
+  <br/>
+  <img src="../idyll/static/St/St9.jpg" width="150"/>
+  <img src="../idyll/static/St/St10.jpg" width="150"/>
+  <img src="../idyll/static/St/St11.jpg" width="150"/>
+  <img src="../idyll/static/St/St12.jpg" width="150"/>
+  <br/>
+  <img src="../idyll/static/St/St13.jpg" width="150"/>
+  <img src="../idyll/static/St/St14.jpg" width="150"/>
+  <img src="../idyll/static/St/St15.jpg" width="150"/>
+  <br/><br/>
+  <canvas id="St-minimal" width="900" height="450"></canvas>
+  <script type="text/javascript">
+    drawStripSequence("St-minimal", 6, "St*", -30, [60, 90]);
+  </script>
+
+  <h3 id="half-flexes">half flexes</h3>
+
+  <p>silver octaflexagon: Hf, Hb, Hr, Hl, Hfs, Hbs</p>
+  <canvas id="silverHalfFlexes" width="1000" height="500"></canvas><br/><br/>
+  <script type="text/javascript">
+    var silverHalfFlexes = [
+      { "numPats": 8, "angles": [45, 45], "addHalfFlexes": true },
+      { "flexes": "> Hf* Hb'+Hl'+Hr'+Hbs'+Hfs'+ Hf' Hb* Hf'+Hl'+Hr'+Hbs'+Hfs'+ Hb' Hl* Hf'+Hb'+Hr'+Hbs'+Hfs'+ Hl' Hr* Hf'+Hb'+Hl'+Hbs'+Hfs'+ Hr' Hbs* Hf'+Hb'+Hl'+Hr'+Hfs'+ Hbs' Hfs* Hf'+Hb'+Hl'+Hr'+Hbs'+ Hfs' >>>>" }
+    ];
+    var fm = Flexagonator.createFromScript(silverHalfFlexes);
+    Flexagonator.drawUnfolded('silverHalfFlexes', fm, { rotation: 135, content: { showFoldingOrder: true }, captions: [{ text: "H's", which: 0 }, { text: "H's", which: -1 }] });
+  </script>
+  <!-- plain pentagonal silver decaflexagon -->
+  <p>pentagonal silver decaflexagon</p>
+  <canvas id="psd-plain" width="600" height="350"></canvas>
+  <script type="text/javascript">
+    var script = [
+      { "name": "pentagonal silver decaflexagon" },
+      { "addHalfFlexes": true }
+    ];
+    var fm = Flexagonator.createFromScript(script);
+    Flexagonator.drawUnfolded('psd-plain', fm, { rotation: 45, content: {} });
+  </script>
+  <!-- various full flexes -->
+  <p>Hf'Hb</p>
+  <canvas id="psd-HfHb1" width="500" height="500"></canvas>
+  <canvas id="psd-HfHb2" width="500" height="500"></canvas>
+  <p>Hr'Hl</p>
+  <canvas id="psd-HrHl" width="1000" height="350"></canvas>
+  <p>Hfs'Hf</p>
+  <canvas id="psd-HfsHf" width="1000" height="500"></canvas>
+  <script type="text/javascript">
+    // pairs that give non-overlapping templates: Hf'Hb, Hf'Hr, Hf'Hl, Hf'Hbs, Hr'Hf, Hr'Hb, Hr'Hl, Hfs'Hb
+    function makeScript(one, two) {
+      // this is basically one' followed by two, with shifts to get the correct hinge
+      var flexes = ">>>>> " + one + "'* " + two + "+ " + one + "<<<<<";
+      var script = [
+        { "name": "pentagonal silver decaflexagon" },
+        { "addHalfFlexes": true },
+        { "flexes": flexes }
+      ];
+      return Flexagonator.createFromScript(script);
+    }
+    function draw(canvas, one, two, rotation) {
+      var fm = makeScript(one, two);
+      Flexagonator.drawUnfolded(canvas, fm,
+        { rotation, content: { showFoldingOrder: true }, captions: [{ text: one + "'", which: 0 }, { text: two, which: -1 }] });
+    }
+    function drawHfHb() {
+      var fm = makeScript("Hf", "Hb");
+      Flexagonator.drawUnfolded("psd-HfHb1", fm,
+        { rotation: 0, content: { showFoldingOrder: true }, scale: 245, start: 0, end: 10, captions: [{ text: "Hf'", which: 0 }, { text: "a", which: -1 }] });
+      Flexagonator.drawUnfolded("psd-HfHb2", fm,
+        { rotation: 0, content: { showFoldingOrder: true }, scale: 245, start: 11, end: 14, captions: [{ text: "a", which: 0 }, { text: "Hb", which: -1 }] });
+    }
+    drawHfHb();
+    draw("psd-HrHl", "Hr", "Hl", 0);
+    draw("psd-HfsHf", "Hfs", "Hb", 90);
+  </script>
+
+  <h3 id="hexa-silver-dodeca">hexagonal silver dodeca</h3>
+
+  <canvas id="silverDodecaHexa1" width="1000" height="500"></canvas><br/><br/>
+  <canvas id="silverDodecaHexa2" width="1200" height="200"></canvas><br/><br/>
+  <canvas id="silverDodecaHexa3" width="1000" height="400"></canvas><br/><br/>
+  <canvas id="silverDodecaHexa4" width="1000" height="400"></canvas><br/><br/>
+  <canvas id="silverDodecaHexa5" width="1000" height="400"></canvas><br/><br/>
+  <canvas id="silverDodecaHexa6" width="1000" height="600"></canvas><br/><br/>
+  <canvas id="silverDodecaHexa7" width="1000" height="600"></canvas><br/><br/>
+  <script type="text/javascript">
+    var angles = [45, 90];
+    var directions = [0, 1, 1, 0, 1, 1, 0, 1, 1, 0, 1, 1];
+    function drawStripFromFlexes(canvasId, flexes, rotation, text) {
+      var halfFlex = {
+        "addFlex": {
+          "name": "half flex",
+          "shorthand": "H",
+          "input": [1, 2, [-4, 3], -5, -6, -7, -8, -9, [11, -10], 12, 13, 14],
+          "output": [-13, [1, -14], 2, 3, 4, 5, 6, [-8, 7], -9, -10, -11, -12]
+        }
+      };
+      var slideFlex = {
+        "addFlex": {
+          "name": "double slide",
+          "shorthand": "Ds",
+          "input": [1, [-3, 2], -4, -5, [7, -6], 8, 9, [-11, 10], -12, -13, [15, -14], 16],
+          "output": [-14, -15, [1, -16], 2, 3, [-5, 4], -6, -7, [9, -8], 10, 11, [-13, 12]]
+        }
+      };
+      var tuck12 = {
+        "addFlex": {
+          "name": "tuck 12",
+          "shorthand": "T12",
+          "input": [[[-2, 3], 1], 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14],
+          "output": [3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, [2, [14, -1]]]
+        }
+      };
+      var script = [{ numPats: 12, angles, directions }, halfFlex, slideFlex, tuck12, { flexes }];
+      var fm = Flexagonator.createFromScript(script);
+      Flexagonator.drawUnfolded(canvasId, fm, { rotation, content: { showFoldingOrder: true }, captions: [{ text, which: 0 }, { text: "*", which: -1 }] });
+    }
+    drawStripFromFlexes('silverDodecaHexa1', 'H+', 45, 'H');
+    drawStripFromFlexes('silverDodecaHexa2', 'H*H*', 90, 'HH');
+    drawStripFromFlexes('silverDodecaHexa3', 'Ds+', 0, 'Ds');
+    drawStripFromFlexes('silverDodecaHexa4', '<T12+>', 90, '<T12');
+    drawStripFromFlexes('silverDodecaHexa5', '>>T12+<<', 180, '>>T12');
+    drawStripFromFlexes('silverDodecaHexa6', '<T12+>>>T12+>>>T12+>>>T12+>>>>', 90, "T12's");
+
+    var pats = [[0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0]];
+    var fm = Flexagonator.createFromScript([{ pats, angles, directions }]);
+    Flexagonator.drawUnfolded('silverDodecaHexa7', fm, { rotation: 0, content: { showFoldingOrder: true }, captions: [{ text: 'double', which: 0 }, { text: "*", which: -1 }] });
+  </script>
+
+  <hr />
+
+  <!-- part 3 -->
+
+  <h2 id="part3">Part 3: Learning</h2>
+
+  <h3 id="naming">naming</h3>
+
+  <h4>triangle flexagons</h4>
+  <canvas id="triangle-hexa" width="250" height="250"></canvas>
+  <canvas id="triangle-bronze-hexa" width="250" height="250"></canvas>
+  <canvas id="triangle-hepta" width="250" height="250"></canvas>
+  <canvas id="triangle-star-deca" width="250" height="250"></canvas>
+  <script type="text/javascript">
+    drawFlexagonSimple("triangle-hexa", 6);
+    drawFlexagonSimple("triangle-bronze-hexa", 6, [60, 90]);
+    drawFlexagonSimple("triangle-hepta", 7);
+    drawFlexagonSimple("triangle-star-deca", 10, [36, 108]);
+  </script>
+
+  <h4>bronze flexagons</h4>
+  <canvas id="bronze-tetra" width="250" height="250"></canvas>
+  <canvas id="bronze-hexa" width="250" height="250"></canvas>
+  <canvas id="bronze-dodeca" width="250" height="250"></canvas>
+  <script type="text/javascript">
+    drawFlexagonSimple("bronze-tetra", 4, [90, 30]);
+    drawFlexagonSimple("bronze-hexa", 6, [60, 90]);
+    drawFlexagonSimple("bronze-dodeca", 12, [30, 60]);
+  </script>
+
+  <h4>hexaflexagons</h4>
+  <canvas id="hexa1" width="250" height="250"></canvas>
+  <canvas id="hexa2" width="250" height="250"></canvas>
+  <canvas id="hexa3" width="250" height="250"></canvas>
+  <script type="text/javascript">
+    drawFlexagonSimple("hexa1", 6);
+    drawFlexagonSimple("hexa2", 6, [60, 90]);
+    drawFlexagonSimple("hexa3", 6, [60, 105]);
+  </script>
+
+  <h4>dodecaflexagons</h4>
+  <canvas id="dodeca1" width="250" height="250"></canvas>
+  <canvas id="dodeca2" width="250" height="250"></canvas>
+  <canvas id="dodeca3" width="250" height="250"></canvas>
+  <script type="text/javascript">
+    drawFlexagonSimple("dodeca1", 12);
+    drawFlexagonSimple("dodeca2", 12, [30, 90]);
+    drawFlexagonSimple("dodeca3", 12, [30, 120]);
+  </script>
+
+  <h4>hexa-hexaflexagon templates</h4>
+  <canvas id="name-hexa-hexa1" width="900" height="110"></canvas>
+  <br/>
+  <canvas id="name-hexa-hexa2" width="450" height="405"></canvas>
+  <canvas id="name-hexa-hexa3" width="450" height="405"></canvas>
+  <script type="text/javascript">
+    drawStripPinch("name-hexa-hexa1", 6, "P* P* P+ > P P*", 120);
+    drawStripPinch("name-hexa-hexa2", 6, "(P*^>)4", 0);
+    drawStripPinch("name-hexa-hexa3", 6, "(P*)4", -30);
+  </script>
+
+  <h4>other examples:</h4>
+  <table>
+    <tr>
+      <th>regular<br/>hexaflexagon</th>
+      <th>triangular bronze<br/>hexaflexagon<br/></th>
+      <th>heptaflexagon</th>
+    </tr>
+    <tr>
+      <td><canvas id="t-hexa" width="250" height="250"></canvas></td>
+      <td><canvas id="t-bronze-hexa" width="250" height="250"></canvas></td>
+      <td><canvas id="t-hepta" width="250" height="250"></canvas></td>
+    </tr>
+  </table>
+  <script type="text/javascript">
+    drawFlexagonSimple("t-hexa", 6);
+    drawFlexagonSimple("t-bronze-hexa", 6, [60, 90]);
+    drawFlexagonSimple("t-hepta", 7);
+  </script>
+
+  <table>
+    <tr>
+      <th>isosceles triangle<br/>dodecaflexagon</th>
+      <th>hexagonal bronze<br/>dodecaflexagon<br/></th>
+      <th>star isosceles triangle<br/>dodecaflexagon<br/></th>
+    </tr>
+    <tr>
+      <td><canvas id="t-iso-dodeca" width="250" height="250"></canvas></td>
+      <td><canvas id="t-bronze-dodeca" width="250" height="250"></canvas></td>
+      <td><canvas id="t-star-dodeca" width="250" height="250"></canvas></td>
+    </tr>
+  </table>
+  <script type="text/javascript">
+    drawFlexagonSimple("t-iso-dodeca", 12);
+    drawFlexagonSimple("t-bronze-dodeca", 12, [30, 90]);
+    drawFlexagonSimple("t-star-dodeca", 12, [30, 120]);
+  </script>
+  <hr />
+
+  <!-- state-diagrams -->
+  <h3 id="state-diagrams">state-diagrams</h3>
+
+  <p>(S&lt;)3</p>
+  <canvas id="diagram-s3" width="1000" height="750"></canvas><br/>
+
+  <p>11 leaf hexaflexagon</p>
+  <canvas id="diagram-hexa11" width="1000" height="350"></canvas><br/>
+
+  <script type="text/javascript">
+    drawStripComplex("diagram-s3",
+      [{ pats: [[-2, 1], [-7, [-3, [6, [4, -5]]]], [11, [-8, [-10, 9]]], 12, [[[15, -14], -16], 13], [18, -17]] }, { labelAsTree: [] }],
+      { content: { showLeafProps: true, showIds: true }, rotation: 0, captions: starCaptions });
+    drawStripComplex("diagram-hexa11",
+      [{ pats: [[-2, 1], [[4, -5], -3], [7, -6], 8, [-10, 9], -11] }, { labelAsTree: [] }],
+      { content: { showLeafProps: true, showIds: true }, rotation: 120, captions: starCaptions });
+  </script>
+
+  <!-- sequences -->
+  <h3 id="sequences">sequences</h3>
+
+  <p>(F&lt;)6</p>
+  <canvas id="sequences-flipleft1" width="1200" height="240"></canvas><br/>
+  <canvas id="sequences-flipleft2" width="1200" height="240"></canvas><br/>
+  <p>(S>T'>^T&lt;&lt;^)2</p>
+  <canvas id="sequences-s-cycle" width="1200" height="500"></canvas><br/>
+  <p>(Ltb>P>P>) 12</p>
+  <canvas id="sequences-hexa12" width="1200" height="170"></canvas><br/>
+
+  <script type="text/javascript">
+    var flipleft = [{ numPats: 8 }, { flexes: "(F*<)6" }, { labelAsTree: true }];
+    drawStripComplex("sequences-flipleft1", flipleft,
+      { end: 11, content: { showLeafProps: true }, scale: 140, rotation: 67.5, captions: [{ text: "*", which: 0 }, { text: "a", which: -1 }, { text: "(F<)6", which: -3 }] });
+    drawStripComplex("sequences-flipleft2", flipleft,
+      { start: 12, content: { showLeafProps: true }, scale: 140, rotation: 180 + 67.5, captions: [{ text: "*", which: -1 }, { text: "a", which: 0 }] });
+    drawStripComplex("sequences-s-cycle", [{ numPats: 6 }, { flexes: "S+" }], { rotation: 120, captions: [{ text: "S", which: 0 }, { text: "S", which: -1 }] });
+    drawStripComplex("sequences-hexa12",
+      [{ pats: [[0, 0], 0, [0, 0], 0, [0, 0], [[0, 0], [0, 0]]] }, { labelAsTree: true }],
+      { content: { showLeafProps: true }, captions: [{ text: "12", which: 0 }, { text: "12", which: -1 }] });
+  </script>
+
+  <!-- pat-notation -->
+  <h3 id="pat-notation">pat notation</h3>
+
+  <p>example</p>
+  <canvas id="pats-example-unfolded" width="1000" height="600"></canvas><br/>
+  <canvas id="pats-example-folded" width="500" height="500"></canvas><br/>
+  <p>tri-hexa</p>
+  <canvas id="pats-trihexa-unfolded" width="1000" height="180"></canvas><br/>
+  <canvas id="pats-trihexa-folded1" width="500" height="500"></canvas>
+  <canvas id="pats-trihexa-folded2" width="500" height="500"></canvas>
+  <p>same visible leaves, different structure</p>
+  <canvas id="pats-visible-Tf" width="1100" height="480"></canvas><br/>
+  <canvas id="pats-visible-T" width="1200" height="500"></canvas>
+  <script type="text/javascript">
+    // example
+    var example = [
+      { pats: [1, [-3, 2], [-6, [-4, 5]], [[8, -9], -7], -10, [[[-13, 12], 14], -11]] },
+      { labelAsTree: [], searchFlexes: "P S T V" }
+    ];
+    var fm1 = Flexagonator.createFromScript(example);
+    Flexagonator.drawUnfolded("pats-example-unfolded", fm1, { content: { showLeafProps: true, showIds: true }, rotation: 180, captions: starCaptions });
+    var regions = Flexagonator.drawEntireFlexagon("pats-example-folded", fm1, { showCurrent: false });
+    Flexagonator.drawScriptButtons("pats-example-folded", fm1.flexagon, fm1.getAngleInfo(), true, regions);
+    // tri-hexa
+    var trihexa = [
+      { pats: [[-2, 1], -3, [5, -4], 6, [-8, 7], -9] },
+      { labelAsTree: [] }
+    ];
+    var fm2 = Flexagonator.createFromScript(trihexa);
+    Flexagonator.drawUnfolded("pats-trihexa-unfolded", fm2, { content: { showLeafProps: true, showIds: true }, rotation: 60, captions: starCaptions });
+    Flexagonator.drawEntireFlexagon("pats-trihexa-folded1", fm2, {});
+    var fm3 = Flexagonator.runScript(fm2, [{ flexes: "P" }]);
+    Flexagonator.drawEntireFlexagon("pats-trihexa-folded2", fm3, {});
+    // visible
+    drawStripComplex("pats-visible-Tf",
+      [{ "pats": [[[-2, [[-4, [7, [5, -6]]], 3]], 1], 8, 9, 10, 11, 12] }],
+      { rotation: 60, content: { showFoldingOrder: true, showIds: true }, captions: starCaptions });
+    drawStripComplex("pats-visible-T",
+      [{ "pats": [[[-2, [[-4, [7, [5, -6]]], 3]], 1], 8, [-10, 9], [12, -11], [-14, 13], -15] }],
+      { rotation: 90, content: { showFoldingOrder: true, showIds: true }, captions: starCaptions });
+  </script>
+
+  <!-- atomic flex theory -->
+  <h3 id="atomic-flex-theory">atomic flex theory</h3>
+
+  <p>isoflexagons</p>
+  <canvas id="atomic-iso1" width="230" height="250"></canvas>&nbsp;&nbsp;&nbsp;&nbsp;
+  <canvas id="atomic-iso2" width="250" height="250"></canvas>
+  <canvas id="atomic-iso3" width="250" height="250"></canvas>
+  <canvas id="atomic-iso4" width="230" height="250"></canvas>
+  <canvas id="atomic-iso5" width="240" height="250"></canvas><br/>
+  <p>non-isoflexagons</p>
+  <canvas id="atomic-non-iso1" width="250" height="250"></canvas>&nbsp;&nbsp;&nbsp;
+  <canvas id="atomic-non-iso2" width="310" height="250"></canvas>&nbsp;&nbsp;
+  <canvas id="atomic-non-iso3" width="200" height="250"></canvas>&nbsp;&nbsp;
+  <canvas id="atomic-non-iso4" width="230" height="250"></canvas>&nbsp;&nbsp;
+  <canvas id="atomic-non-iso5" width="200" height="250"></canvas><br/>
+  <p>pentagonal silver decaflexagon</p>
+  <img src="images/pentagonal-silver-deca-directions.png"/>
+  <p>pyramid shuffle with directions</p>
+  <canvas id="atomic-shuffle-directions" width="1000" height="650"></canvas><br/>
+  <img src="images/shuffle-directions.png"/>
+  <script>
+    drawFromName("atomic-iso1", "pentaflexagon", 18);
+    drawFromName("atomic-iso2", "hexaflexagon", 0);
+    drawFromName("atomic-iso3", "bronze hexaflexagon", 30);
+    drawFromName("atomic-iso4", "heptaflexagon", -12.5);
+    drawFromName("atomic-iso5", "right decaflexagon", -18);
+    drawFromName("atomic-non-iso1", "pentagonal silver decaflexagon", 45);
+    drawFromName("atomic-non-iso2", "hexagonal silver dodecaflexagon", 90);
+    drawFromName("atomic-non-iso3", "octagonal ring dodecaflexagon", 0);
+    drawFromName("atomic-non-iso4", "hexagonal ring dodecaflexagon", 0);
+    drawFromName("atomic-non-iso5", "octagonal ring tetradecaflexagon", 0);
+    const theScript = [{ pats: [[-2, 1], -3, -4, -5, [[[-8, 7], 9], -6], 10] }];
+    const theOptions = { rotation: 120, content: { showIds: true }, captions: starCaptions };
+    drawStripComplex("atomic-shuffle-directions", theScript, theOptions);
+  </script>
+
+  <!-- groups-->
+  <h3 id="groups">groups</h3>
+
+  <canvas id="group-tetra-strip" width="1200" height="220"></canvas><br/>
+  <canvas id="group-tetra1" width="250" height="250"></canvas>
+  <canvas id="group-tetra2" width="250" height="250"></canvas>
+  <script type="text/javascript">
+    drawStripPinch("group-tetra-strip", 6, "(P*)2", 90);
+    var script = [{ numPats: 6 }, { angles: [60, 60] }, { flexes: "(P*)2" }, { searchFlexes: "P" }];
+    // face only supports P at 3 hinges
+    drawFlexagonComplex("group-tetra1", script);
+    // face supports P at all 6 hinges
+    drawFlexagonComplex("group-tetra2", script.concat({ flexes: ">P<P" }));
+  </script>
+
+  <!-- part 4 -->
+
+  <h2 id="part4">Part 4: Fun</h2>
+
+  <h3 id="popups">popups</h3>
+
+  <p>right triangle tetraflexagon</p>
+  <canvas id="right-tetra4a" width="400" height="250"></canvas>
+  <canvas id="right-tetra4b" width="300" height="250"></canvas>
+  <script type="text/javascript">
+    var script = [{ numPats: 4, flexAndColor: { flexes: "P*(^>P*)2" } }];
+    drawStripComplex("right-tetra4a", script,
+      { rotation: -45, content: { showFoldingOrder: true }, start: 0, end: 7, captions: [{ text: "*", which: 0 }, { text: "a", which: -1 }] });
+    drawStripComplex("right-tetra4b", script,
+      { rotation: -45, content: { showFoldingOrder: true }, start: 8, end: 9, captions: [{ text: "a", which: 0 }, { text: "*", which: -1 }] });
+  </script>
+
+  <p>regular tetraflexagons</p>
+  <canvas id="equi-tetra3" width="800" height="250"></canvas><br/>
+  <canvas id="equi-tetra5" width="800" height="600"></canvas>
+  <script type="text/javascript">
+    var script = [{ numPats: 4, flexes: "P*", angles: [60, 60], labelAsTree: [] }];
+    var drawOptions = { rotation: 120, content: { showLeafProps: true }, captions: starCaptions };
+    drawStripComplex("equi-tetra3", script, drawOptions);
+  </script>
+  <script type="text/javascript">
+    var script = [{ numPats: 4, flexes: "(P*)3 P'P'", angles: [60, 60], labelAsTree: [] }];
+    var drawOptions = { rotation: 60, content: { showLeafProps: true }, captions: starCaptions };
+    drawStripComplex("equi-tetra5", script, drawOptions);
+  </script>
+
+  <p>animal pentaflexagon</p>
+  <canvas id="animal-penta" width="800" height="700"></canvas>
+  <script type="text/javascript">
+    var script = [{ "pats": [0, [[[0, 0], 0], 0], 0, [[[0, 0], 0], 0], 0] }, { "angles": [72, 54] }];
+    var options = { rotation: 72, content: { showFoldingOrder: true }, captions: starCaptions };
+    drawStripComplex("animal-penta", script, options);
+  </script>
+
+</body>
+
+</html>

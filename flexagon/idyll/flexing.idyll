@@ -1,0 +1,372 @@
+[meta title:"Flexing Flexagons" description:"Various flexagon flexes" /]
+
+[Aside]
+  [br/]
+  A chapter from[br/]
+  [Explorable Flexagons](index.html)
+
+  Next chapter:[br/]
+  [Generating Sequences](generators.html)
+[/Aside]
+
+[Header
+  title:"Flexing Flexagons"
+  subtitle:"A short tour of different ways to flex a flexagon"
+  author:"Scott Sherman"
+  authorLink:"http://loki3.com/flex" /]
+
+[var name:'flexagonOptions' value:`{structure:true, showIds:false, both:true}`/]
+[var name:'unfoldedOptions' value:`{content:0, captions: [{ text: '*', which: 0 }, { text: '*', which: -1 }]}`/]
+
+[Preload images:`['static/F/F2.jpg', 'static/F/F3.jpg', 'static/F/F4.jpg', 'static/F/F5.jpg', 'static/F/F6.jpg',
+  'static/F/F7.jpg', 'static/F/F8.jpg', 'static/F/F9.jpg', 'static/F/F10.jpg', 'static/F/F11.jpg',
+  'static/F/F12.jpg', 'static/F/F13.jpg', 'static/F/F14.jpg', 'static/F/F15.jpg', 'static/F/F16.jpg']` /]
+[Preload images:`['static/Sh/Sh2.jpg', 'static/Sh/Sh3.jpg', 'static/Sh/Sh4.jpg', 'static/Sh/Sh5.jpg', 'static/Sh/Sh6.jpg',
+  'static/Sh/Sh7.jpg', 'static/Sh/Sh8.jpg', 'static/Sh/Sh9.jpg', 'static/Sh/Sh10.jpg', 'static/Sh/Sh11.jpg',
+  'static/Sh/Sh12.jpg', 'static/Sh/Sh13.jpg', 'static/Sh/Sh14.jpg', 'static/Sh/Sh15.jpg', 'static/Sh/Sh16.jpg', 'static/Sh/Sh17.jpg']` /]
+[Preload images:`['static/T/T2.jpg', 'static/T/T3.jpg', 'static/T/T4.jpg', 'static/T/T5.jpg', 'static/T/T6.jpg',
+  'static/T/T7.jpg', 'static/T/T8.jpg', 'static/T/T9.jpg', 'static/T/T10.jpg', 'static/T/T11.jpg',
+  'static/T/T12.jpg', 'static/T/T13.jpg', 'static/T/T14.jpg']` /]
+[Preload images:`['static/V/V2.jpg', 'static/V/V3.jpg', 'static/V/V4.jpg', 'static/V/V5.jpg', 'static/V/V6.jpg',
+  'static/V/V7.jpg', 'static/V/V8.jpg', 'static/V/V9.jpg', 'static/V/V10.jpg', 'static/V/V11.jpg',
+  'static/V/V12.jpg', 'static/V/V13.jpg']` /]
+[Preload images:`['static/St/St2.jpg', 'static/St/St3.jpg', 'static/St/St4.jpg', 'static/St/St5.jpg', 'static/St/St6.jpg',
+  'static/St/St7.jpg', 'static/St/St8.jpg', 'static/St/St9.jpg', 'static/St/St10.jpg', 'static/St/St11.jpg',
+  'static/St/St12.jpg', 'static/St/St13.jpg', 'static/St/St14.jpg', 'static/St/St15.jpg']` /]
+
+[Aside]
+  [img src:'static/F/F5.jpg' width:120 /]   [img src:'static/F/F16.jpg' width:120 /]
+  [img src:'static/Sh/Sh5.jpg' width:120 /] [img src:'static/St/St6.jpg' width:120 /]
+  [img src:'static/T/T5.jpg' width:120 /]   [img src:'static/V/V7.jpg' width:120 /]
+[/Aside]
+
+The [previous chapter](pinch-flex.html) showed how to use the *pinch flex* to explore a flexagon.
+But there are lots of other ways to flex a flexagon, all of which rearrange the leaves in different ways.
+On this page, we'll cover flexes like the *tuck flex*, *pyramid shuffle*, and *v-flex*.
+
+The best way to learn a new flex is on the *minimal flexagon* that supports the flex,
+which is the flexagon that has exactly the minimum structure necessary to perform a given flex.
+On this page you'll find a variety of flexes, and the option of trying out the minimal flexagon with a variety of flexagons.
+
+For flexagon names, prefixes are used to reflect the number of polygons per face, e.g. *hexaflexagon* indicates there are 6 triangles per face.
+Additionally, these names are often proceeded by a word that describes the shape of the triangle, e.g. *right* for a right triangle.
+
+[Aside]
+  The early naming for flexagons reflected this approach, e.g. *hexaflexagon* for 6 triangles per face and *tetraflexagon* for 4 squares per face.
+  But you'll also occasionally see the prefix used to describe the *polygon* used in the flexagon,
+  e.g. *pentaflexagon* to indicate that the leaves are *pentagons*.
+  My preference is to use *pentaflexagon* to mean 5 leaves per face and *pentagon flexagon* to mean pentagonal leaves.
+[/Aside]
+
+[Float position:'left']
+* 4: tetraflexagon
+* 5: pentaflexagon
+* 6: hexaflexagon
+* 7: heptaflexagon
+* 8: octaflexagon
+* 9: enneaflexagon
+* 10: decaflexagon
+* 12: dodecaflexagon
+[/Float]
+
+[Float position:'right']
+* regular: all sides equal
+* silver: 45-45-90 triangle
+* bronze: 30-60-90 triangle
+* right: one angle is 90 degrees
+* isosceles: two sides are equal (the default)
+
+[br /][br /][br /]
+[/Float]
+
+You may also see an additional prefix used to indicate the number of faces in the flexagon.
+For example, a *pentahexaflexagon* is a 5-faced hexaflexagon.
+But, as you'll see below, the concept of a "face" of a flexagon only makes sense when using the pinch flex,
+not when using any of the myriad other possible flexes.
+
+# Pyramid shuffle
+
+Step through the images to see the pyramid shuffle on a regular hexaflexagon.
+The green circle on the first and last slides indicates where the *current hinge* starts and ends for the flex.
+
+[Aside]
+  The flex notation for the pyramid shuffle is `S`.
+  Performing the flex in reverse is `S'`.
+  You can also undo the pyramid shuffle by turning it over, doing the pyramid shuffle one hinge to the right (clockwise),
+  then turning it back over again, summarized as `S' = ^>Sh<^`.
+
+  The *pyramid shuffle* requires at least 5 leaves per face (i.e. a pentaflexagon or greater).
+  It requires mild bending of the leaves on the pentaflexagon,
+  but no bending for most other flexagons.
+[/Aside]
+
+[Slides width:320 height:240 pattern:'static/Sh/Sh*.jpg' start:1 end:17 /]
+// Video shows pyramid shuffle on a regular hexaflexagon and a pentaflexagon:
+// [Youtube id:"F5cj3LL8pqE" width:500 height:300 options:`{ start:89, end:117, rel:0, modestbranding:1 }` /]
+
+[var name:'flexShuffle' value:'S+' /]
+[var name:'patsShuffle' value:6 /]
+[var name:'anglesShuffle' value:`[60,60]` /]
+[derived name:'initShuffle' value:`[
+  {angles:anglesShuffle},
+  {searchFlexes:"S S'"},
+  {flexes: flexShuffle},
+  {reverseFlexes: flexShuffle}
+  ]` /]
+[var name:'runInitShuffle' value:false /]
+
+Here are some flexagons you can use to try the pyramid shuffle:
+[Button onClick:` patsShuffle=5; anglesShuffle=undefined; runInitShuffle=true; `]pentaflexagon[/Button],
+[Button onClick:` patsShuffle=6; anglesShuffle=undefined; runInitShuffle=true; `]regular hexaflexagon[/Button],
+[Button onClick:` patsShuffle=6; anglesShuffle=[60,30]; runInitShuffle=true; `]bronze hexaflexagon #1[/Button],
+[Button onClick:` patsShuffle=6; anglesShuffle=[60,90]; runInitShuffle=true; `]bronze hexaflexagon #2[/Button],
+[Button onClick:` patsShuffle=7; anglesShuffle=undefined; runInitShuffle=true; `]heptaflexagon[/Button],
+[Button onClick:` patsShuffle=8; anglesShuffle=undefined; runInitShuffle=true; `]isosceles octaflexagon[/Button],
+[Button onClick:` patsShuffle=8; anglesShuffle=[45,90]; runInitShuffle=true; `]silver octaflexagon #1[/Button],
+[Button onClick:` patsShuffle=8; anglesShuffle=[45,45]; runInitShuffle=true; `]silver octaflexagon #2[/Button],
+[Button onClick:` patsShuffle=10; anglesShuffle=undefined; runInitShuffle=true; `]isosceles decaflexagon[/Button],
+[Button onClick:` patsShuffle=10; anglesShuffle=[36, 54]; runInitShuffle=true; `]right decaflexagon[/Button],
+[Button onClick:` patsShuffle=12; anglesShuffle=undefined; runInitShuffle=true; `]isosceles dodecaflexagon[/Button],
+[Button onClick:` patsShuffle=12; anglesShuffle=[30, 60]; runInitShuffle=true; `]right dodecaflexagon[/Button], or
+[Button onClick:` patsShuffle=12; anglesShuffle=[30, 30]; runInitShuffle=true; `]star dodecaflexagon[/Button].
+
+[Aside]
+  Every leaf (triangle) is labled with a unique id.
+  The backside of a leaf has the same id as the front, only negative (e.g. 1 and -1).
+  The flexagon to the left shows you where the labels should be after folding, both on the front (the large flexagon) and the back (the small flexagon).
+  If you click the `S` button, you can see what the labels will look like after a successful pyramid shuffle.
+[/Aside]
+
+[Flexagon width:600 height:400 numPats:patsShuffle initialScript:initShuffle runInitial:runInitShuffle options:flexagonOptions overButton:true /]
+
+[var name:"showFoldingHelp" value:false /]
+[Button onClick:` showFoldingHelp = !showFoldingHelp `]How do I fold this?[/Button]
+[Conditional if:` showFoldingHelp `]
+  These instructions apply to all the templates on this page.
+
+  **Cut:**
+  Start by printing out the template and cutting along the outside edges.
+
+  **Prefold:**
+  After you've cut out the shape, fold and unfold along every dashed line to prepare it.
+  Note that the first and last triangle in the template have dashed lines to indicate where to tape the edges after everything is folded.
+
+  **Number:**
+  The large number on each triangle represents the number on the *front* of the triangle, while the smaller number next to it represents the number on the *back*.
+  Copy the smaller number in the center of each triangle onto its backside.
+  Note that the small numbers in the corners represent the leaf's unique id, which corresponds to what's showing in the flexagon simulator above.
+
+  **Fold:**
+  Find the largest pair of adjacent numbers and fold those numbers together.
+  Then find the next largest pair of adjacent numbers and fold them together.
+  Continue in this way until the only numbers still visible are the 1's and the 2's.
+
+  **Tape:**
+  You should now have a polygon consisting of the appropriate number of triangles, e.g. 6 for a hexaflexagon, 7 for a heptaflexagon, etc.
+  Tape the edges of the first and last triangles together to complete the flexagon.
+
+  **Flex:**
+  The Sh's on the first and last leaves correspond to the * in the flexagon simulator above, which represents the *current hinge*,
+  This is where the flex should be performed from.
+[/Conditional]
+
+[Unfolded width:1000 height:500 numPats:patsShuffle generator:flexShuffle angles:anglesShuffle options:unfoldedOptions endText:'S' /]
+
+
+# Flip flex
+
+Step through the images to see a flip flex on a silver octaflexagon:
+
+[Aside]
+  The flex notation for the flip flex is `F`.
+  As with the pyramid shuffle, `F' = ^F^`.
+
+  The *flip flex* requires at least 6 leaves per face (i.e. a hexaflexagon).
+  It works well on right triangle flexagons.
+  Isosceles triangle flexagons require at least 7 faces, however.
+[/Aside]
+
+[Slides width:320 height:240 pattern:'static/F/F*.jpg' start:1 end:16 /]
+// Video shows flip flex on a silver octaflexagon and heptaflexagon:
+// [Youtube id:"F5cj3LL8pqE" width:500 height:300 options:`{ start:120, end:145, rel:0, modestbranding:1 }` /]
+
+[var name:'flexFlip' value:'F+' /]
+[var name:'patsFlip' value:6 /]
+[var name:'anglesFlip' value:`[60,90]` /]
+[derived name:'initFlip' value:`[
+  {angles:anglesFlip},
+  {searchFlexes:"F F'"},
+  {flexes: flexFlip},
+  {reverseFlexes: flexFlip}
+  ]` /]
+[var name:'runInitFlip' value:false /]
+
+Here are some flexagons you can use to try the flip flex:
+[Button onClick:` patsFlip=6; anglesFlip=[60,90]; runInitFlip=true; `]bronze hexaflexagon[/Button],
+[Button onClick:` patsFlip=7; anglesFlip=undefined; runInitFlip=true; `]heptaflexagon[/Button],
+[Button onClick:` patsFlip=8; anglesFlip=undefined; runInitFlip=true; `]isosceles octaflexagon[/Button],
+[Button onClick:` patsFlip=8; anglesFlip=[45,90]; runInitFlip=true; `]silver octaflexagon[/Button],
+[Button onClick:` patsFlip=10; anglesFlip=undefined; runInitFlip=true; `]isosceles decaflexagon[/Button],
+[Button onClick:` patsFlip=10; anglesFlip=[36, 90]; runInitFlip=true; `]right decaflexagon[/Button],
+[Button onClick:` patsFlip=12; anglesFlip=undefined; runInitFlip=true; `]isosceles dodecaflexagon[/Button], or
+[Button onClick:` patsFlip=12; anglesFlip=[30, 90]; runInitFlip=true; `]right dodecaflexagon[/Button].
+
+[Flexagon width:600 height:400 numPats:patsFlip initialScript:initFlip runInitial:runInitFlip options:flexagonOptions overButton:true /]
+
+[Unfolded width:1000 height:500 numPats:patsFlip generator:flexFlip angles:anglesFlip options:unfoldedOptions endText:'F' /]
+
+
+# Tuck flex
+
+Step through the images to see a tuck flex on a regular hexaflexagon:
+
+[Aside]
+  The flex notation for the tuck flex is `T`.
+  Or, to specify which additional flap needs to open, you can use `T1`, `T2`, etc.
+
+  The *tuck flex* requires at least 6 leaves per face (i.e. a hexaflexagon).
+  It requires mild bending of the leaves on a regular hexaflexagon,
+  but no bending for most other flexagons.
+[/Aside]
+
+[Slides width:320 height:240 pattern:'static/T/T*.jpg' start:1 end:14 /]
+// Video shows a tuck flex on a regular hexaflexagon
+// [Youtube id:"F5cj3LL8pqE" width:500 height:300 options:`{ start:65, end:77, rel:0, modestbranding:1 }` /]
+
+[var name:'flexTuck' value:'T+' /]
+[var name:'patsTuck' value:6 /]
+[var name:'anglesTuck' value:`[60,60]` /]
+[derived name:'initTuck' value:`[
+  {angles:anglesTuck},
+  {searchFlexes:"T T' T1 T1' T2 T2' T3 T3' T4 T4' T5 T5' T6 T6'"},
+  {flexes: flexTuck},
+  {reverseFlexes: flexTuck}
+  ]` /]
+[var name:'runInitTuck' value:false /]
+
+[Aside]
+  The tuck flex is different than the other flexes on this page in that it requires an additional opening in the flexagon
+  in order to allow enough freedom to perform the flex.
+  On the hexaflexagon, this can only happen in one place.
+  On the heptaflexagon and above, however, there are multiple ways you can add this additional opening.
+  That's why there are multiple variants for some of them, e.g. the two heptaflexagons.
+
+  This is also why, unlike many other flexes, `T'` isn't always the same as `^T^`.
+  This is summarized as `T' ~= ^T^`, where `~=` means *the sequences are the same only if the structure of the flexagon allows it*.
+
+  There are two bronze hexaflexagon variants because there are two distinct places you could potentially perform a tuck flex:
+  at a point or at the hinge in the middle of a hexagon edge.
+[/Aside]
+
+Here are some flexagons you can use to try the tuck flex:
+[Button onClick:` flexTuck='T+'; patsTuck=6; anglesTuck=undefined; runInitTuck=true; `]regular hexaflexagon[/Button],
+[Button onClick:` flexTuck='T+'; patsTuck=6; anglesTuck=[60,30]; runInitTuck=true; `]bronze hexaflexagon #1[/Button],
+[Button onClick:` flexTuck='T+'; patsTuck=6; anglesTuck=[60,90]; runInitTuck=true; `]bronze hexaflexagon #2[/Button],
+[Button onClick:` flexTuck='T1+'; patsTuck=7; anglesTuck=undefined; runInitTuck=true; `]heptaflexagon #1[/Button],
+[Button onClick:` flexTuck='T2+'; patsTuck=7; anglesTuck=undefined; runInitTuck=true; `]heptaflexagon #2[/Button],
+[Button onClick:` flexTuck='T1+'; patsTuck=8; anglesTuck=undefined; runInitTuck=true; `]isosceles octaflexagon[/Button],
+[Button onClick:` flexTuck='T1+'; patsTuck=8; anglesTuck=[45,90]; runInitTuck=true; `]silver octaflexagon #1[/Button],
+[Button onClick:` flexTuck='T1+'; patsTuck=8; anglesTuck=[45,45]; runInitTuck=true; `]silver octaflexagon #2[/Button],
+[Button onClick:` flexTuck='T1+'; patsTuck=10; anglesTuck=undefined; runInitTuck=true; `]isosceles decaflexagon[/Button],
+[Button onClick:` flexTuck='T1+'; patsTuck=10; anglesTuck=[36, 54]; runInitTuck=true; `]right decaflexagon[/Button],
+[Button onClick:` flexTuck='T1+'; patsTuck=12; anglesTuck=undefined; runInitTuck=true; `]isosceles dodecaflexagon[/Button],
+[Button onClick:` flexTuck='T1+'; patsTuck=12; anglesTuck=[30, 60]; runInitTuck=true; `]right dodecaflexagon[/Button], or
+[Button onClick:` flexTuck='T1+'; patsTuck=12; anglesTuck=[30, 30]; runInitTuck=true; `]star dodecaflexagon[/Button].
+
+[Flexagon width:600 height:400 numPats:patsTuck initialScript:initTuck runInitial:runInitTuck options:flexagonOptions overButton:true /]
+
+[Unfolded width:1000 height:500 numPats:patsTuck generator:flexTuck angles:anglesTuck options:unfoldedOptions endText:'T' /]
+
+
+# V-Flex
+
+Step through the images to see the v-flex on a regular hexaflexagon:
+
+[Aside]
+  The flex notation for the v-flex is `V`.
+  `V' = ^V^`
+
+  The *v-flex* requires at least 6 leaves per face (i.e. a hexaflexagon).
+[/Aside]
+
+[Slides width:320 height:240 pattern:'static/V/V*.jpg' start:1 end:13 /]
+// Video shows the v-flex on a regular hexaflexagon
+// [Youtube id:"F5cj3LL8pqE" width:500 height:300 options:`{ start:49, end:62, rel:0, modestbranding:1 }` /]
+
+[var name:'flexV' value:'V+' /]
+[var name:'patsV' value:6 /]
+[var name:'anglesV' value:`[60,60]` /]
+[derived name:'initV' value:`[
+  {angles:anglesV},
+  {searchFlexes:"V V'"},
+  {flexes: flexV},
+  {reverseFlexes: flexV}
+  ]` /]
+[var name:'runInitV' value:false /]
+
+[Flexagon width:600 height:400 numPats:patsV initialScript:initV runInitial:runInitV options:flexagonOptions overButton:true /]
+
+[Unfolded width:1000 height:400 numPats:patsV generator:flexV angles:anglesV options:unfoldedOptions endText:'V' /]
+
+
+# Silver tetra
+
+Step through the images to see a silver tetra flex on a right decaflexagon:
+
+[Aside]
+  The flex notation for the silver tetra flex is `St`.
+  `St' = ^St^`.
+
+  The *silver tetra flex* requires at least 4 leaves per face (i.e. a tetraflexagon).
+  It works best on right flexagons, though it works on others with enough triangles per face.
+
+  It gets its name from the fact that the simplest flexagon it works on is the *silver tetraflexagon*.
+[/Aside]
+
+[Slides width:320 height:240 pattern:'static/St/St*.jpg' start:1 end:15 /]
+// Video shows the silver tetra flex on a silver tetraflexagon, right decaflexagon, and bronze dodecaflexagon:
+// [Youtube id:"F5cj3LL8pqE" width:500 height:300 options:`{ start:147, end:176, rel:0, modestbranding:1 }` /]
+
+[var name:'flexSilverTetra' value:'St+' /]
+[var name:'patsSilverTetra' value:6 /]
+[var name:'anglesSilverTetra' value:`[60,90]` /]
+[derived name:'initSilverTetra' value:`[
+  {angles:anglesSilverTetra},
+  {searchFlexes:"St St'"},
+  {flexes: flexSilverTetra},
+  {reverseFlexes: flexSilverTetra}
+  ]` /]
+[var name:'runInitSilverTetra' value:false /]
+
+Here are some flexagons you can use to try the silver tetra flex:
+[Button onClick:` patsSilverTetra=4; anglesSilverTetra=undefined; runInitSilverTetra=true; `]silver tetraflexagon[/Button],
+[Button onClick:` patsSilverTetra=6; anglesSilverTetra=[60,90]; runInitSilverTetra=true; `]bronze hexaflexagon[/Button],
+[Button onClick:` patsSilverTetra=7; anglesSilverTetra=undefined; runInitSilverTetra=true; `]heptaflexagon[/Button],
+[Button onClick:` patsSilverTetra=8; anglesSilverTetra=undefined; runInitSilverTetra=true; `]isosceles octaflexagon[/Button],
+[Button onClick:` patsSilverTetra=8; anglesSilverTetra=[45,90]; runInitSilverTetra=true; `]silver octaflexagon[/Button],
+[Button onClick:` patsSilverTetra=10; anglesSilverTetra=undefined; runInitSilverTetra=true; `]isosceles decaflexagon[/Button],
+[Button onClick:` patsSilverTetra=10; anglesSilverTetra=[36, 90]; runInitSilverTetra=true; `]right decaflexagon[/Button],
+[Button onClick:` patsSilverTetra=12; anglesSilverTetra=undefined; runInitSilverTetra=true; `]isosceles dodecaflexagon[/Button], or
+[Button onClick:` patsSilverTetra=12; anglesSilverTetra=[30, 90]; runInitSilverTetra=true; `]right dodecaflexagon[/Button].
+
+[Flexagon width:600 height:400 numPats:patsSilverTetra initialScript:initSilverTetra runInitial:runInitSilverTetra options:flexagonOptions overButton:true /]
+
+[Unfolded width:1000 height:500 numPats:patsSilverTetra generator:flexSilverTetra angles:anglesSilverTetra options:unfoldedOptions endText:'St' /]
+
+
+# What next?
+
+That was a quick tour of some of the many flexes that are possible on a variety of different flexagons.
+A lot of them work on standard hexaflexagons, rearranging the leaves in far more ways that just the pinch flex alone,
+e.g. on the [5-faced hexaflexagon](http://loki3.com/flex/diagram/penta-hexa.html).
+Or these flexes can be used to make an interesting [puzzle](http://loki3.com/flex/maze/tridodeca-paths.html) or [maze](http://loki3.com/flex/maze/ennea-maze.html).
+
+View the next chapter, [Generating Sequences](generators.html), or look at the [Table of Contents](index.html).
+
+[FullWidth]
+  [a href:'http://loki3.com/flex/' ]
+  [img src:'static/flexagon-variety.jpg' /]
+  [/a]
+[/FullWidth]
+
+[Copyright/]

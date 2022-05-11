@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>Work Simulator</title>
+    <link href="style.css" rel="stylesheet" type="text/css" />
+  </head>
+  <body>
+    <h1>Level 2-1</h1>
+    <p>We've botched our way through the introduction! Great! Let's focus on the actual game now.</p>
+    <p>In this stage, you'll need to press the button repeatedly to make the Sleep Meter go down. However, the Sleep Meter gradually goes back up, so you'll need to be quick! That's easy enough to program - what could possibly go wrong?</p>
+    <button onclick="wakeUp()">Wake Bob Up</button>
+    <p id="sleepMeter">Sleep Meter: ====================|</p>
+    <p id="levelEndText" hidden>Oops... it seems like Bob may have slept a <em>little</em> too late last night.</p>
+    <h2 id="moral" hidden>The Moral: Don't assume that 1) people click super fast or 2) they have an autoclicker handy.</h2>
+    <button id="next" onclick="window.location.href='stage2-2.html'" hidden>Next</button>
+  
+    <script>
+      var sleepiness = 20;
+      var triggered;
+      function wakeUp() {
+        sleepiness -= 5;
+        if (!triggered) {
+          setTimeout(unhide, 5000);
+        }
+        var triggered = 1;
+        
+      }
+      function unhide() {
+        document.getElementById("levelEndText").hidden = false;
+        document.getElementById("moral").hidden = false;
+        document.getElementById("next").hidden = false;
+      }
+      function update() {
+        sleepiness++;
+        if (sleepiness > 20) sleepiness = 20;
+        let innerText = "Sleep Meter: ";
+        for (let i = 0; i < sleepiness; i++) { innerText += "=" }
+        innerText += "|"
+        if (sleepiness <= 0) {
+          clearInterval(interval);
+          innerText = "How?!?!?";
+          unhide();
+        }
+        document.getElementById("sleepMeter").innerText = innerText;
+      }
+
+      var interval = setInterval(update, 25);
+    </script>
+  </body>
+</html>

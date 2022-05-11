@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>Work Simulator</title>
+    <link href="style.css" rel="stylesheet" type="text/css" />
+  </head>
+  <body>
+    <h1>Level 4-3</h1>
+    <p>Congratulations - you managed to get Bob through... lunch. We're just halfway done?!?!?! oh..... ☹</p>
+    <p>Just one thing - help Bob throw away his lunch. Unfortunately, since his boss is an evil maniac, he made the trash can's lid... password locked. Help Bob decode the password!</p>
+    <textarea id="text" placeholder = "Enter password here." autofocus></textarea>
+    <p>Password: 4 9 4 25 15 21 21 19 5 1 14 15 14 12 9 14 5 18 5 19 15 21 18 3 5 20 15 4 5 3 15 4 5 20 8 9 19 15 8 23 5 12 12</p>
+    <button onclick="password()">Submit Password</button>
+    <p>Oh yeah, by the way, the password is totally not "password"... *cough cough*</p>
+    <p id="levelEndText1" hidden>*cough cough cough*</p>
+    <p id="levelEndText2" hidden>Cheater! Or, er.... very passionate puzzle decoder!</p>
+    <h2 id="moral" hidden>The Moral: Don't make annoying puzzles.</h2>
+    <button id="next" onclick="window.location.href='stage5-1.html'" hidden>Next</button>
+
+    <script>
+      function password() {
+        if (document.getElementById("text").value == "password") {
+          document.getElementById("levelEndText1").hidden = false;
+          document.getElementById("moral").hidden = false;
+          document.getElementById("next").hidden = false;
+          document.getElementById("text").innerText = "Unlocked!";
+        } else if (document.getElementById("text").value == "Did you use an online resource to decode this? Oh well.") {
+          document.getElementById("levelEndText2").hidden = false;
+          document.getElementById("moral").hidden = false;
+          document.getElementById("next").hidden = false;
+          document.getElementById("text").innerText = "Unlocked!";
+        }
+      }
+    </script>
+  </body>
+</html>

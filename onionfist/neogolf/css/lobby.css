@@ -1,0 +1,115 @@
+#lobby {
+    font-family: 'pressstart';
+    text-align: center;
+    height: 100%;
+}
+
+#loading {
+    position: absolute;
+    top: 0px;
+    width: auto;
+    left: 0px;
+    right: 0px;
+    color: white;
+}
+
+#lobby_inner {
+    display: inline-block;
+    position: relative;
+    background: var(--white);
+    visibility: hidden;
+    width: 100%;
+    height: 100%;
+    max-width: 340px;
+    overflow-y: scroll;
+}
+
+#maps {
+
+}
+
+.map {
+    display: flex;
+    align-items: center;
+}
+.map_button {
+    color: var(--white);
+    flex: 3;
+    font-size: 12px;
+}
+
+.map_stat_left {
+    color: var(--black);
+    flex: 1;
+}
+.map_stat_right {
+    color: var(--black);
+    flex: 1;
+}
+
+
+
+
+#lobby_table {
+    width: 100%;
+}
+
+
+#play_button {
+    position: absolute;
+    top: 145px;
+    width: auto;
+    left: 30px;
+    right: 30px;
+    border: 4px solid var(--white);
+    border-radius: 10px;
+    padding: 13px 10px;
+}
+#play_button * {
+    margin: 5px 0px;
+}
+#play_button h1 {
+    font-size: 30px;
+}
+#play_button p {
+    font-size: 18px;
+}
+
+#top_logo {
+    width:100%;
+    margin-bottom: 60px;
+
+}
+.window {
+    visibility: hidden;
+}
+.window_top {
+    display: flex;
+    background: #171738;
+    align-items: center;
+    margin-bottom: 30px;
+}
+.window_top div {
+    flex: 1;
+    border: 2px solid #3423A6;
+}
+.window_top h1 {
+    flex: 4;
+    color: white;
+}
+
+
+.loader {
+  display: inline-block;
+  border: 10px solid #333333; /* 270deg */
+  border-top: 10px solid var(--white); /* 90deg */
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}

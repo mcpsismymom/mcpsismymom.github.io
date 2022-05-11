@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>SchoolTube (Youtube Unblocked)</title>
+    <style>
+      body {
+        background: black;
+        color: white;
+        text-align: center;
+      }
+
+      textarea {
+        border-color: white;
+        background: black;
+        color: white;
+        width: 500px;
+        height: 25px;
+      }
+
+      iframe {
+        border-color: white;
+        border-width: 5px;
+      }
+
+      button {
+        border-width: 5px;
+        width: 200px;
+        height: 75px;
+        background: black;
+        border-color: white;
+        color: white;
+      }
+    </style>
+    <link rel="shortcut icon" href="favicon.png" />
+  </head>
+  <body>
+    <h1>SchoolTube - Youtube Unblocked</h1>
+    <p>
+      Ever wanted to watch that cool video your friend told you about during lunch,
+      or need some videos for help with your homework - only to see that screen
+      saying, "Youtube is blocked by your administrator"? Well, that happens no
+      longer with SchoolTube, where you can watch any video you want if you have
+      the URL! Just paste the link into the box, and then you're free to watch
+      it!
+    </p>
+    <p>
+      Note: Some schools are really strict about website usage (especially if
+      they use GoGuardian), so use this website at school at your own risk. This
+      website is not responsible for any trouble you get into watching videos,
+      and neither is anybody involved in the process of making this website.
+      This website does not encourage watching uneducational videos during class.
+    </p>
+    <p>
+      The following people helped make the website: smartynotchy on replit and iamsirsammy on github.
+    </p>
+    <textarea
+      id="youtubeURL"
+      placeholder="Enter A Youtube URL here."
+    ></textarea>
+    <br />
+    <button onclick="play()">Watch Video</button>
+    <button onclick="embed()">Embed Video</button>
+    <br />
+    <iframe
+      id="youtubePlayer"
+      width="840"
+      height="473"
+      allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+      allowfullscreen
+    ></iframe>
+
+    <script>
+      function convert_youtube(input) {
+        var pattern = /(?:http?s?:\/\/)?(?:www\.)?(?:youtube\.com|youtu\.be)\/(?:watch\?v=)?(\S+)/g;
+        if (pattern.test(input)) {
+          var replacement = "https://www.youtube-nocookie.com/embed/$1";
+          var input = input.replace(pattern, replacement);
+          input = input.replace("&amp;t=", "?t=");
+          return input;
+        } else {
+          alert("That's not a valid Youtube URL!");
+          return null;
+        }
+      }
+
+      function play() {
+        let embedLink = convert_youtube(
+          document.getElementById("youtubeURL").value
+        );
+        if (embedLink == null) return;
+        document.getElementById("youtubePlayer").src = embedLink;
+      }
+      function copy(input) {
+        // This part is stackoverflow
+        let temp = document.createElement("textarea");
+        temp.value = input;
+        document.body.appendChild(temp);
+        temp.select();
+        document.execCommand("copy");
+        document.body.removeChild(temp);
+      }
+      function embed() {
+        let embedLink = convert_youtube(
+          document.getElementById("youtubeURL").value
+        );
+        if (embedLink == null) return;
+        copy(
+          '<iframe width="560" height="315" src="' +
+            embedLink +
+            '" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>'
+        );
+        alert('The embed: <iframe width="560" height="315" src="' + embedLink + '" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> has been successfully copied to your clipboard.');
+        document.getElementById("youtubeURL").innerHTML = '<iframe width="560" height="315" src="' + embedLink + '" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>';
+      }
+    </script>
+  </body>
+</html>

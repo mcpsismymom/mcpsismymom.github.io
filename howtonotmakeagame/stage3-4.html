@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>Work Simulator</title>
+    <link href="style.css" rel="stylesheet" type="text/css" />
+  </head>
+  <body>
+    <h1>Level 3-4</h1>
+    <p>Bob has a work meeting now! Let's go there and see how things turn out.</p>
+    <button onclick="start()" id="start">Start Meeting</button>
+    <p id="1" hidden>Boss: The topic at hand today is a lack of customers. Over the last three months, our consumer activity has dropped by 25%, even losing some our regulars!</p>
+    <p id="2" hidden>Worker 1: That's probably due to American unemployment. Maybe they can't afford it anymore.</p>
+    <p id="3" hidden>Worker 2: Did you know that according to my notes, 6.3% of Americans are unemployed?</p>
+    <p id="4" hidden>Boss: NO! It's due to our bad advertising services!</p>
+    <p id="5" hidden>Worker 3: Ok, what's wrong with our ads? They're perfectly fine...</p>
+    <p id="6" hidden>Boss: The ads are TERRIBLE! I'll run this slideshow on successful advertising campaigns.</p>
+    <p id="7" hidden>Boss: Slide #1 talks about the binomial distribution between the consumer population and the interestingness of our ads. The formula between interstingness of our ads and consumer interest proves to be significantly exponentional. However, since a visual quality such as interstigness cannot be sufficiently quantified in a measure of units, we have to rely on nonquantative descriptions to assess our advertisements.</p>
+    <p id="8" hidden>Boss: Slide #2 talks about the psychology of advertisements. Memorability is directly correlated to interestingness of advertisements, but is also dependent on numerous other psychological factors, such as resonation in one's soul and direct compatibility with our specific brand, and general incompatibility with rival companies. Other factors such as trustworthiness and meaningful statistics are exponentially correlated with general memorability. Here, we see the quadratic formula of trustworthiness and consumer interest, as well as the trigonometric ratio of meaningful messages to consumer interest.</p>
+    <p id="levelEndText" hidden>zzZzzZzzZzzZZzZz...</p>
+    <h2 id="moral" hidden>The Moral: Don't bore your reader to death with meaningless conversations.</h2>
+    <h5 id="disclaimer" hidden>Note: Most of these mathematical terms are just random words thrown in to make the text look complicated. These paragraphs won't make ANY sense to a mathematical expert.</h5>
+    <button id="next" onclick="window.location.href='stage4-1.html'" hidden>Next</button>
+
+    <script>
+      var progress = 0;
+      function update() {
+        progress++;
+        if (progress > 8) {
+          document.getElementById("levelEndText").hidden = false;
+          document.getElementById("disclaimer").hidden = false;
+          document.getElementById("moral").hidden = false;
+          document.getElementById("next").hidden = false;
+          progress = 8;
+        }
+        let id = "";
+        id += progress;
+        document.getElementById(id).hidden = false;
+      }
+
+      function start() {
+        document.getElementById("start").innerText = "Meeting Started!";
+        update();
+        setInterval(update, 5000);
+      }
+    </script>
+  
+  </body>
+</html>

@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>Gimkit Simulator Settings</title>
+    <link href="../gimkit.css" rel="stylesheet" type="text/css" />
+    <link href="../favicon.png" rel="shortcut icon"/>
+  </head>
+  <body>
+    
+    <h1>Gimkit Simulator Settings</h1>
+    <button class="gimSetting greenButton" onclick="window.location.href='../'">Back</button>
+    <button class="gimSetting redButton" onclick="reset()">Reset All</button>
+
+    <hr>
+    
+    <h4>Upload Custom Questions</h4>
+    <p>Bored with the three basic questions? Import a new set of questions to practice answering different questions!</p>
+    <button class="gimSetting greenButton" onclick="uploadQuestions()">Import</button>
+    <button class="gimSetting redButton" onclick="questionReset()">Reset</button>
+
+    <hr>
+
+    <h4>Set Game Time</h4>
+    <p>Think a Gimkit game is too short, or getting max upgrades quickly? Change the game time to your own preference!</p>
+    <p id="gameTime">Current Duration: 10 min</p>
+    <button class="gimSetting greenButton" onclick="setGameTime()">Set New Value</button>
+    <button class="gimSetting redButton" onclick="resetGameTime()">Reset</button>
+
+    <h4>Ice Chance</h4>
+    <p>To simulate real Gimkit Games, every question you answer, there is a certain chance that you will be "iced" and cannot answer questions for 15 seconds.</p>
+    <p id="iceChance">Current Value: 0</p>
+    <button class="gimSetting greenButton" onclick="setIceChance()">Set New Value</button>
+    <button class="gimSetting redButton" onclick="resetIceChance()">Reset</button>
+
+
+    <hr>
+
+    <h4>Main Music Volume</h4>
+    <p>Is the Gimkit music blasting in your ears? Turn down the volume to your liking!</p>
+    <p id="volumeMain">Volume: 100</p>
+    <button class="gimSetting greenButton" onclick="setVolumeMain()">Set New Value</button>
+    <button class="gimSetting redButton" onclick="resetVolumeMain()">Reset</button>
+
+
+    <hr>
+
+
+    <h4>Sound Effects Volume</h4>
+    <p>Don't want to be distracted by the sound effects? You can turn the volume of <em>those</em>, too!</p>
+    <p id="volumeSFX">Volume: 100</p>    
+    <button class="gimSetting greenButton" onclick="setVolumeSFX()">Set New Value</button>
+    <button class="gimSetting redButton" onclick="resetVolumeSFX()">Reset</button>
+
+
+    <script src="setup.js"></script>
+    <script>
+      // Question uploads --------------------
+      function uploadQuestions() {
+        let importButton = document.createElement("input");
+        importButton.setAttribute("type", "file");
+        importButton.addEventListener("change", () => {
+          let reader = new FileReader();
+          reader.addEventListener("load", () => {
+            localStorage.setItem("questions", reader.result);
+            alert("Succesfully imported questions!");
+          });
+          reader.readAsText(Array.from(importButton.files)[0]);
+        });
+        importButton.click();
+      }
+
+      function questionReset() {
+        localStorage.setItem("questions", `[["What is 1 + 1?", "2", "1", "3", "4"],
+                                      ["What is 1 + 2?", "3", "1", "2", "4"],
+                                      ["What is 2 + 2?", "4", "1", "2", "3"]]`);
+        alert("Reset!");
+      }
+
+      // Game Time ---------------------
+      document.getElementById("gameTime").innerText = "Current Duration: " + localStorage.getItem("gameTime") + " min";
+
+      function setGameTime() {
+        let gameTime = parseFloat(prompt("Enter a value from 1 to 60."));
+        if (!isNaN(gameTime) && gameTime >= 1 && gameTime <= 60) {
+          localStorage.setItem("gameTime", gameTime);
+          alert("Successfully set Game Time to " + gameTime);
+        }
+        else {
+          alert("Invalid value!");
+        }
+
+        document.getElementById("gameTime").innerText = "Current Duration: " + localStorage.getItem("gameTime") + " min";
+      }
+
+      function resetGameTime() {
+        localStorage.setItem("gameTime", 10);
+        document.getElementById("gameTime").innerText = "Current Duration: " + localStorage.getItem("gameTime") + " min";
+        alert("Reset!");
+      }
+
+      // Ice Chance --------------------
+      document.getElementById("iceChance").innerText = "Current Value: " + localStorage.getItem("iceChance");
+
+      function setIceChance() {
+        let iceChance = parseFloat(prompt("Enter a value from 0 to 100."));
+        if (!isNaN(iceChance) && iceChance >= 0 && iceChance <= 100) {
+          localStorage.setItem("iceChance", iceChance);
+          alert("Successfully set Ice Chance to " + iceChance);
+        }
+        else {
+          alert("Invalid value!");
+        }
+
+        document.getElementById("iceChance").innerText = "Current Value: " + localStorage.getItem("iceChance");
+      }
+
+      function resetIceChance() {
+        localStorage.setItem("iceChance", 0);
+        document.getElementById("iceChance").innerText = "Current Value: " + localStorage.getItem("iceChance");
+        alert("Reset!");
+      }
+
+
+
+      // Main Music Volume --------------
+      document.getElementById("volumeMain").innerText = "Current Value: " + localStorage.getItem("volumeMain");
+
+      function setVolumeMain() {
+        let volumeMain = parseFloat(prompt("Enter a value from 0 to 100."));
+        if (!isNaN(volumeMain) && volumeMain >= 0 && volumeMain <= 100) {
+          localStorage.setItem("volumeMain", volumeMain);
+          alert("Successfully set Main Music Volume to " + volumeMain);
+        }
+        else {
+          alert("Invalid value!");
+        }
+
+        document.getElementById("volumeMain").innerText = "Current Value: " + localStorage.getItem("volumeMain");
+      }
+
+      function resetVolumeMain() {
+        localStorage.setItem("volumeMain", 100);
+        document.getElementById("volumeMain").innerText = "Current Value: " + localStorage.getItem("volumeMain");
+        alert("Reset!");
+      }
+
+
+      // Sound Effects Volume --------------
+      document.getElementById("volumeSFX").innerText = "Current Value: " + localStorage.getItem("volumeSFX");
+
+      function setVolumeSFX() {
+        let volumeSFX = parseFloat(prompt("Enter a value from 0 to 100."));
+        if (!isNaN(volumeSFX) && volumeSFX >= 0 && volumeSFX <= 100) {
+          localStorage.setItem("volumeSFX", volumeSFX);
+          alert("Successfully set Main Music Volume to " + volumeSFX);
+        }
+        else {
+          alert("Invalid value!");
+        }
+
+        document.getElementById("volumeSFX").innerText = "Current Value: " + localStorage.getItem("volumeSFX");
+      }
+
+      function resetVolumeSFX() {
+        localStorage.setItem("volumeSFX", 100);
+        document.getElementById("volumeSFX").innerText = "Current Value: " + localStorage.getItem("volumeSFX");
+        alert("Reset!");
+      }
+
+    </script>
+  </body>
+</html>

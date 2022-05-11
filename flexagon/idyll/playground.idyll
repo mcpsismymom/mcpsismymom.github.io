@@ -1,0 +1,289 @@
+[meta title:"Flexagon Playground" description:"General tools for exploring flexagons" /]
+
+[Aside]
+  [br/]
+  An appendix from[br/]
+  [Explorable Flexagons](index.html)
+[/Aside]
+
+[Header
+  title:"Flexagon Playground"
+  subtitle:"General tools for exploring flexagons"
+  author:"Scott Sherman"
+  authorLink:"http://loki3.com/flex" /]
+
+[var name:"showPageHelp" value:false /]
+[Button onClick:` showPageHelp = !showPageHelp `]What is this and how do I use it?[/Button]
+[Conditional if:` showPageHelp `]
+  These tools simulate *flexagons* and the *flexes* you can use to manipulate them.
+  They also give you the ability to create working flexagon models by printing and folding generated templates.
+
+  In order to understand the tools, you need to understand *flexagons*, some of the variety of *flexes*,
+  and terminology like *generating sequences* and *pats*.
+  The easiest way to learn this is to go through [Explorable Flexagons](index.html),
+  which explains the concepts and introduces you to much of the UI used in this page.
+  Alternately, the [Flexagon Theory](../g4g10/Flex-Theory.pdf) paper provides some of the theoretical background.
+
+* The *Flexagon Simulator* allows you to create lots of different types of triangle flexagons and experiment with how various flexes modify them
+* *Flexagon from Script* is the same, except that you create flexagons using a [flexagonator script](https://github.com/loki3/flexagonator/blob/master/docs/script.md)
+* The *Unfolded Template* section gives you the ability to generate flexagon templates to print and fold
+* The *Explorer* can be used to find every state accessible by using the given flexes
+
+  Each individual section contains additional help.
+[/Conditional]
+
+
+[FullWidth][hr/][/FullWidth]
+# Flexagon Simulator
+
+[var name:"showSimulatorHelp" value:false /]
+[Button onClick:` showSimulatorHelp = !showSimulatorHelp `]What is this and how do I use it?[/Button]
+[Conditional if:` showSimulatorHelp `]
+  **The polygons**: These represent a folded flexagon, both front (the larger one) and back (the smaller one).
+  The buttons allow you to apply a flex at a given hinge.
+  The `^` on the smaller polygon is used to turn over the flexagon.
+
+  **Apply Settings**: Once you have entered in your settings in the various text boxes, click `Apply Settings` to use them to create a new flexagon.
+  The `Generating sequence` is a series of flexes used to create the structure of the flexagon.
+  `Search flexes` is used to determine which flex buttons should appear on the flexagon.
+  `Pats per face` indicates the number of *pats* (stacks of triangles) to use for the flexagon.
+  `Center angle` is the angle of each triangular leaf that starts out in the center of the flexagon.
+  `Angle 2` is the first angle clockwise from the center on the first leaf.
+  Note: in order to get the default isosceles triangle, clear `Center angle`.
+
+  **Undo, redo, reset**: Use to undo or redo flexes, or to start over again from the given *generating sequence*.
+
+  **Flex sequence**: Allows you to type in a sequence of flexes.
+  Click `Apply Sequence` to have it applied to the current flexagon if it can.
+
+  **Generator**: Shows the generating sequence for the current flexagon.
+
+  **History**: Shows a history of all flexes that have been applied either by clicking buttons on the flexagon or through applying a *flex sequence*.
+
+  **Show Current Script**: Fill the text box with a [flexagonator script](https://github.com/loki3/flexagonator/blob/master/docs/script.md)
+  describing the state of the current flexagon.
+  Can be used to supply input to other tools on this page.
+[/Conditional]
+
+[var name:'flexagonOptions' value:`{structure:true, showIds:true, stats:true, both:true}`/]
+[var name:'defaultColors' value:`[0x2E4172, 0x2B803E, 0xAA4439, 0x622870, 0xffff00, 0x553900, 0xdddddd, 0x999999]` /]
+
+[var name:'tempGenerator' value:'St*<<St*' /]
+[var name:'doGenerator' value:'St*<<St*' /]
+[var name:'tempSearch' value:"F P S St T T' T1 T1' T2 T2' T3 T3' V" /]
+[var name:'doSearch' value:"F P S St T T' T1 T1' T2 T2' T3 T3' V" /]
+[var name:'tempPats' value:10 /]
+[var name:'doPats' value:10 /]
+[var name:'tempAngle1' value:36 /]
+[var name:'doAngle1' value:36 /]
+[var name:'tempAngle2' value:54 /]
+[var name:'doAngle2' value:54 /]
+[derived name:'doAngles' value:`[doAngle1, doAngle2]` /]
+[var name:'tempSequence' value:'' /]
+[var name:'doSequence' value:'' /]
+[var name:'doHistory' value:'' /]
+
+[derived name:'doInit' value:`[
+  {searchFlexes:doSearch},
+  {angles:[doAngle1, doAngle2]},
+  {flexAndColor: { flexes: doGenerator, colors: defaultColors }},
+  {reverseFlexes: doGenerator},
+  {history: 'clear'}
+  ]` /]
+[var name:'doRunInit' value:false /]
+[var name:'theHistory' value:'' /]
+[var name:'theError' value:'' /]
+[var name:'theCurrentScript' value:'' /]
+[var name:'displayedScript' value:'' /]
+
+[Aside]
+  [Button onClick:` doRunInit=true; doGenerator=tempGenerator; doSearch=tempSearch; doPats=tempPats; doAngle1=tempAngle1; doAngle2=tempAngle2; `]
+    Apply Settings[/Button]  [Display value:theError /]
+  [br /]
+  Generating sequence:[br/][TextInput value:tempGenerator /]
+  [br /]
+  Search flexes:[br/][TextInput value:tempSearch /]
+  [br /]
+  Pats per face:[br/][TextInput value:tempPats /]
+  [br /]
+  Center angle:[br/][TextInput value:tempAngle1 /]
+  [br /]
+  Angle 2:[br/][TextInput value:tempAngle2 /]
+[/Aside]
+
+[Flexagon width:700 height:400 numPats:doPats initialScript:doInit runInitial:doRunInit flexes:doSequence doHistory:doHistory
+  options:flexagonOptions overButton:true error:theError history:theHistory currentScript:theCurrentScript /]
+
+[Button onClick:`doHistory='undo';`]Undo[/Button] [Button onClick:`doHistory='redo';`]Redo[/Button] [Button onClick:`doHistory='reset';`]Reset[/Button]
+
+Flex sequence: [TextInput value:tempSequence /] [Button onClick:`doSequence=tempSequence;`]Apply Sequence[/Button]
+
+Generator: [Display value:doGenerator /]
+[br/]
+History: [Display value:theHistory /]
+
+[Button onClick:`displayedScript=theCurrentScript;`]Show Current Script[/Button]
+[textarea cols:80 rows:10 spellCheck:false value:displayedScript readOnly:true /]
+
+
+[FullWidth][hr/][/FullWidth]
+# Flexagon from Script
+
+[var name:"showScriptHelp" value:false /]
+[Button onClick:` showScriptHelp = !showScriptHelp `]What is this and how do I use it?[/Button]
+[Conditional if:` showScriptHelp `]
+  **The polygons**: These represent a folded flexagon, both front (the larger one) and back (the smaller one).
+  The buttons allow you to apply a flex at a given hinge.
+  The `^` on the smaller polygon is used to turn over the flexagon.
+
+  **Undo, redo**: Use to undo or redo flexes.
+
+  **History**: Shows a history of all flexes that have been applied by clicking buttons on the flexagon.
+
+  **Run Script**: Run the [flexagonator script](https://github.com/loki3/flexagonator/blob/master/docs/script.md)
+  listed in the text box in order to create a new flexagon or modify an existing one.
+
+  **Show Current Script**: Fill the text box with a [flexagonator script](https://github.com/loki3/flexagonator/blob/master/docs/script.md)
+  describing the state of the current flexagon.
+  Can be used to supply input to other tools on this page.
+[/Conditional]
+
+[var name:'fromRunScript' value:true /]
+[var name:'fromScript' value:`[{numPats:6}, {flexes:'P*P*P*'}] ` /]
+[var name:'fromCurrentScript' value:'' /]
+[var name:'fromDoHistory' value:'' /]
+[var name:'fromHistory' value:'' /]
+[var name:'fromError' value:'' /]
+[var name:'fromDisplayed' value:'[
+  {"numPats":6},
+  {"flexes":"P*P*P*"}
+]' /]
+
+[Flexagon width:700 height:400 doHistory:fromDoHistory options:flexagonOptions
+  runScript:fromRunScript script:fromScript currentScript:fromCurrentScript
+  overButton:true error:fromError history:fromHistory /]
+
+[Button onClick:`fromDoHistory='undo';`]Undo[/Button] [Button onClick:`fromDoHistory='redo';`]Redo[/Button]
+
+History: [Display value:fromHistory /]
+
+[Button onClick:`fromRunScript=true; fromScript=fromDisplayed;`]Run Script[/Button]
+[Float position:'right']
+[Button onClick:`fromRunScript=true; fromDisplayed=fromCurrentScript;`]Show Current Script[/Button]
+[/Float]
+[TextArea cols:80 rows:10 spellCheck:false value:fromDisplayed placeholder:'enter script' /]
+
+[Display value:fromError /]
+
+
+[FullWidth][hr/][/FullWidth]
+# Unfolded Template:
+
+[var name:"showUnfoldedHelp" value:false /]
+[Button onClick:` showUnfoldedHelp = !showUnfoldedHelp `]What is this and how do I use it?[/Button]
+[Conditional if:` showUnfoldedHelp `]
+  **Labels and colors**: Gives you several options for how it displays labels and colors for the unfolded template.
+  You can have it use values from the *leafProperties* portion of a script, display the leaf ids,
+  display everything on one face, or display just the properties on the front or back.
+
+  **Unfolded template**: To make a real flexagon, print the unfolded template, cut it out,
+  then fold like numbers on like numbers, and finish by taping together the first and last triangles.
+
+  **Run Script**: Create a new unfolded template by running the script in the text box,
+  grabbing the one used by the *Flexagon Simulator*, or the one used by the *Flexagon from Script*.
+[/Conditional]
+
+[var name:'unfoldedContent' value:1 /]
+[derived name:'unfoldedOptions' value:`{content:unfoldedContent, captions: [{ text: '*', which: 0 }, { text: '*', which: -1 }]}`/]
+[var name:'doUnfoldedScript' value:'[{"numPats":6},{"flexes":"P*P*P*"}]' /]
+[var name:'displayUnfoldedScript' value:'[
+  {"numPats":6},
+  {"flexes":"P*P*P*"}
+]' /]
+
+Labels and colors:
+[Select value:unfoldedContent options:`[
+  {value:0, label:"All on one face - use labels that indicate folding order"},
+  {value:1, label:"All on one face - use labels that indicate folding order, show leaf ids"},
+  {value:4, label:"All on one face - use labels from leaf properties, default to leaf ids"},
+  {value:5, label:"All on one face - use leaf properties, plus folding order"},
+  {value:2, label:"Show front only - use leaf properties"},
+  {value:3, label:"Show back only - use leaf properties"},
+  ]` /]
+[br/][br/]
+[Unfolded width:1000 height:500 script:doUnfoldedScript options:unfoldedOptions /]
+
+[Button onClick:`doUnfoldedScript=displayUnfoldedScript;`]Run Script[/Button]--
+[Button onClick:`displayUnfoldedScript=theCurrentScript; doUnfoldedScript=theCurrentScript;`]Use "Flexagon Simulator"[/Button]--
+[Button onClick:`displayUnfoldedScript=fromCurrentScript; doUnfoldedScript=fromCurrentScript;`]Use "Flexagon from Script"[/Button]
+[TextArea cols:80 rows:10 spellCheck:false value:displayUnfoldedScript placeholder:'enter script' /]
+
+
+[FullWidth][hr/][/FullWidth]
+# Explorer
+
+[var name:"showExplorerHelp" value:false /]
+[Button onClick:` showExplorerHelp = !showExplorerHelp `]What is this and how do I use it?[/Button]
+[Conditional if:` showExplorerHelp `]
+  **Explore**: Start by entering a [flexagonator script](https://github.com/loki3/flexagonator/blob/master/docs/script.md)
+  that creates a flexagon.
+  Click `Explore all ` to have it use all the specified search flexes to find every accessible state (including `<`, `>`, and `^`).
+  Click `Explore without ^` to have it skip turning the flexagon over during the search.
+  Click `Cancel ` to abort the current search.
+
+  **States that support flexes**: Once an exploration has been completed,
+  this shows how many of the resulting states support each of the flexes it used during the search.
+
+  **Show**: Shows information about all the states it found after an exploration has been completed.
+  You can have it show the internal structure of each state by clicking `pat notation `
+  or all the flexes available from each state by clicking `all available flexes `.
+  Or you can have it output information in DOT format, which can be used by some graph visualization tools,
+  e.g. http://viz-js.com/.
+[/Conditional]
+
+[var name:'exploreDoFull' value:false /]
+[var name:'exploreDoOneFace' value:false /]
+[var name:'exploreDoCancel' value:false /]
+[var name:'exploreDone' value:false /]
+[var name:'exploreExplored' value:0 /]
+[var name:'exploreFound' value:0 /]
+[var name:'exploreCounts' value:'' /]
+[var name:'exploreError' value:'' /]
+[var name:'exploreGetResults' value:'' /]
+[var name:'exploreResults' value:'' /]
+
+[Aside]
+  States that support flexes:
+
+  [textarea cols:20 rows:10 spellCheck:false value:exploreCounts readOnly:true /]
+[/Aside]
+
+[Button onClick:`exploreDoFull=true;`]Explore all[/Button] - [Button onClick:`exploreDoOneFace=true;`]Explore without ^[/Button] - [Button onClick:`exploreDoCancel=true;`]Cancel[/Button] [Display value:exploreError /]
+[br/]
+Explored [Display value:exploreExplored format:'0' /] states, found [Display value:exploreFound format:'0' /] states
+[Explorer doFull:exploreDoFull doOneFace:exploreDoOneFace doCancel:exploreDoCancel
+  done:exploreDone explored:exploreExplored found:exploreFound counts:exploreCounts error:exploreError
+  getResults:exploreGetResults results:exploreResults /]
+
+Show for each state: [Button onClick:`exploreGetResults='getStates';`]pat notation[/Button]
+[Button onClick:`exploreGetResults='getFlexes';`]all available flexes[/Button]
+[br/]
+Show DOT: [Button onClick:`exploreGetResults='dotSimple';`]state to state[/Button]
+[Button onClick:`exploreGetResults='dotFlexes';`]flexes[/Button]
+[Button onClick:`exploreGetResults='dotDirected';`]directed flexes[/Button]
+[br/]
+[textarea cols:80 rows:30 spellCheck:false value:exploreResults readOnly:true /]
+
+
+[FullWidth][hr/][/FullWidth]
+# What next?
+
+Go to the [Table of Contents](index.html) or the [Flexagon Pages](http://loki3.com/flex/).
+
+[FullWidth]
+  [a href:'http://loki3.com/flex/' ]
+  [img src:'static/flexagon-variety.jpg' /]
+  [/a]
+[/FullWidth]
+
+[Copyright/]

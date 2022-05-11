@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>Work Simulator</title>
+    <link href="style.css" rel="stylesheet" type="text/css" />
+  </head>
+  <body>
+    <h1>Level 3-2</h1>
+    <p>After Bob's boss calms down, Bob continues to his work station. Let's help Bob log onto his computer.</p>
+    <p>In this level, you'll have to solve an extremely complicated puzzle to find the password. Then, you'll enter it in the text box and press "Log In" to test it. By the way, the password is <em>totally</em> not "password". <em>TOTALLY.</em></p>
+
+    <textarea id="password" autofocus placeholder="Enter the password you find here."></textarea>
+    <br>
+    <p>Solve this system of equations for x. The password is the numerical value of x.</p>
+    <p>x + 2y - z = 12</p>
+    <p>2x + 4y - 2z = 15</p>
+    <button onclick="login()" id="login">Log In</button>
+    <p id="levelEndText1" hidden>Yep, the password is <em>totally</em> not "password"... oh wait, it is. *cough* *cough*</p>
+    <h5 id="levelEndText2" hidden>By the way, the system of equations has no solution, since the two equations don't have a common solution. It's just a trick question.</h5>
+    <h2 id="moral" hidden>The Moral: If you make a puzzle, make sure the solution isn't obvious.</h2>
+    <button onclick="window.location.href='stage3-3.html'" hidden id="next">Next</button>
+
+    <script>
+      function login() {
+        if (document.getElementById("password").value == "password") {
+          document.getElementById("levelEndText1").hidden = false;
+          document.getElementById("levelEndText2").hidden = false;
+          document.getElementById("moral").hidden = false;
+          document.getElementById("next").hidden = false;
+          document.getElementById("login").innerText = "Logged In!";
+        }
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width">
+	<title>Gimkit Simulator</title>
+	<link href="../gimkit.css" rel="stylesheet" type="text/css" />
+  <link href="../favicon.png" rel="shortcut icon"/>
+
+
+</head>
+
+<body>
+  <script src="setup.js"></script>
+  
+  <div id="mainGameWindow">
+    <strong><div id="questionWindow" class="gimQuestion gimWaiting"></div></strong>
+    <div id="shop" class="gimShop">
+
+
+      <strong>
+        <p id="balance">Balance: $0</p>
+        <p id="levMPQ">MPQ: 🟢⚪⚪⚪⚪⚪⚪⚪⚪⚪ | $1</p>
+        <button id="upgMPQ" class="gimUpgrade grayButton">Upgrade MPQ | Cost: $10</button>
+        <p id="levSTR">Streak Bonus: 🟢⚪⚪⚪⚪⚪⚪⚪⚪⚪ | $1</p>
+        <button id="upgSTR" class="gimUpgrade grayButton">Upgrade Streak Bonus | Cost: $20</button>
+        <p id="levMULTI">Multiplier: 🟢⚪⚪⚪⚪⚪⚪⚪⚪⚪ | 1x</p>
+        <button id="upgMULTI" class="gimUpgrade grayButton">Upgrade Multiplier | Cost: $50</button>
+        <p id="levINS">Insurance: 🟢⚪⚪⚪⚪⚪⚪⚪⚪⚪ | 0%</p>
+        <button id="upgINS" class="gimUpgrade grayButton">Upgrade Insurance | Cost: $10</button>
+        </strong>
+      </div>
+
+
+      <button id="ans1" class="gimAnswer redButton"></button>
+      <button id="ans2" class="gimAnswer yellowButton"></button>
+      <button id="ans3" class="gimAnswer greenButton"></button>
+      <button id="ans4" class="gimAnswer blueButton"></button>
+    </div>
+    
+    <div id="iceWindow" hidden>
+      <h1>You've been iced!</h1>
+      <p>Wait 15 Seconds</p>
+    </div>
+
+    <div id="gameEndWindow" hidden>
+      <h1 id="time" class="fadeIn">Time's up! (10:00)</h1>
+      <h2 id="finalBalance" class="fadeIn">You earned $</h2>
+      <h2 class="fadeIn">Can you do better?</h2>
+      <button onclick="window.location.reload()" class="gimAnswer greenButton fadeIn">Play Again</button>
+      <button onclick="window.location.href='../'" class="gimAnswer redButton fadeIn">Back To Menu</button>
+    </div>
+    
+    <!--
+    Temporarily Disabled For Debugging
+    <span id="buttons">
+      <table>
+        <tr>
+      <th><button id="ans1" class="gimAnswer redButton"></button></th>
+      <th><button id="ans2" class="gimAnswer yellowButton"></button></th>
+      </tr>
+      <tr>
+      <th><button id="ans3" class="gimAnswer greenButton"></button></th>
+      <th><button id="ans4" class="gimAnswer blueButton"></button></th>
+      </tr>
+      </table>
+    </span>
+    -->
+
+
+    <script src="./game.js"></script>
+  </body>
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>Work Simulator</title>
+    <link href="style.css" rel="stylesheet" type="text/css" />
+  </head>
+  <body>
+    <h1>Level 5-3</h1>
+    <p>Bob has to go to a 1 on 1 with his boss! Help Bob say the right things to his boss so his boss doesn't fire him.</p>
+    <button onclick="start()" id="start">Start!</button>
+    <p id="question" hidden>Boss: What have you been doing?</p>
+    <button id="button1" onclick="wrong()" hidden>Typing Reports</button>
+    <button id="button2" onclick="wrong()" hidden>Printing Papers</button>
+    <button id="button3" onclick="right()" hidden>Some other Important Work</button>
+    <p id="wrong" hidden>Boss: NO! You were supposed to do some other important work!</p>
+    <p id="right" hidden>Boss: That's right, you were supposed to do some other important work!</p>
+    <p id="levelEndText" hidden>Wait, what?!? THAT DOESN'T EVEN MAKE SENSE!!! WHAT WAS THAT 5-PAGE REPORT ON UNEMPLOYMENT I WROTE FOR?!?!</p>
+    <h2 id="moral" hidden>The Moral: When making a puzzle, make sure the answer makes sense.</h2>
+    <button id="next" onclick="window.location.href='stage5-4.html'" hidden>Next</button>
+
+    <script>
+      function start() {
+        document.getElementById("start").innerText = "Started!";
+        document.getElementById("question").hidden = false;
+        document.getElementById("button1").hidden = false;
+        document.getElementById("button2").hidden = false;
+        document.getElementById("button3").hidden = false;
+      }
+
+      var answered = false;
+
+      function wrong() {
+        if (!answered) {
+          document.getElementById("wrong").hidden = false;
+          document.getElementById("levelEndText").hidden = false;
+          document.getElementById("moral").hidden = false;
+          document.getElementById("next").hidden = false;
+        }
+        answered = true;
+      }
+
+      function right() {
+        if (!answered) {
+          document.getElementById("right").hidden = false;
+          document.getElementById("levelEndText").hidden = false;
+          document.getElementById("moral").hidden = false;
+          document.getElementById("next").hidden = false;
+        }
+        answered = true;
+      }
+    </script>
+  </body>
+</html>

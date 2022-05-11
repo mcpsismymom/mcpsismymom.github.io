@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>Work Simulator</title>
+    <link href="style.css" rel="stylesheet" type="text/css" />
+  </head>
+  <body>
+    <h1>Level 5-2</h1>
+    <p>Bob needs to login to his computer again. Unfortunately, Bobba, Bob's arch-nemesis, has guessed his password and changed it. Luckily, Bobba left a puzzle for Bob to figure out! Solve the puzzle to help Bob sign in again.</p>
+    <p>What has four legs at morning, two legs at noon, and three legs at evening?</p>
+    <textarea id="password" autofocus placeholder="Enter the answer here."></textarea>
+    <button onclick="login()" id="login">Log In</button>
+    <p id="levelEndText" hidden>Oh, come on! Almost everyone knows that riddle!</p>
+    <h2 id="moral" hidden>The Moral: Don't use cliched puzzles/riddles.</h2>
+    <button id="next" onclick="window.location.href='stage5-3.html'" hidden>Next</button>
+
+    <script>
+      function login() {
+        let text = document.getElementById("password").value.toLowerCase();
+        if (text == "human" || text == "humans") {
+          document.getElementById("levelEndText").hidden = false;
+          document.getElementById("moral").hidden = false;
+          document.getElementById("next").hidden = false;
+          document.getElementById("login").innerText = "Logged In!";
+        }
+      }
+    </script>
+  </body>
+</html>

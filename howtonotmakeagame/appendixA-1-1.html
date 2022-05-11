@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>Work Simulator</title>
+    <link href="style.css" rel="stylesheet" type="text/css" />
+  </head>
+  <body>
+    <h1>Appendix A - Carne-Bob Hall</h1>
+    <p>Oh, hey! Looks like Beethoven is performing! Wait, my bad... it's BeethoBOB. Let's ask him to play some music for us!</p>
+    <button onclick="play()">Play! Play! Play!</button>
+    <p id="levelEndText" hidden>None of this makes sense until I see the enormous pile of empty beer bottles next to his piano.</p>
+    <button id="next" onclick="window.location.href='appendixA-1-2.html'" hidden>Escape!</button>
+    
+    <script>
+      var music = new Audio("beethovenCoffee.wav")
+      function play() {
+        music.play();
+        document.getElementById("levelEndText").hidden = false;
+        document.getElementById("next").hidden = false;
+      }
+    </script>
+  </body>
+</html>

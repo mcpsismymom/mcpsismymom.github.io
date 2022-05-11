@@ -1,0 +1,398 @@
+[meta title:"Slot Flexes" description:"Flexes that involve sliding leaves through slots" /]
+
+[Aside]
+  [br/]
+  A chapter from[br/]
+  [Explorable Flexagons](index.html)
+
+  Next chapter:[br/]
+  [New Flexes](new-flexes.html)
+[/Aside]
+
+[Header
+  title:"Slot Flexes"
+  subtitle:"Flexes that involve sliding leaves through slots"
+  author:"Scott Sherman"
+  authorLink:"http://loki3.com/flex" /]
+
+[var name:'flexagonOptions' value:`{structure:true, showIds:false, both:true, stats:true}`/]
+[var name:'defaultColors' value:`[0x2E4172, 0x2B803E, 0xAA4439, 0x622870, 0xffff00, 0x553900, 0xdddddd, 0x999999]` /]
+[var name:'unfoldedOptions' value:`{content:0}`/]
+
+[Aside]
+  The common start to several of the slot flexes:
+
+  [img src:"static/double-slot.jpg" /]
+[/Aside]
+
+The class of *slot flexes* all involve sliding leaves through a slot,
+combined with other moves such as *pocket flexes* and *tuck flexes*.
+There are lots of possible ways to combine various moves,
+so this chapter will just cover a fraction of what's out there to explore.
+
+[var name:"showFoldingHelp" value:false /]
+[Button onClick:` showFoldingHelp = !showFoldingHelp `]Show/hide folding instructions.[/Button]
+[Conditional if:` showFoldingHelp `]
+  These instructions apply to all the templates on this page.
+  [HowToFold hasBoth:true /]
+[/Conditional]
+
+## Pinch Complements
+
+Say you have a pair of flexes `A` and `B`, some starting state `s`,
+state `a` that you get when you apply flex `A` from `s`,
+and state `b` that you get when you apply flex `B` from `s`.
+`A` and `B` are *pinch complements* if you can pinch flex from state `a` to state `b`
+if the flexagon has enough internal structure to support it.
+
+On a hexaflexagon, the following pairs of slot flexes are *pinch complements* of each other.
+
+* `Lh` *slot half flex* and `Lk` *slot pocket flex*
+* `Ltf` *slot tuck top front* and `Ltb` *slot tuck top back*
+* `Lbf` *slot tuck bottom front* and `Lbb` *slot tuck bottom back*
+
+The chapter will conclude with the *slot triple pocket* `L3` on a pentaflexagon.
+
+# Slot half and slot pocket
+
+## Slot half flex: Lh
+
+[Aside]
+  The *slot half flex* requires 11 leaves.
+  You can flex to 8 different arrangements on the minimal Lh flexagon
+  by using the following flexes: `T` `T'` `V` `Lh` `Ltb` `Ltb'`.
+[/Aside]
+
+[Slides width:426 height:240 pattern:'static/Lh/*.jpg' start:1 end:17 /]
+
+[var name:historyLh value:'' /]
+[var name:doHistoryLh value:'' /]
+[derived name:'initLh' value:`[
+  {numPats: 6},
+  {searchFlexes: "P S T T' V Lh Lh' Lk Lk' Ltf Ltf' Ltb Ltb' Lbf Lbf' Lbb Lbb'"},
+  {flexAndColor: { flexes: "Lh+", colors: defaultColors }},
+  {history: 'clear'}
+  ]` /]
+
+[Flexagon width:700 height:400 numPats:6 initialScript:initLh runInitial:false options:flexagonOptions overButton:true
+  history:historyLh doHistory:doHistoryLh /]
+
+[Button onClick:`doHistoryLh='undo';`]Undo[/Button] [Button onClick:`doHistoryLh='redo';`]Redo[/Button] [Button onClick:`doHistoryLh='reset';`]Reset[/Button] [Display value:historyLh /]
+
+[Unfolded width:1000 height:500 script:initLh options:unfoldedOptions endText:'Lh+' /]
+
+
+## Slot pocket flex: Lk
+
+[Aside]
+  The *slot pocket flex* requires 12 leaves.
+  You can flex to 12 different arrangements on the minimal Lk flexagon
+  by using the following flexes: `T` `T'` `S` `Lk` `Ltf`.
+
+  There's an alternate way to do the slot pocket flex,
+  where you start with *two* pocket flexes instead of one.
+  Can you figure out how to do it?
+[/Aside]
+
+[Slides width:426 height:240 pattern:'static/Lk/*.jpg' start:1 end:18 /]
+
+[var name:historyLk value:'' /]
+[var name:doHistoryLk value:'' /]
+[derived name:'initLk' value:`[
+  {numPats: 6},
+  {searchFlexes: "P S T T' V Lh Lh' Lk Lk' Ltf Ltf' Ltb Ltb' Lbf Lbf' Lbb Lbb'"},
+  {flexAndColor: { flexes: "Lk+", colors: defaultColors }},
+  {history: 'clear'}
+  ]` /]
+
+[Flexagon width:700 height:400 numPats:6 initialScript:initLk runInitial:false options:flexagonOptions overButton:true
+  history:historyLk doHistory:doHistoryLk /]
+
+[Button onClick:`doHistoryLk='undo';`]Undo[/Button] [Button onClick:`doHistoryLk='redo';`]Redo[/Button] [Button onClick:`doHistoryLk='reset';`]Reset[/Button] [Display value:historyLk /]
+
+With the following template, tape together the two edges labeled *a* before folding it as usual.
+
+[var name:unfoldedLk1 value:`{content:0, scale:200, rotation:90, end:5, captions:[{ text: 'Lk+', which: 0 }, { text: 'a', which: -1 }]}` /]
+[var name:unfoldedLk2 value:`{content:0, scale:200, rotation:90, start:6, captions:[{ text: 'a', which: 0 }, { text: 'Lk+', which: -1 }]}` /]
+[FullWidth]
+  [Unfolded width:600 height:400 script:initLk options:unfoldedLk1 /]
+  [Unfolded width:600 height:400 script:initLk options:unfoldedLk2 /]
+[/FullWidth]
+
+
+## Generating sequence: Lh+Lk+
+
+[Aside]
+  The *slot half flex* and *slot pocket flex* are *pinch complements*.
+  After you do the slot, there are two different ways to open the flexagon back up
+  if the structure of the flexagon supports it.
+  Opening it up one way is the `Lh` and the other is the `Lk`.
+  Using a generating sequence of `Lh+Lk+` creates the necessary structure.
+
+  It's interesting to note that you can pinch flex between these two states.
+  Try `Lh < P Lk'` or `Lk < P > P Lh'` to see how this works.
+[/Aside]
+
+[var name:historyLhLk value:'' /]
+[var name:doHistoryLhLk value:'' /]
+[derived name:'initLhLk' value:`[
+  {numPats: 6},
+  {searchFlexes: "Lh Lh' Lk Lk' P"},
+  {flexAndColor: { flexes: "Lh*Lh' Lk*Lk'" , colors: defaultColors } },
+  {history: 'clear'}
+  ]` /]
+
+[Flexagon width:700 height:400 numPats:6 initialScript:initLhLk runInitial:false options:flexagonOptions overButton:true
+  history:historyLhLk doHistory:doHistoryLhLk /]
+
+[Button onClick:`doHistoryLhLk='undo';`]Undo[/Button] [Button onClick:`doHistoryLhLk='redo';`]Redo[/Button] [Button onClick:`doHistoryLhLk='reset';`]Reset[/Button] [Display value:historyLhLk /]
+
+[Unfolded width:1000 height:500 script:initLhLk options:unfoldedOptions endText:'Lh+Lk+' /]
+
+
+[hr /]
+
+# Slot tuck flexes
+
+The *slot tuck* flexes all start out the same way:
+slide leaves through a slot till you're looking at a position where you could apply a tuck at the top or the bottom.
+Once you do a top or bottom tuck, you can choose to open the flexagon from either the front or back.
+This gives you a total of 4 different ways to complete the flex.
+
+* `Ltf`: slot tuck top front
+* `Ltb`: slot tuck top back
+* `Lbf`: slot tuck bottom front
+* `Lbb`: slot tuck bottom back
+
+## Slot tuck top front: Ltf
+
+[Aside]
+  The *slot tuck top front* requires 10 leaves.
+  Even with all the flexes we've discussed, the minimal Ltf flexagon only has two possible states,
+  which you can get to using `Ltf` and `Ltf'`.
+[/Aside]
+
+[Slides width:426 height:240 pattern:'static/Ltf/*.jpg' start:1 end:21 /]
+
+[var name:historyLtf value:'' /]
+[var name:doHistoryLtf value:'' /]
+[derived name:'initLtf' value:`[
+  {numPats: 6},
+  {searchFlexes: "P S T T' V Lh Lh' Lk Lk' Ltf Ltf' Ltb Ltb' Lbf Lbf' Lbb Lbb'"},
+  {flexAndColor: { flexes: "Ltf+", colors: defaultColors }},
+  {history: 'clear'}
+  ]` /]
+
+[Flexagon width:700 height:400 numPats:6 initialScript:initLtf runInitial:false options:flexagonOptions overButton:true
+  history:historyLtf doHistory:doHistoryLtf /]
+
+[Button onClick:`doHistoryLtf='undo';`]Undo[/Button] [Button onClick:`doHistoryLtf='redo';`]Redo[/Button] [Button onClick:`doHistoryLtf='reset';`]Reset[/Button] [Display value:historyLtf /]
+
+With the following template, tape together the two edges labeled *a* before folding it as usual.
+
+[var name:unfoldedLtf1 value:`{content:0, scale:200, rotation:90, end:5, captions:[{ text: 'Ltf+', which: 0 }, { text: 'a', which: -1 }]}` /]
+[var name:unfoldedLtf2 value:`{content:0, scale:200, rotation:90, start:6, captions:[{ text: 'a', which: 0 }, { text: 'Ltf+', which: -1 }]}` /]
+[FullWidth]
+  [Unfolded width:600 height:400 script:initLtf options:unfoldedLtf1 /]
+  [Unfolded width:600 height:400 script:initLtf options:unfoldedLtf2 /]
+[/FullWidth]
+
+
+## Slot tuck top back: Ltb
+
+[Aside]
+  The *slot tuck top back* requires 10 leaves.
+  Even with all the flexes we've discussed, the minimal Ltb flexagon only has two possible states,
+  which you can get to using `Ltb` and `Ltb'`.
+[/Aside]
+
+[Slides width:426 height:240 pattern:'static/Ltb/*.jpg' start:1 end:20 /]
+
+[var name:historyLtb value:'' /]
+[var name:doHistoryLtb value:'' /]
+[derived name:'initLtb' value:`[
+  {numPats: 6},
+  {searchFlexes: "P S T T' V Lh Lh' Lk Lk' Ltf Ltf' Ltb Ltb' Lbf Lbf' Lbb Lbb'"},
+  {flexAndColor: { flexes: "Ltb+", colors: defaultColors }},
+  {history: 'clear'}
+  ]` /]
+
+[Flexagon width:700 height:400 numPats:6 initialScript:initLtb runInitial:false options:flexagonOptions overButton:true
+  history:historyLtb doHistory:doHistoryLtb /]
+
+[Button onClick:`doHistoryLtb='undo';`]Undo[/Button] [Button onClick:`doHistoryLtb='redo';`]Redo[/Button] [Button onClick:`doHistoryLtb='reset';`]Reset[/Button] [Display value:historyLtb /]
+
+[Unfolded width:1000 height:500 script:initLtb options:unfoldedOptions endText:'Ltb+' /]
+
+
+## Generating sequence: Ltf+Ltb+
+
+[Aside]
+  The *slot tuck top front* and *slot tuck top back* are *pinch complements*.
+  After you do the slot and tuck, there are two different ways to open the flexagon back up
+  if the structure of the flexagon supports it.
+  Opening it up one way is the `Ltf` and the other is the `Ltb`.
+  Using a generating sequence of `Ltf+Ltb+` creates the necessary structure.
+
+  You can pinch flex between these two states.
+  Try `Ltf > P < P Ltb'` or `Ltb < P Ltf'` to see how this works.
+[/Aside]
+
+
+[var name:historyLtfLtb value:'' /]
+[var name:doHistoryLtfLtb value:'' /]
+[derived name:'initLtfLtb' value:`[
+  {numPats: 6},
+  {searchFlexes: "Ltf Ltf' Ltb Ltb' P"},
+  {flexAndColor: { flexes: "Ltf*Ltf' Ltb*Ltb'" , colors: defaultColors } },
+  {history: 'clear'}
+  ]` /]
+
+[Flexagon width:700 height:400 numPats:6 initialScript:initLtfLtb runInitial:false options:flexagonOptions overButton:true
+  history:historyLtfLtb doHistory:doHistoryLtfLtb /]
+
+[Button onClick:`doHistoryLtfLtb='undo';`]Undo[/Button] [Button onClick:`doHistoryLtfLtb='redo';`]Redo[/Button] [Button onClick:`doHistoryLtfLtb='reset';`]Reset[/Button] [Display value:historyLtfLtb /]
+
+[Unfolded width:1000 height:500 script:initLtfLtb options:unfoldedOptions endText:'Ltf+Ltb+' /]
+
+
+[hr /]
+
+## Slot tuck bottom front: Lbf
+
+[Aside]
+  The *slot tuck bottom front* requires 10 leaves.
+  You can flex to 5 different arrangements on the minimal Lh flexagon
+  by using the following flexes: `V` `Lbf` `Lbf'`.
+
+  It's also interesting to note that it rearranges the leaves in exactly the same way as `V`,
+  but `V` only requires 9 leaves.
+[/Aside]
+
+[Slides width:426 height:240 pattern:'static/Lbf/*.jpg' start:1 end:18 /]
+
+[var name:historyLbf value:'' /]
+[var name:doHistoryLbf value:'' /]
+[derived name:'initLbf' value:`[
+  {numPats: 6},
+  {searchFlexes: "P S T T' V Lh Lh' Lk Lk' Ltf Ltf' Ltb Ltb' Lbf Lbf' Lbb Lbb'"},
+  {flexAndColor: { flexes: "Lbf+", colors: defaultColors }},
+  {history: 'clear'}
+  ]` /]
+
+[Flexagon width:700 height:400 numPats:6 initialScript:initLbf runInitial:false options:flexagonOptions overButton:true
+  history:historyLbf doHistory:doHistoryLbf /]
+
+[Button onClick:`doHistoryLbf='undo';`]Undo[/Button] [Button onClick:`doHistoryLbf='redo';`]Redo[/Button] [Button onClick:`doHistoryLbf='reset';`]Reset[/Button] [Display value:historyLbf /]
+
+[Unfolded width:1000 height:500 script:initLbf options:unfoldedOptions endText:'Lbf+' /]
+
+
+## Slot tuck bottom back: Lbb
+
+[Aside]
+  The *slot tuck bottom back* requires 11 leaves.
+  You can flex to 9 different arrangements on the minimal Lbb flexagon
+  by using the following flexes: `P` `T` `T'` `V` `Lbf` `Lbf'` `Lbb` `Lbb'`.
+
+  Notice that the minimal Lbb also supports Lbf, its pinch complement.
+  Try `Lbf P < P Lbb'` or `Lbb < P > Lbf'`.
+[/Aside]
+
+[Slides width:426 height:240 pattern:'static/Lbb/*.jpg' start:1 end:21 /]
+
+[var name:historyLbb value:'' /]
+[var name:doHistoryLbb value:'' /]
+[derived name:'initLbb' value:`[
+  {numPats: 6},
+  {searchFlexes: "P S T T' V Lh Lh' Lk Lk' Ltf Ltf' Ltb Ltb' Lbf Lbf' Lbb Lbb'"},
+  {flexAndColor: { flexes: "Lbb+", colors: defaultColors }},
+  {history: 'clear'}
+  ]` /]
+
+[Flexagon width:700 height:400 numPats:6 initialScript:initLbb runInitial:false options:flexagonOptions overButton:true
+  history:historyLbb doHistory:doHistoryLbb /]
+
+[Button onClick:`doHistoryLbb='undo';`]Undo[/Button] [Button onClick:`doHistoryLbb='redo';`]Redo[/Button] [Button onClick:`doHistoryLbb='reset';`]Reset[/Button] [Display value:historyLbb /]
+
+[Unfolded width:1000 height:500 script:initLbb options:unfoldedOptions endText:'Lbb+' /]
+
+
+[hr/]
+
+# Generating sequence: Lh+Lk+Lbb+
+
+[Aside]
+  The generating sequence `Lh+Lk+Lbb+` gives you a flexagon that supports all 6 slot flexes we've discussed so far.
+  If you combine these with flexes from previous chapters
+  (the pinch flex `P`, pyramid shuffle `S`, tuck flex `T`, and v-flex `V`),
+  there are 117 different configurations reachable with combinations of those flexes.
+  You can quickly get lost, so if you try it on a paper model,
+  don't be afraid to take the flexagon apart and refold it if you want to restart your explorations.
+[/Aside]
+
+[var name:historyLhLkLbb value:'' /]
+[var name:doHistoryLhLkLbb value:'' /]
+[derived name:'initLhLkLbb' value:`[
+  {numPats: 6},
+  {searchFlexes: "P S T T' V Lh Lh' Lk Lk' Ltf Ltf' Ltb Ltb' Lbf Lbf' Lbb Lbb'"},
+  {flexes: "Lh+ Lk+ Lbb+"},
+  {flexAndColor: { flexes: "Lh+ Lk+ Lbb+ Ltb+ Lbf+" , colors: defaultColors } },
+  {history: 'clear'}
+  ]` /]
+
+[Flexagon width:700 height:400 numPats:6 initialScript:initLhLkLbb runInitial:false options:flexagonOptions overButton:true
+  history:historyLhLkLbb doHistory:doHistoryLhLkLbb /]
+
+[Button onClick:`doHistoryLhLkLbb='undo';`]Undo[/Button] [Button onClick:`doHistoryLhLkLbb='redo';`]Redo[/Button] [Button onClick:`doHistoryLhLkLbb='reset';`]Reset[/Button] [Display value:historyLhLkLbb /]
+
+[Unfolded width:1000 height:500 script:initLhLkLbb options:unfoldedOptions endText:'Lh+Lk+Lbb+' /]
+
+
+[hr/]
+
+# Slot triple pocket: L3
+
+[Aside]
+  On a pentaflexagon, the generating sequence `L3+` gives you a flexagon with 14 leaves that supports
+  the *slot triple pocket* (`L3`), the *slot pocket* (`Lk`), *slot tuck top front* (`Ltf`), and the *pyramid shuffle* (`S`).
+  There are 24 different arrangements available using those flexes.
+[/Aside]
+
+[Slides width:320 height:240 pattern:'static/L3/*.jpg' start:1 end:37 /]
+
+[var name:historyL3 value:'' /]
+[var name:doHistoryL3 value:'' /]
+[derived name:'initL3' value:`[
+  {numPats: 5},
+  {searchFlexes: "S L3 Ltf Lk"},
+  {flexes: "L3+"},
+  {flexAndColor: { flexes: "L3+ Lk+" , colors: defaultColors } },
+  {history: 'clear'}
+  ]` /]
+
+[Flexagon width:700 height:400 numPats:5 initialScript:initL3 runInitial:false options:flexagonOptions overButton:true
+  history:historyL3 doHistory:doHistoryL3 /]
+
+[Button onClick:`doHistoryL3='undo';`]Undo[/Button] [Button onClick:`doHistoryL3='redo';`]Redo[/Button] [Button onClick:`doHistoryL3='reset';`]Reset[/Button] [Display value:historyL3 /]
+
+[Unfolded width:1000 height:600 script:initL3 options:unfoldedOptions endText:'L3+' /]
+
+
+# What next?
+
+This chapter showed a variety of slot flexes on the hexaflexagon and pentaflexagon.
+But you can also do flexes such as the slot tuck top front and slot pocket on the heptaflexagon, octaflexagon, etc.
+You could try these out at the [Flexagon Playground](playground.html).
+And there are other ways you could try combining slots with various flexes on paper flexagons.
+Feel free to experiment!
+
+Return to the [Table of Contents](index.html).
+
+[FullWidth]
+  [a href:'http://loki3.com/flex/' ]
+  [img src:'static/flexagon-variety.jpg' /]
+  [/a]
+[/FullWidth]
+
+[Copyright/]

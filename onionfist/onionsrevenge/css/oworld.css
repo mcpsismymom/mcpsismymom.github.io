@@ -1,0 +1,32 @@
+#oworld_back {
+    visibility: hidden;
+    position: fixed;
+    z-index: 20;
+    display: inline-flex;
+
+    align-items: center;
+    justify-content: center;
+
+
+    width: 100%;
+    left: 0px;
+    right: 0px;
+
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 340px;
+
+    text-align: center;
+    cursor: pointer;
+}
+#oworld_back:hover {
+    opacity: 0.8;
+}
+#oworld_back img {
+    height: 30px;
+    flex: 1;
+}
+#oworld_back h1 {
+    color: #5CE3F2;
+    flex: 3;
+}

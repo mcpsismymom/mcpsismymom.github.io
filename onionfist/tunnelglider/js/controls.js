@@ -1,0 +1,89 @@
+var controls = {
+  left: false,
+  right: false,
+  up: false,
+  down: false,
+  mouse_x: 0,
+  mouse_y: 0,
+  init: function() {
+    this.bind_keys();
+    this.bind_mouse();
+  },
+  bind_mouse: function() {
+    $(document).mousedown(controls.mousedown);
+    $(document).mouseup(controls.mouseup);
+
+    $(document).mousemove(function(event) {
+      controls.mouse_x = event.pageX;
+      controls.mouse_y = event.pageY;
+
+      // NOTE: Use this instead:
+      // >> app.renderer.plugins.interaction.mouse.global;
+    });
+  },
+  mousedown: function(event) {
+    // event.pageY
+    // window.innerHeight
+
+  },
+  mouseup: function() {
+
+
+
+  },
+  bind_keys: function() {
+    document.onkeydown = function(e) {
+      // left
+      if ((e.keyCode == 37) || (e.keyCode == 65)) {
+        controls.left = true; controls.right = false;
+      }
+      // right
+      if ((e.keyCode == 39) || (e.keyCode == 68)) {
+        controls.right = true; controls.left = false;
+      }
+      // up
+      if ((e.keyCode == 38) || (e.keyCode == 87)) {
+        controls.up = true; controls.down = false;
+      }
+      // down
+      if ((e.keyCode == 40) || (e.keyCode == 83)) {
+        controls.down = true; controls.up = false;
+      }
+      // spacebar
+      if (e.keyCode == 32) {
+      }
+      // escape
+      if (e.keyCode == 27) {
+      }
+      // enter
+      if (e.keyCode == 13) {
+      }
+
+      // const num_keys = [49, 50, 51, 52, 53, 54, 55];
+      // for (var i=0;i<num_keys.length;i++) {
+      //   if (e.keyCode == num_keys[i]) {
+      //     hand.key(i);
+      //   }
+      // }
+      
+    }
+    document.onkeyup = function(e) {
+      // left
+      if ((e.keyCode == 37) || (e.keyCode == 65)) {
+        controls.left = false;
+      }
+      // right
+      if ((e.keyCode == 39) || (e.keyCode == 68)) {
+        controls.right = false;
+      }
+      // up
+      if ((e.keyCode == 38) || (e.keyCode == 87)) {
+        controls.up = false;
+      }
+      // down
+      if ((e.keyCode == 40) || (e.keyCode == 83)) {
+        controls.down = false;
+      }
+    }
+  }
+}

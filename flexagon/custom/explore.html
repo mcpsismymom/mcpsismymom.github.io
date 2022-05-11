@@ -1,0 +1,272 @@
+<meta charset="UTF-8">
+<html>
+
+<head>
+  <title>Flexagon Explorer</title>
+  <script src="../build/out.js"></script>
+  <script type="text/javascript">
+    var fm;
+    var explorer;
+    var cancelled = false;
+
+    function runScript() {
+      statusMessage("error parsing script");
+      var scriptBox = document.getElementById('script');
+      if (scriptBox === null) {
+        return false;
+      }
+      var result = Flexagonator.runScriptString(fm, scriptBox.value);
+      if (Flexagonator.isError(result)) {
+        var str = Flexagonator.errorToString(result);
+        statusMessage(str);
+        return false;
+      }
+      fm = result;
+      return true;
+    }
+
+    function startExplore(includeRight, includeOver) {
+      if (runScript()) {
+        cancelled = false;
+        clearStates();
+        var right = includeRight ? fm.allFlexes['>'] : undefined;
+        var over = includeOver ? fm.allFlexes['^'] : undefined;
+        explorer = new Flexagonator.Explore(fm.flexagon, fm.flexesToSearch, right, over);
+        explore(explorer);
+      }
+    }
+
+    function explore(explorer) {
+      if (cancelled) {
+        statusMessage("CANCELLED after " + explorer.getTotalStates() + " states");
+        return;
+      }
+      while (explorer.checkNext()) {
+        if (explorer.getExploredStates() % 100 == 0) {
+          var str = "explored " + explorer.getExploredStates() + " states, found " + explorer.getTotalStates() + " states";
+          statusMessage(str);
+          setTimeout(explore, 0, explorer);
+          return;
+        }
+      }
+
+      var str = "DONE: found " + explorer.getTotalStates() + " states";
+      str += " - (" + fm.flexagon.getLeafCount() + " leaves)";
+      statusMessage(str);
+    }
+
+    function cancel() {
+      cancelled = true;
+    }
+
+    function statusMessage(message) {
+      var statusDiv = document.getElementById('status');
+      if (statusDiv !== null) {
+        statusDiv.innerHTML = message;
+      }
+    }
+
+    function showStates(flexagons) {
+      var box = document.getElementById('states');
+      if (box !== null) {
+        var str = "";
+        for (var i = 0; i < flexagons.length; i++) {
+          var tree = flexagons[i].getAsLeafTrees();
+          str += i.toString() + ": " + JSON.stringify(tree) + '\n';
+        }
+        box.value = str;
+      }
+    }
+
+    function clearStates() {
+      var box = document.getElementById('states');
+      if (box !== null) {
+        box.value = "";
+      }
+    }
+
+    function showVisible(flexagons) {
+      var box = document.getElementById('states');
+      if (box !== null) {
+        var str = "";
+        for (var i = 0; i < flexagons.length; i++) {
+          var visible = flexagons[i].getVisible();
+          str += i.toString() + ": " + JSON.stringify(visible) + '\n';
+        }
+        box.value = str;
+      }
+    }
+
+    function showFlexes(found) {
+      var box = document.getElementById('states');
+      if (box !== null) {
+        var str = "";
+        for (var i = 0; i < found.length; i++) {
+          var s = i.toString() + ": " + Flexagonator.relativeFlexesToString(found[i]) + '\n';
+          str += s;
+        }
+        box.value = str;
+      }
+    }
+
+    function showCounts(found) {
+      var box = document.getElementById('states');
+      if (box !== null) {
+        var flexCounts = Flexagonator.countStatesThatSupportFlexes(found);
+        var str = "states that support flexes\n\n";
+        var entries = Object.entries(flexCounts);
+        for (var i = 0; i < entries.length; i++) {
+          var line = entries[i][0] + '\t' + entries[i][1] + '\n';
+          str += line;
+        }
+        box.value = str;
+      }
+    }
+
+    function showDotSimple(found) {
+      var box = document.getElementById('states');
+      if (box !== null) {
+        box.value = Flexagonator.dotSimple(found);
+      }
+    }
+
+    function showDotFlexes(found, oneway) {
+      var box = document.getElementById('states');
+      if (box !== null) {
+        box.value = Flexagonator.dotWithFlexes(found, oneway);
+      }
+    }
+
+    function findStates(key, input) {
+      if (key == 13) {
+        var visible = JSON.parse(input);
+        var result = explorer.getFlexGraph().findVisible(visible);
+        var output = document.getElementById('visibleOutput');
+        if (result.length == 0)
+          output.innerHTML = "not found";
+        else
+          output.innerHTML = JSON.stringify(result);
+      }
+    }
+
+    function findShortest(includeRight, includeOver) {
+      var searchStartStr = document.getElementById('searchStart').value;
+      var searchEndStr = document.getElementById('searchEnd').value;
+      var output = document.getElementById('flexSequence');
+      var searchStart = Flexagonator.parseLeafTrees(searchStartStr);
+      var searchEnd = Flexagonator.parseLeafTrees(searchEndStr);
+      if (Flexagonator.isError(searchStart)) {
+        var str = Flexagonator.errorToString(searchStart);
+        output.innerHTML = str;
+        return;
+      }
+      if (Flexagonator.isError(searchEnd)) {
+        var str = Flexagonator.errorToString(searchEnd);
+        output.innerHTML = str;
+        return;
+      }
+
+      var right = includeRight ? fm.allFlexes['>'] : undefined;
+      var over = includeOver ? fm.allFlexes['^'] : undefined;
+      var find = Flexagonator.FindShortest.make(searchStart, searchEnd, fm.flexesToSearch, right, over);
+      if (Flexagonator.isError(find)) {
+        var str = Flexagonator.errorToString(find);
+        output.innerHTML = str;
+        return;
+      }
+
+      output.innerHTML = "searching...";
+      while (find.checkLevel()) {
+      }
+      if (find.wasFound()) {
+        output.innerHTML = find.getFlexes();
+      } else {
+        output.innerHTML = "not found - searched " + find.getMaxDepth() + " levels deep";
+      }
+    }
+
+    function findDisconnected() {
+      var output = document.getElementById('disconnected');
+      output.innerHTML = 'searching...';
+      var useFlex = document.getElementById('useFlex').value;
+
+      var found = explorer.getFoundFlexes();
+      var result = Flexagonator.findSubgraphs(found, useFlex);
+
+      output.innerHTML = getUniqueSubgraphCount(result) + '<br/><br/>' + getCountPerSize(result);
+    }
+
+    function getUniqueSubgraphCount(stats) {
+      return stats.uniqueSubgraphs + ' disconnected graphs';
+    }
+    function getCountPerSize(stats) {
+      var counts = stats.sizesAndSubgraphCounts.map(one => one.size.toString() + ': ' + one.subgraphCount.toString());
+      var countsStr = counts.reduce((prev, curr) => prev + curr + '<br/>', '');
+      return 'graph size: number of subgraphs<br/>' + countsStr;
+    }
+  </script>
+</head>
+
+<body>
+  <h1>Flexagon Explorer</h1>
+
+  <p>
+    Run a script to describe a flexagon, then explore all the states of that flexagon.
+  </p>
+
+  <p>
+    <input onclick="startExplore(true, true);" type="button" value="explore" />
+    <input onclick="startExplore(true, false);" type="button" value="explore (no ^)" />
+    <input onclick="startExplore(false, true);" type="button" value="explore (no >)" /> -
+    <input onclick="cancel();" type="button" value="cancel" />
+  </p>
+
+    <p>
+      <textarea id="script" cols="100" rows="7" spellcheck="false"></textarea>
+    </p>
+
+    <div id="status"></div>
+
+    <p>
+      <input onclick="showStates(explorer.getFlexagons());" type="button" value="show states" />
+      <input onclick="showVisible(explorer.getFlexagons());" type="button" value="show visible" />
+      <input onclick="showFlexes(explorer.getFoundFlexes());" type="button" value="show flexes" />
+      <input onclick="showCounts(explorer.getFoundFlexes());" type="button" value="show counts" />
+      <input onclick="showDotSimple(explorer.getFoundFlexes());" type="button" value="DOT: state to state" />
+      <input onclick="showDotFlexes(explorer.getFoundFlexes(), true);" type="button" value="DOT: flexes" />
+      <input onclick="showDotFlexes(explorer.getFoundFlexes(), false);" type="button" value="DOT: directed flexes" />
+  </p>
+
+      <p>
+        <textarea id="states" cols="100" rows="30" spellcheck="false" readonly="true"></textarea>
+      </p>
+
+      <p>
+        Find which state(s) has a given set of visible leaves [ [top1, top2...], [bottom1, bottom2...] ]
+        <br/>
+        <input onkeypress="findStates(event.keyCode, event.target.value)" id="visibleInput" size="100" spellcheck="false" />
+        <div id="visibleOutput">-</div>
+      </p>
+
+      <p>
+        <input onclick="findShortest(true, true);" type="button" value="Find" /> the shortest flex sequence that will take you between
+    two flexagons given by pat notation:
+        <br/>
+        <input onclick="findShortest(true, false);" type="button" value="Find (no ^)" />
+        <input onclick="findShortest(false, true);" type="button" value="Find (no >)" />
+        <br/>
+        <input id="searchStart" size="100" spellcheck="false" />
+        <br/>
+        <input id="searchEnd" size="100" spellcheck="false" />
+        <div id="flexSequence">-</div>
+      </p>
+
+      <p>
+        <input onclick="findDisconnected();" type="button" value="Find" />
+        how many disconnected graphs there are when only using the
+        <input id="useFlex" size="5" spellcheck="false" value="P" /> flex
+        <div id="disconnected">-</div>
+      </p>
+</body>
+
+</html>

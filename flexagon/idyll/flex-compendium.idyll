@@ -1,0 +1,756 @@
+[meta title:"Flex Compendium" description:"Details about flexes on triangle flexagons" /]
+
+[Aside]
+  [br/]
+  An appendix from[br/]
+  [Explorable Flexagons](index.html)
+[/Aside]
+
+[Header
+  title:"Flex Compendium"
+  subtitle:"Details about flexes on triangle flexagons"
+  author:"Scott Sherman"
+  authorLink:"http://loki3.com/flex" /]
+
+
+[Aside]
+### Flexes:
+
+rotations:
+* [link text:'> < ^' url:'#Rotations' /]
+various flexes:
+* [link text:'F: flip flex' url:'#F' /]
+* [link text:'S : pyramid shuffle flex' url:'#S' /]
+* [link text:'St : silver tetra flex' url:'#St' /]
+* [link text:'Tk : ticket flex' url:'#Tk' /]
+* [link text:'Tw : twist flex' url:'#Tw' /]
+* [link text:'V : v-flex' url:'#V' /]
+pinch flexes:
+* [link text:'P : pinch flex' url:'#P' /]
+* [link text:'P44' url:'#P44' /], [link text:'P55' url:'#P55' /], [link text:'P66' url:'#P66' /]
+* [link text:'P333' url:'#P333' /], [link text:'P334' url:'#P334' /], [link text:'P444' url:'#P444' /]
+* [link text:'P3333' url:'#P3333' /]
+slot flexes:
+* [link text:'L3 : slot triple pocket flex' url:'#L3' /]
+* [link text:'Lh : slot half flex' url:'#Lh' /]
+* [link text:'Lk : slot pocket' url:'#Lk' /]
+* [link text:'Lbf : slot tuck bottom front flex' url:'#Lbf' /]
+* [link text:'Lbb : slot tuck bottom back flex' url:'#Lbb' /]
+* [link text:'Ltf : slot tuck top front flex' url:'#Ltf' /]
+* [link text:'Ltb : slot tuck top back flex' url:'#Ltb' /]
+tuck flexes:
+* [link text:'T, T1, T2... : tuck flex' url:'#T' /]
+* [link text:'Tf : forced tuck' url:'#Tf' /]
+* [link text:'Ttf : tuck top front flex' url:'#Ttf' /]
+[/Aside]
+
+This is a collection of flexes that work on triangle flexagons,
+some of which also work on flexagons made up of squares, pentagons, etc.
+
+*Note: This is not intended to be a complete list.*
+There are other variants, other flexes, and other types of flexagons.
+
+
+# Flex Details
+
+Each flex description contains details about the flex, e.g. if it's *prime*, which flexagons it works on,
+and the *pat notation* that describes how it changes the internal structure of the flexagon.
+Here is more background on some of those details.
+
+## Prime
+
+This lists whether or not the flex is prime relative to the rest of the flexes on this page, excluding the [a href:'#Tf']*forced tuck*[/a].
+
+Prime flexes by number of pats:
+
+* 4: [link text:'P' url:'#P' /]
+* 5: [link text:'L3' url:'#L3' /], [link text:'Ltf' url:'#Ltf' /], [link text:'S' url:'#S' /]
+* 6: [link text:'F' url:'#F' /], [link text:'Ltf' url:'#Ltf' /], [link text:'Ltb' url:'#Ltb' /], [link text:"Ltb'" url:'#Ltb' /], [link text:'P' url:'#P' /], [link text:'S' url:'#S' /], [link text:'T' url:'#T' /], [link text:"T'" url:'#T' /], [link text:'V' url:'#V' /]
+* 7: [link text:'F' url:'#F' /], [link text:'Ltf' url:'#Ltf' /], [link text:'S' url:'#S' /], [link text:'T' url:'#T' /], [link text:"T'" url:'#T' /]
+* 8: [link text:'F' url:'#F' /], [link text:'Ltf' url:'#Ltf' /], [link text:'P' url:'#P' /], [link text:'S' url:'#S' /], [link text:'T' url:'#T' /], [link text:"T'" url:'#T' /], [link text:'Tw' url:'#Tw' /]
+* 9: [link text:'F' url:'#F' /], [link text:'Ltf' url:'#Ltf' /], [link text:'S' url:'#S' /], [link text:'T' url:'#T' /], [link text:"T'" url:'#T' /]
+* 10: [link text:'F' url:'#F' /], [link text:'Ltf' url:'#Ltf' /], [link text:'P' url:'#P' /], [link text:'S' url:'#S' /], [link text:'T' url:'#T' /], [link text:"T'" url:'#T' /], [link text:'Tw' url:'#Tw' /]
+* 11: [link text:'F' url:'#F' /], [link text:'Ltf' url:'#Ltf' /], [link text:'S' url:'#S' /], [link text:'T' url:'#T' /], [link text:"T'" url:'#T' /]
+* 12: [link text:'F' url:'#F' /], [link text:'Ltf' url:'#Ltf' /], [link text:'P' url:'#P' /], [link text:'S' url:'#S' /], [link text:'T' url:'#T' /], [link text:"T'" url:'#T' /], [link text:'Tw' url:'#Tw' /]
+
+## Inverse
+
+For a given flex `A`, the following equality is often true: `A' = ^A^`,
+i.e. doing flex in reverse is the same as turning it over, doing the flex, then turning it back over.
+But for some flexes the before and after structures are different enough that this doesn't hold.
+The simplest way to figure out if this is true is to use the Flexagon Simulator in the [Flexagon Playground](playground.html).
+First try the generating sequence `A*`, which creates the necessary structure for the flex and performs the flex.
+Then compare that to the flexagon you get from the generating seuqence `A* ^ A* ^`.
+If they both create a flexagon with the same number of leaves, then `A' = ^A^`, otherwise `A' != ^A^`.
+
+This is a useful detail to know when you're trying to explore all the states of a flexagon,
+because you'll need to include a flex's inverse in the search if `A` and `A'` are prime but `A' != ^A^`.
+
+## Number of pats
+
+A *pat* is a stack of leaves in a flexagon.
+There are 6 pats in a hexaflexagon, 8 in an octaflexagon, etc.
+Many flexes work on a range of flexagons, e.g. the *pyramid shuffle* works on any flexagon with 5 or more pats.
+
+## Number of leaves
+
+A *leaf* is one of the individual polygons in a flexagon.
+Each flex will list the number of leaves in the *minimal flexagon*, i.e. the simplest flexagon that supports that flex.
+It will be expressed as a function of N, the number of pats.
+For example, the flip flex needs 4 more leaves than there are pats, described as *N + 4*.
+
+## Special requirements
+
+Some flexes may have additional requirements of the flexagon in order to work.
+For example, the *silver tetra flex* works best on *right triangle flexagons*, and may not work on some flexagons.
+More details on these requirements can be found on the [New Flexes](new-flexes.html) page under *More details*.
+
+## Pat shorthand
+
+The left-hand side shows shorthand for the *before* state of the flexagon,
+while the right-hand side shows shorthand for the *after* state of the flexagon.
+Possibilities include 1, 2, 3, -3, 4a, -4a, 4b, 4c, and -4c, as described on the [New Flexes](new-flexes.html) page.
+
+## Flex definition
+
+Each section contains the flex definition using *pat notation* as described in the [New Flexes](new-flexes.html) chapter.
+Flexes that apply to a range of different numbers of pats use a generalized form.
+For example, the following is the definition for the *flip flex*:
+
+* in: `[ [1,2], 3, ... i, ... [[n-4,n-3],[n-2,n-1]], n ]`
+* out: `[ n-3, [[-1,3],[n,-2]] ... i, ... n-2, [-(n-4),-(n-1)] ]`
+
+The pattern between the pairs of ...'s applies to every unspecified pat.
+In this case, it simply means that all those pats have a single leaf in them.
+Other flexes may have something like `[i,i+1]` to indicate two leaves in a pat.
+`n` refers to the number of pats.
+For example, if `n=7`, then the final pat of the resulting flexagon (`[-(n-4),-(n-1)]`) would be `[-3,-6]`.
+
+
+# How to fold
+
+The section for every flex shows what the unfolded template looks like, even as you switch between different types of flexagons.
+The following are general instructions for creating a real working flexagon from the templates:
+
+[HowToFold /]
+
+
+[FullWidth][hr/][/FullWidth]
+
+[a name:'Rotations'/]
+# *Rotations*
+
+*Rotations* simply change the *current hinge*, i.e. the hinge where the next flex starts.
+
+* `<`: Shift the current hinge one step counterclockwise (to the left if the current hinge is at the top)
+* `>`: Shift the current hinge one step clockwise (to the right if the current hinge is at the top)
+* `^`: Turn over the flexagon, keep the same current hinge
+
+
+# *Triangle flexes*
+
+[hr/]
+[a name:'F'/]
+[h2 className:"flex"]F: flip flex[/h2]
+
+This flex works especially well on flexagons with right angles, though only at the "points" of the bounding polygon,
+not at the vertices in the middle of an edge.
+The heptaflexagon, with 7 pats, has just enough freedom to be able to do the flip flex,
+though it can be tricky to carry out if you haven't done it before.
+
+[Aside]
+  [Slides width:320 height:240 pattern:'static/F/F*.jpg' start:1 end:16 /]
+[/Aside]
+
+[Table data: `[
+  {property: 'Prime?', value: "yes"},
+  {property: 'Inverse', value: "F' = ^F^"},
+  {property: 'Number of pats', value: "6 or more"},
+  {property: 'Number of leaves', value: "N + 4"},
+  {property: 'Special requirements', value: "only works with certain leaf angles"},
+  {property: '2 1 1 1 4b 1', value: '1 4b 1 1 1 2'}
+]`/][br/]
+
+[FullWidth]
+* in: `[ [1,2], 3, ... i, ... [[n-4,n-3],[n-2,n-1]], n ]`
+* out: `[ n-3, [[-1,3],[n,-2]] ... i, ... n-2, [-(n-4),-(n-1)] ]`
+[/FullWidth]
+
+[Sampler generator:'F+' patType:7 patOptions:`['6R', 7, 8, '8R', 9, 10, '10R', 11, 12, '12R']` /]
+
+
+[hr/]
+[a name:'L3'/]
+[h2 className:"flex"]L3: slot triple pocket flex[/h2]
+
+[Aside]
+  [Slides width:320 height:240 pattern:'static/L3/*.jpg' start:1 end:37 /]
+
+  [br/]
+  TO DO: Generalize
+[/Aside]
+
+[Table data: `[
+  {property: 'Prime?', value: "yes"},
+  {property: 'Inverse', value: "L3' = ^L3^"},
+  {property: 'Number of pats', value: "5"},
+  {property: 'Number of leaves', value: "N + 9"},
+  {property: 'Special requirements', value: "no"},
+  {property: '4a 4a 1 4a 1', value: '1 -4a 1 -4a -4a'}
+]`/][br/]
+
+[FullWidth]
+* in: `[ [[[12,-11],-13],10], [[[2,-1],-3],-14], -4, [[[-7,6],8],-5], 9 ]`
+* out: `[ -2, [6,[-3,[-5,4]]], 7, [-11,[8,[10,-9]]], [-1,[-12,[-14,13]]] ]`
+[/FullWidth]
+
+[Sampler generator:'L3+' patType:5 patOptions:`[5]` /]
+
+
+[hr/]
+[a name:'Lh'/]
+[h2 className:"flex"]Lh: slot half flex[/h2]
+
+[Aside]
+  [Slides width:426 height:240 pattern:'static/Lh/*.jpg' start:1 end:17 /]
+
+  TO DO: Does this flex generalize beyond the hexaflexagon?
+[/Aside]
+
+[Table data: `[
+  {property: 'Prime?', value: "no, Lh = Ltb T'"},
+  {property: 'Inverse', value: "Lh' != ^Lh^"},
+  {property: 'Number of pats', value: "6"},
+  {property: 'Number of leaves', value: "N + 5"},
+  {property: 'Special requirements', value: "no"},
+  {property: '4c 1 1 1 3 1', value: '3 1 1 2 3 1'}
+]`/][br/]
+
+[FullWidth]
+* in: `[ [[1,[2,3]],4], 5, 6, 7, [[8,9],10], 11 ]`
+* out: `[ [[11,-4],-9], 1, -3, [-5,2], [[7,-10],-6], 8 ]`
+[/FullWidth]
+
+[Sampler generator:'Lh+' patType:6 patOptions:`[6]` /]
+
+
+[hr/]
+[a name:'Lk'/]
+[h2 className:"flex"]Lk: slot pocket[/h2]
+
+[Aside]
+  [Slides width:426 height:240 pattern:'static/Lk/*.jpg' start:1 end:18 /]
+[/Aside]
+
+[Table data: `[
+  {property: 'Prime?', value: "no, Lk = Ltf > S <"},
+  {property: 'Inverse', value: "Lk' = ^Lk^"},
+  {property: 'Number of pats', value: "5 or more"},
+  {property: 'Number of leaves', value: "N + 6"},
+  {property: 'Special requirements', value: "no"},
+  {property: '4a 1 1 1 4a 1', value: '1 -4a 1 1 1 -4a'}
+]`/][br/]
+
+[FullWidth]
+* in: `[ [[[1,2],3],4], ... i, ... n-5, [[[n-4,n-3],n-2],n-1], n ]`
+* out: `[ -(n-4), [2,[n-2,[4,-n]]], -1, 3, ... i, ... [n-3,[n-6,[n-1,-(n-5)]]] ]`
+[/FullWidth]
+
+[Sampler generator:'Lk+' patType:5 patOptions:`[5, 6, 7, 8, 9, 10, 11, 12]` split:5 scale:`[300, 280, 220, 205, 175, 165, 145, 135]` /]
+
+
+[hr/]
+[a name:'Lbf'/]
+[h2 className:"flex"]Lbf: slot tuck bottom front flex[/h2]
+
+[Aside]
+  [Slides width:426 height:240 pattern:'static/Lbf/*.jpg' start:1 end:18 /]
+
+  TO DO: Does this flex generalize beyond the hexaflexagon?
+[/Aside]
+
+[Table data: `[
+  {property: 'Prime?', value: "no, Lbf ~= V"},
+  {property: 'Inverse', value: "Lbf' != ^Lbf^"},
+  {property: 'Number of pats', value: "6"},
+  {property: 'Number of leaves', value: "N + 4"},
+  {property: 'Special requirements', value: "no"},
+  {property: '3 2 1 1 2 1', value: '2 1 2 2 1 2'}
+]`/][br/]
+
+[FullWidth]
+* in: `[ [[1,2],10], [4,3], 5, 6, [8,7], 9 ]`
+* out: `[ [-2,-1], -3, [-5,4], [7,-6], -8, [10,-9] ]`
+[/FullWidth]
+
+[Sampler generator:'Lbf+' patType:6 patOptions:`[6]` /]
+
+
+[hr/]
+[a name:'Lbb'/]
+[h2 className:"flex"]Lbb: slot tuck bottom back flex[/h2]
+
+[Aside]
+  [Slides width:426 height:240 pattern:'static/Lbb/*.jpg' start:1 end:21 /]
+
+  TO DO: Does this flex generalize beyond the hexaflexagon?
+[/Aside]
+
+[Table data: `[
+  {property: 'Prime?', value: "no, Lbb = Lbf < P' >"},
+  {property: 'Inverse', value: "Lbb' != ^Lbb^"},
+  {property: 'Number of pats', value: "6"},
+  {property: 'Number of leaves', value: "N + 5"},
+  {property: 'Special requirements', value: "no"},
+  {property: '3 2 1 1 3 1', value: '1 2 1 3 1 3'}
+]`/][br/]
+
+[FullWidth]
+* in: `[ [[2,-3],-1], [5,-4], 6, 7, [[-9,10],8], 11 ]`
+* out: `[ 2, [-4,3], -5, [[7,-8],-6], -9, [[11,1],-10] ]`
+[/FullWidth]
+
+[Sampler generator:'Lbb+' patType:6 patOptions:`[6]` /]
+
+
+[hr/]
+[a name:'Ltf'/]
+[h2 className:"flex"]Ltf: slot tuck top front flex[/h2]
+
+[Aside]
+  [Slides width:426 height:240 pattern:'static/Ltf/*.jpg' start:1 end:21 /]
+[/Aside]
+
+[Table data: `[
+  {property: 'Prime?', value: "yes"},
+  {property: 'Inverse', value: "Ltf' = ^Ltf^"},
+  {property: 'Number of pats', value: "5 or more"},
+  {property: 'Number of leaves', value: "N + 4"},
+  {property: 'Special requirements', value: "no"},
+  {property: '4a 1 1 1 2 1', value: '1 2 1 1 1 -4a'}
+]`/][br/]
+
+[FullWidth]
+* in: `[ [[[1,2],3],4] ... i, ... n-4, n-3, [n-2,n-1], n ]`
+* out: `[ n, [2,4] -1, 3 ... i, ... [n-2,[n-4,[n-1,-(n-3)]]] ]`
+[/FullWidth]
+
+[Sampler generator:'Ltf+' patType:5 patOptions:`[5, 6, 7, 8, 9, 10, 11, 12]` split:4 scale:`[300, 310, 280, 240, 190, 165, 145, 130]` /]
+
+
+[hr/]
+[a name:'Ltb'/]
+[h2 className:"flex"]Ltb: slot tuck top back flex[/h2]
+
+[Aside]
+  [Slides width:426 height:240 pattern:'static/Ltb/*.jpg' start:1 end:20 /]
+
+  TO DO: Does this flex generalize beyond the hexaflexagon?
+[/Aside]
+
+[Table data: `[
+  {property: 'Prime?', value: "yes"},
+  {property: 'Inverse', value: "Ltb' != ^Ltb^"},
+  {property: 'Number of pats', value: "6"},
+  {property: 'Number of leaves', value: "N + 4"},
+  {property: 'Special requirements', value: "no"},
+  {property: '4c 1 1 1 2 1', value: '1 1 1 2 3 2'}
+]`/][br/]
+
+[FullWidth]
+* in: `[ [[1,[2,3]],4], 5, 6, 7, [8,9], 10 ]`
+* out: `[ -4, 1, -3, [-5,2], [[7,-9],-6], [-10,8] ]`
+[/FullWidth]
+
+[Sampler generator:'Ltb+' patType:6 patOptions:`[6]` /]
+
+
+[hr/]
+[a name:'P'/]
+[h2 className:"flex"]P: pinch flex[/h2]
+
+With the pinch flex, you "pinch" every other hinge all the way around the flexagon,
+then open it back up from the center.
+There are variations on higher order flexagons (like the octaflexagon or decaflexagon)
+where you skip more than one hinge between pinches.
+
+[Aside]
+  [img src:'static/pinch-flex.jpg' /]
+[/Aside]
+
+[Table data: `[
+  {property: 'Prime?', value: "yes"},
+  {property: 'Inverse', value: "P' = ^P^"},
+  {property: 'Number of pats', value: "even"},
+  {property: 'Number of leaves', value: "N * 3 / 2"},
+  {property: 'Special requirements', value: "yes"},
+  {property: '2 1 2 1 2 1', value: '1 2 1 2 1 2'}
+]`/][br/]
+
+[FullWidth]
+* in: `[ [1,2], 3, ... [i,i+1], i+2, ... [n-2,n-1], n ]`
+* out: `[ -1, [5,-3] ... -i, [i+4,-(i+2)], ... -(n-2), [2,-n] ]`
+[/FullWidth]
+
+[Sampler generator:'P+' patType:6 patOptions:`['4e', 6, '6r', 8, '8r', 10, '10r', 12, '12r']` /]
+
+
+[hr/]
+[a name:'P44'/]
+[h2 className:"flex"]P44: pinch 44[/h2]
+
+[Table data: `[
+  {property: 'Prime?', value: "no, P44 = T2 (>)4 T1 (>)4"},
+  {property: 'Inverse', value: "P44' = ^P44^"},
+  {property: 'Number of pats', value: "8"},
+  {property: 'Number of leaves', value: "N + 4"},
+  {property: 'Special requirements', value: "no"}
+]`/][br/]
+
+[Sampler generator:'P44+' patType:8 patOptions:`[8]` /]
+
+
+[hr/]
+[a name:'P333'/]
+[h2 className:"flex"]P333: pinch 333[/h2]
+
+[Table data: `[
+  {property: 'Prime?', value: "no, P333 = T1 (>)3 T1 (>)3 T3 (>)3"},
+  {property: 'Inverse', value: "P333' = ^P333^"},
+  {property: 'Number of pats', value: "9"},
+  {property: 'Number of leaves', value: "N + 6"},
+  {property: 'Special requirements', value: "no"}
+]`/][br/]
+
+[Sampler generator:'P333+' patType:9 patOptions:`[9]` /]
+
+
+[hr/]
+[a name:'P334'/]
+[h2 className:"flex"]P334: pinch 334[/h2]
+
+[Aside]
+  [Slides width:320 height:240 pattern:'static/P3-3-4/*.jpg' start:1 end:13 /]
+[/Aside]
+
+[Table data: `[
+  {property: 'Prime?', value: "no, P334 = T1 (>)3 T1 (>)3 T1 (>)4"},
+  {property: 'Inverse', value: "P334' = ^P334^"},
+  {property: 'Number of pats', value: "10"},
+  {property: 'Number of leaves', value: "N + 6"},
+  {property: 'Special requirements', value: "no"}
+]`/][br/]
+
+[Sampler generator:'P334+' patType:10 patOptions:`[10]` /]
+
+
+[hr/]
+[a name:'P55'/]
+[h2 className:"flex"]P55: pinch 55[/h2]
+
+[Table data: `[
+  {property: 'Prime?', value: "no, P55 = T3 (>)5 T2 (>)5"},
+  {property: 'Inverse', value: "P55' = ^P55^"},
+  {property: 'Number of pats', value: "10"},
+  {property: 'Number of leaves', value: ""},
+  {property: 'Special requirements', value: "no"}
+]`/][br/]
+
+[Sampler generator:'P55+' patType:10 patOptions:`[10]` /]
+
+
+[hr/]
+[a name:'P3333'/]
+[h2 className:"flex"]P3333: pinch 3333[/h2]
+
+[Table data: `[
+  {property: 'Prime?', value: "P3333 = T1 (>)3 T1 (>)3 T1 (>)3 T3 (>)3"},
+  {property: 'Inverse', value: "P3333' = ^P3333^"},
+  {property: 'Number of pats', value: "12"},
+  {property: 'Number of leaves', value: "N + 8"},
+  {property: 'Special requirements', value: "no"}
+]`/][br/]
+
+[Sampler generator:'P3333+' patType:12 patOptions:`[12]` /]
+
+
+[hr/]
+[a name:'P444'/]
+[h2 className:"flex"]P444: pinch 444[/h2]
+
+[Aside]
+  [Slides width:320 height:240 pattern:'static/P4-4-4/*.jpg' start:1 end:13 /]
+[/Aside]
+
+[Table data: `[
+  {property: 'Prime?', value: "no, P444 = T2 (>)4 T2 (>)4 T1 (>)4"},
+  {property: 'Inverse', value: "P444' = ^P444^"},
+  {property: 'Number of pats', value: "12"},
+  {property: 'Number of leaves', value: "N + 6"},
+  {property: 'Special requirements', value: "no"}
+]`/][br/]
+
+[Sampler generator:'P444+' patType:12 patOptions:`[12]` /]
+
+
+[hr/]
+[a name:'P66'/]
+[h2 className:"flex"]P66: pinch 66[/h2]
+
+[Table data: `[
+  {property: 'Prime?', value: "no, P66 = T4 (>)6 T3 (>)6"},
+  {property: 'Inverse', value: "P66' = ^P66^"},
+  {property: 'Number of pats', value: "12"},
+  {property: 'Number of leaves', value: "N + 4"},
+  {property: 'Special requirements', value: "no"}
+]`/][br/]
+
+[Sampler generator:'P66+' patType:12 patOptions:`[12]` /]
+
+
+[hr/]
+[a name:'S'/]
+[h2 className:"flex"]S: pyramid shuffle flex[/h2]
+
+[Aside]
+  [Slides width:320 height:240 pattern:'static/Sh/Sh*.jpg' start:1 end:17 /]
+
+  TO DO: Describe variant
+[/Aside]
+
+[Table data: `[
+  {property: 'Prime?', value: "yes"},
+  {property: 'Inverse', value: "S' = ^>S<^"},
+  {property: 'Number of pats', value: "5 or more"},
+  {property: 'Number of leaves', value: "N + 4"},
+  {property: 'Special requirements', value: "no"},
+  {property: '2 1 1 1 4a 1', value: '1 -4a 1 1 1 2'}
+]`/][br/]
+
+[FullWidth]
+* in: `[ [1,2], 3, ... i, ... [[[n-4,n-3],n-2],n-1], n ]`
+* out: `[ -(n-4), [1,[n-2,[2,-n]]], 3, ... i, ... [n-3,n-1] ]`
+[/FullWidth]
+
+[Sampler generator:'S+' patType:6 patOptions:`[5, 6, '6r', '6R', 7, 8, '8r', '8R', 9, 10, '10r', '10R', 11, 12, '12r', '12R']` /]
+
+
+[hr/]
+[a name:'St'/]
+[h2 className:"flex"]St: silver tetra flex[/h2]
+
+[Aside]
+  [Slides width:320 height:240 pattern:'static/St/St*.jpg' start:1 end:15 /]
+
+  TO DO: Document the variations
+[/Aside]
+
+[Table data: `[
+  {property: 'Prime?', value: "no, St = > T' <<^ T <^"},
+  {property: 'Inverse', value: "St' = ^St^"},
+  {property: 'Number of pats', value: "4 or more"},
+  {property: 'Number of leaves', value: "N + 4"},
+  {property: 'Special requirements', value: "only works with certain leaf angles"},
+  {property: '-3 1 1 1 -3 1', value: '1 3 1 1 1 3'}
+]`/][br/]
+
+[FullWidth]
+* in: `[ [1,[2,3]], 4, ... i, ... [n-3,[n-2,n-1]], n ]`
+* out: `[ 2, [[-1,4]-3], ... i, ... n-2, [[^n-3,n],-(n-1)] ]`
+[/FullWidth]
+
+[Sampler generator:'St+' patType:'8R' patOptions:`['6R', '8R', 9, 10, '10R', 11, 12, '12R']` /]
+
+
+[hr/]
+[a name:'T'/]
+[h2 className:"flex"]T: tuck flex[/h2]
+
+The tuck flex requires a little bit of extra freedom in the flexagon in order to open it up enough to perform the flex.
+On a hexaflexagon, this means the hinge directly opposite the current hinge needs to open.
+On flexagons with more pats (heptaflexagon, octaflexagon, etc.), there are multiple vertices that could open to provide the needed freedom of movement.
+To distinguish between all the different places where the flexagon could have that additional freedom,
+a number is tacked on to `T` to indicate which hinge, e.g. `T1`, `T2`, etc.
+
+[Aside]
+  [Slides width:320 height:240 pattern:'static/T/T*.jpg' start:1 end:14 /]
+[/Aside]
+
+[Table data: `[
+  {property: 'Prime?', value: "yes"},
+  {property: 'Inverse', value: "T' ~= ^T^"},
+  {property: 'Number of pats', value: "6 or more"},
+  {property: 'Number of leaves', value: "N + 3"},
+  {property: 'Special requirements', value: "additional needed structure"},
+  {property: '3 1 1 2 1 1', value: '1 1 1 2 1 -3'}
+]`/][br/]
+
+[FullWidth]
+* in: `[ [[1,2],3], 4, ... [i,i+1], ... n-1, n ]`
+* out: `[ 2, 4, ... [i,i+1], ... n-1, [-1,[n,-3]] ]`
+[/FullWidth]
+
+[Sampler generator:'T1+' patType:7 patOptions:`[6, '6r', '6R', 7, 8, '8r', '8R', 9, 10, '10r', '10R', 11, 12, '12r', '12R']` /]
+
+
+[hr/]
+[a name:'Tf'/]
+[h2 className:"flex"]Tf: forced tuck[/h2]
+
+The forced tuck is of theoretical interest more than practical,
+since it requires you to modify the flexagon in some way,
+either trimming off large portions or damaging it as you try to flex.
+It's the same as the tuck flex but without the additional flap that allows you to open up the flexagon,
+thus it's useful if you're trying to explore every state of a given flexagon that's reachable via flexes.
+
+[Table data: `[
+  {property: 'Prime?', value: "yes"},
+  {property: 'Inverse', value: "Tf' = ^Tf^"},
+  {property: 'Number of pats', value: "6 or more"},
+  {property: 'Number of leaves', value: "N + 2"},
+  {property: 'Special requirements', value: "no"},
+  {property: '3 1 1 1 1 1', value: '1 1 1 1 1 -3'}
+]`/][br/]
+
+[FullWidth]
+* in: `[ [[1,2],3], 4 ... n-1, n ]`
+* out: `[ 2, 4, ... n-1, [-1,[n,-3]] ]`
+[/FullWidth]
+
+[Sampler generator:'Tf+'
+  patType:6 patOptions:`[6, '6r', '6R', 7,   8, '8r', '8R', 9,  10, '10r', '10R', 11, 12, '12r', '12R']`
+  split:5   scale:    `[285, 280, 280, 250, 270, 270, 230, 240, 210, 210,  200,  190, 170, 185,  150]` /]
+
+
+[hr/]
+[a name:'Ttf'/]
+[h2 className:"flex"]Ttf: tuck top front flex[/h2]
+
+The *tuck top front flex* is the same as the tuck flex except that you open it up from the front rather than the back.
+
+[Aside]
+  [Slides width:423 height:240 pattern:'static/Ttf/*.jpg' start:1 end:13 /]
+
+  TO DO: Does this flex generalize beyond the hexaflexagon?
+[/Aside]
+
+[Table data: `[
+  {property: 'Prime?', value: "no, Ttf = T > P <"},
+  {property: 'Inverse', value: "Ttf' != ^Ttf'^"},
+  {property: 'Number of pats', value: "6"},
+  {property: 'Number of leaves', value: "N + 4"},
+  {property: 'Special requirements', value: "additional needed structure"},
+  {property: '3 2 1 2 1 1', value: '2 1 2 1 3 1'}
+]`/][br/]
+
+[FullWidth]
+* in: `[ [[2,-3],-1], [5,-4], 6, [-8,7], -9, -10 ]`
+* out: `[ [-4,3], -5, [7,-6], 8, [[-10,1],9], 2 ]`
+[/FullWidth]
+
+[Sampler generator:'Ttf+' patType:6 patOptions:`[6]` /]
+
+
+[hr/]
+[a name:'Tk'/]
+[h2 className:"flex"]Tk: ticket flex[/h2]
+
+The *ticket flex* gets its name from the partial flexes used in it: `T'KKT`.
+You start with an inverse tuck `T'`, but instead of opening it all the way,
+you do a pair of pocket flexes `K`, and finally open it up as you would a `Ttf`.
+There are variants where you start with a `T'` or `Ttf'` and end by opening it up
+as you would a `T` or `Ttf`.
+
+[Aside]
+  [Slides width:423 height:240 pattern:'static/Tk/*.jpg' start:1 end:31 /]
+  TO DO: Does this flex generalize beyond the hexaflexagon?
+[/Aside]
+
+[Table data: `[
+  {property: 'Prime?', value: "no, Tk = Ltb' T << V ^"},
+  {property: 'Inverse', value: "Tk' != ^Tk^"},
+  {property: 'Number of pats', value: "6"},
+  {property: 'Number of leaves', value: "N + 5"},
+  {property: 'Special requirements', value: "no"},
+  {property: '1 1 1 2 4a 2', value: '1 2 2 1 1 4b'}
+]`/][br/]
+
+[FullWidth]
+* in: `[ 1, 2, 3, [4,5], [[[6,7],8],9], [10,11] ]`
+* out: `[ 6, [-9,-7], [-5,-4], -3, -2, [[11,-8],[-1,10]] ]`
+[/FullWidth]
+
+[Sampler generator:'Tk+' patType:6 patOptions:`[6]` /]
+
+
+[hr/]
+[a name:'Tw'/]
+[h2 className:"flex"]Tw: twist flex[/h2]
+
+This flex works best when the leaves are isosceles triangles, with one of the equal angles pointing at the center.
+
+[Aside]
+  [Slides width:320 height:240 pattern:'static/Tw/*.jpg' start:1 end:11 /]
+[/Aside]
+
+[Table data: `[
+  {property: 'Prime?', value: "yes"},
+  {property: 'Inverse', value: "Tw' = ^Tw^"},
+  {property: 'Number of pats', value: "8 or more, even"},
+  {property: 'Number of leaves', value: "N + N/2"},
+  {property: 'Special requirements', value: "only works with certain leaf angles"},
+  {property: '2 2 1 1 2 2 1 1', value: '1 1 2 2 1 1 2 2'}
+]`/][br/]
+
+[FullWidth]
+* in: `[ [2,-1], [-4,3], -5, -6, [8,-7], [-10,9], -11, -12 ]`
+* out: `[ -2, -3, [5,-4], [-7,6], -8, -9, [11,-10], [-1,12] ]`
+* in: `[ [1,2], [3,4], 5, [6,7], 8, [9,10], 11, [12,13], 14, 15 ]`
+* out: `[ -1, -4, [-5,3], -7, [-8,6], -10, [-11,9], -13, [-14,12], [2,-15] ]`
+* in: `[ [1,2], [3,4], 5, [6,7], 8, 9, [10,11], [12,13], 14, [15,16], 17, 18 ]`
+* out: `[ -1, -4, [-5,3], -7, [-8,6], [11,-9], -10, -13, [-14,12], -16, [-17,15], [2,-18] ]`
+[/FullWidth]
+
+[Sampler generator:'Tw+' patType:'8R' patOptions:`['8R', '10S', '12S']` /]
+
+
+[hr/]
+[a name:'V'/]
+[h2 className:"flex"]V: v-flex[/h2]
+
+[Aside]
+  [Slides width:320 height:240 pattern:'static/V/V*.jpg' start:1 end:13 /]
+
+  TO DO: Describe some of the variants
+
+  TO DO: Does this flex generalize beyond the hexaflexagon?
+[/Aside]
+
+[Table data: `[
+  {property: 'Prime?', value: "yes"},
+  {property: 'Inverse', value: "V' = ^V^"},
+  {property: 'Number of pats', value: "6"},
+  {property: 'Number of leaves', value: "N + 3"},
+  {property: 'Special requirements', value: "no"},
+  {property: '1 2 2 1 1 2', value: '2 1 1 2 2 1'}
+]`/][br/]
+
+[FullWidth]
+* in: `[ 1, [2,3], [4,5], 6, 7, [8,9] ]`
+* out: `[ [3,-1], -2, -5, [-6,4], [9,-7], -8 ]`
+[/FullWidth]
+
+[Sampler generator:'V+' patType:6 patOptions:`[6]` /]
+
+[FullWidth][hr/][/FullWidth]
+# What next?
+
+Go to the [Table of Contents](index.html) or the [Flexagon Pages](http://loki3.com/flex/).
+
+[FullWidth]
+  [a href:'http://loki3.com/flex/' ]
+  [img src:'static/flexagon-variety.jpg' /]
+  [/a]
+[/FullWidth]
+
+[Copyright/]

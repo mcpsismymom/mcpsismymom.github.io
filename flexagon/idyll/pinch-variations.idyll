@@ -1,0 +1,178 @@
+[meta title:"Pinch Flex Variations" description:"Relatives of the pinch flex on different flexagons" /]
+
+[Aside]
+  [br/]
+  A chapter from[br/]
+  [Explorable Flexagons](index.html)
+
+  Next chapter:[br/]
+  [Slot Flexes](slot-flexes.html)
+[/Aside]
+
+[Header
+  title:"Pinch Flex Variations"
+  subtitle:"Relatives of the pinch flex on different flexagons"
+  author:"Scott Sherman"
+  authorLink:"http://loki3.com/flex" /]
+
+[var name:'flexagonOptions' value:`{structure:true, showIds:false, both:true}`/]
+[var name:'defaultColors' value:`[0x2E4172, 0x2B803E, 0xAA4439, 0x622870, 0xffff00, 0x553900, 0xdddddd, 0x999999]` /]
+
+[Preload images:`['static/P4-4-4/2.jpg', 'static/P4-4-4/3.jpg', 'static/P4-4-4/4.jpg', 'static/P4-4-4/5.jpg', 'static/P4-4-4/6.jpg',
+  'static/P4-4-4/7.jpg', 'static/P4-4-4/8.jpg', 'static/P4-4-4/9.jpg', 'static/P4-4-4/10.jpg', 'static/P4-4-4/11.jpg',
+  'static/P4-4-4/12.jpg', 'static/P4-4-4/13.jpg']` /]
+[Preload images:`['static/P3-3-4/2.jpg', 'static/P3-3-4/3.jpg', 'static/P3-3-4/4.jpg', 'static/P3-3-4/5.jpg', 'static/P3-3-4/6.jpg',
+  'static/P3-3-4/7.jpg', 'static/P3-3-4/8.jpg', 'static/P3-3-4/9.jpg', 'static/P3-3-4/10.jpg', 'static/P3-3-4/11.jpg',
+  'static/P3-3-4/12.jpg', 'static/P3-3-4/13.jpg']` /]
+
+[Aside]
+  [img src:'static/pinch-flex.jpg' /]
+[/Aside]
+
+As shown in the [Flexagon Intro](pinch-flex.html),
+when you do the standard *pinch flex*, you alternate mountain and valley folds along every hinge.
+
+What's interesting is that there's a whole class of flexes that are all similar to the pinch flex,
+except that you vary the pattern of where you do mountain and valley folds.
+So instead of having a mountain fold every other hinge,
+you might do a mountain fold every three or four hinges.
+
+The biggest difference is that after a single such flex, the flexagon generally doesn't lie
+flat and the triangles won't all meet in the center.
+But if you continue doing a second flex in the same place,
+you'll get back to a flat flexagon where all the triangles meet in the center.
+But that's just a bunch of words.
+Let's see what this actually looks like.
+
+
+# P444
+
+[Aside]
+This flex is represented as `P444` in flex notation.
+Each 4 indicates that from one mountain fold to the next, you skip to the fourth hinge from the previous.
+[/Aside]
+
+The first example is on an *isosceles dodecaflexagon*, doing a mountain fold once every four hinges.
+
+[Slides width:320 height:240 pattern:'static/P4-4-4/*.jpg' start:1 end:13 /]
+
+Here's a template you can use to create a working dodecaflexagon that supports the P444:
+[Unfolded width:1000 height:400 numPats:12 generator:'P444*' autoLabel:true endText:'P444' /]
+
+
+# P334
+
+[Aside]
+This flex is represented as `P334` in flex notation.
+The 3's indicate that from one mountain fold to the next, you skip to the third hinge from the previous.
+The 4 indicates that one of those steps is to the fourth hinge.
+[/Aside]
+
+The next example is on an *isosceles decaflexagon*.
+Here you do a mountain fold, skip to the third hinge, do another mountain fold,
+then skip to the fourth hinge for the final mountain fold.
+
+[Slides width:320 height:240 pattern:'static/P3-3-4/*.jpg' start:1 end:13 /]
+
+Here's a template you can use to create a working decaflexagon that supports the `P334`:
+[Unfolded width:1000 height:400 numPats:10 generator:'P334*' autoLabel:true endText:'P334' /]
+
+
+# Minimal flexagons
+
+[var name:'mfGenerator' value:'P444*' /]
+[var name:'mfPats' value:12 /]
+[var name:'mfAngles' value:`[30, 75]` /]
+[derived name:'mfInit' value:`[
+  {searchFlexes:"P44 P333 P334 P55 P3333 P444 P66"},
+  {angles:mfAngles},
+  {flexAndColor: { flexes: mfGenerator, colors: defaultColors }},
+  {reverseFlexes: mfGenerator}
+  ]` /]
+[var name:'mfRunInit' value:false /]
+
+[Aside]
+* octaflexagon: [Button onClick:` mfGenerator='P44*'; mfPats=8; mfAngles=undefined; mfRunInit=true; `]P44[/Button]
+* enneaflexagon: [Button onClick:` mfGenerator='P333*'; mfPats=9; mfAngles=undefined; mfRunInit=true; `]P333[/Button]
+* decaflexagon: [Button onClick:` mfGenerator='P334*'; mfPats=10; mfAngles=undefined; mfRunInit=true; `]P334[/Button] [Button onClick:` mfGenerator='P55*'; mfPats=10; mfAngles=undefined; mfRunInit=true; `]P55[/Button]
+* dodecaflexagon: [Button onClick:` mfGenerator='P3333*'; mfPats=12; mfAngles=undefined; mfRunInit=true; `]P3333[/Button] [Button onClick:` mfGenerator='P444*'; mfPats=12; mfAngles=undefined; mfRunInit=true; `]P444[/Button] [Button onClick:` mfGenerator='P66*'; mfPats=12; mfAngles=undefined; mfRunInit=true; `]P66[/Button]
+[/Aside]
+
+Here are the minimal flexagons for many of the pinch flex variations:
+
+[Flexagon width:600 height:360 numPats:mfPats initialScript:mfInit runInitial:mfRunInit options:flexagonOptions overButton:true /]
+
+Template:
+[Unfolded width:1000 height:400 numPats:mfPats generator:mfGenerator angles:mfAngles autoLabel:true endText:mfGenerator /]
+
+
+# More complex flexagons
+
+An interesting generating sequence pattern you can use with these pinch flex variations is `X* > X* < X'* < X* > X*`.
+If you start with one pair of faces visible, then apply that sequence, it will reveal two new faces.
+But all the intermediate states will be a mixing of the four faces.
+
+[var name:'cfGenerator' value:"P333* > P333* < P333'* < P333* > P333*" /]
+[var name:'cfPats' value:9 /]
+[derived name:'cfInit' value:`[
+  {searchFlexes:"P44 P333 P334 P55 P3333 P444 P66 P44' P333' P334' P55' P3333' P444' P66'"},
+  {flexes: cfGenerator},
+  {reverseFlexes: cfGenerator},
+  {setFace: { front: { label: "1", color: 0x2E4172 }, back: { label: "2", color: 0x2B803E } }},
+  {flexes: cfGenerator},
+  {setFace: { front: { label: "3", color: 0xAA4439 }, back: { label: "4", color: 0x622870 } }},
+  {reverseFlexes: cfGenerator}
+  ]` /]
+[var name:'cfRunInit' value:false /]
+[var name:'e1' value:8 /]
+[var name:'e2' value:17 /]
+[var name:'e3' value:`undefined ` /]
+[var name:'char' value:'a' /]
+[var name:'cfHeight' value:1 /]
+
+[Aside]
+Pick flexagon and base flex:[br /]
+[Button onClick:` e1=8; e2=17; e3=undefined; char='a'; cfGenerator="P333* > P333* < P333'* < P333* > P333*"; cfPats=9; cfRunInit=true; cfHeight=1; `]enneaflexagon P333[/Button] [br /]
+[Button onClick:` e1=8; e2=17; e3=undefined; char='a'; cfGenerator="P334* > P334* < P334'* < P334* > P334*"; cfPats=10; cfRunInit=true; cfHeight=1; `]decaflexagon P334[/Button] [br /]
+[Button onClick:` e1=10; e2=20; e3=undefined; char='a'; cfGenerator="P444* > P444* < P444'* < P444* > P444*"; cfPats=12; cfRunInit=true; cfHeight=1; `]dodecaflexagon P444[/Button] [br /]
+[Button onClick:` e1=8; e2=17; e3=26; char='d'; cfGenerator="P3333* > P3333* < P3333'* < P3333* > P3333*"; cfPats=12; cfRunInit=true; cfHeight=300; `]dodecaflexagon P3333[/Button] [br /]
+[/Aside]
+
+Generating sequence: [Display value:cfGenerator /]
+[Flexagon width:600 height:360 numPats:cfPats initialScript:cfInit runInitial:cfRunInit options:flexagonOptions overButton:true /]
+
+Cut out each of the shapes, cutting along the solid lines.
+Tape 'b' to 'b' and 'c' to 'c' (and 'd' to 'd' if present).
+Then you can follow the same folding rules as for the other templates,
+finishing by taping 'a' to 'a'.
+
+[FullWidth]
+  [derived name:'template1' value:`{start:0, end:e1, scale:150, rotation:0, captions:[{ text: 'a', which: 0 }, { text: 'b', which: -1 }] }` /]
+  [derived name:'template2' value:`{start:e1+1, end:e2, scale:150, rotation:0, captions:[{ text: 'b', which: 0 }, { text: 'c', which: -1 }] }` /]
+  [derived name:'template3' value:`{start:e2+1, end:e3, scale:150, rotation:0, captions:[{ text: 'c', which: 0 }, { text: char, which: -1 }] }` /]
+  [derived name:'template4' value:`{start:27, scale:150, rotation:0, captions:[{ text: 'd', which: 0 }, { text: 'a', which: -1 }] }` /]
+  [Unfolded width:400 height:350 numPats:cfPats generator:cfGenerator autoLabel:true options:template1 /]
+  [Unfolded width:400 height:350 numPats:cfPats generator:cfGenerator autoLabel:true options:template2 /]
+  [Unfolded width:400 height:400 numPats:cfPats generator:cfGenerator autoLabel:true options:template3 /]
+  [Unfolded width:300 height:cfHeight numPats:cfPats generator:cfGenerator autoLabel:true options:template4 changeHeight:cfHeight /]
+[/FullWidth]
+
+
+## What next?
+
+What if you tried other generating sequences using these pinch flex variations?
+
+The pinch flex variations described here all do a flex followed by a second flex at the same hinge
+because the intermediate position doesn't lie flat and the triangles don't all meet in the center.
+But what if you stopped in that intermediate state and tried flexing from there?
+What other interesting flexes can you find?
+
+Return to the [Table of Contents](index.html).
+
+[FullWidth]
+  [a href:'http://loki3.com/flex/' ]
+  [img src:'static/flexagon-variety.jpg' /]
+  [/a]
+[/FullWidth]
+
+[Copyright/]

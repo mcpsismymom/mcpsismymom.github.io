@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>Work Simulator</title>
+    <link href="style.css" rel="stylesheet" type="text/css" />
+  </head>
+  <body>
+    <h1>Level 2-4</h1>
+    <p>Bob's finished his breakfast. Now, it's time to drive to work before it's too late!</p>
+    <button id="driveButton" onclick="drive()">Start Driving</button>
+    <p id="road">🏡🚗==============🏢</p>
+    <p id="levelEndText" hidden>Oh, come on, Bob! HURRY UP!</p>
+    <h2 id="moral" hidden>The Moral: Don't make really slow transitions.</h2>
+    <button id="next" onclick="window.location.href='stage3-1.html'" hidden>Next</button>
+  
+    <script>
+      var driven = 0;
+      var started = false;
+
+      function update() {
+        if (driven < 14) driven++;
+        let text = "🏡"
+        for (let i = 0; i < 15; i++) {
+          if (driven == i) text += "🚗";
+          else text += "=";
+        }
+        if (driven > 0) {
+          document.getElementById("levelEndText").hidden = false;
+          document.getElementById("moral").hidden = false;
+          document.getElementById("next").hidden = false;
+        }
+        text += "🏢";
+        document.getElementById("road").innerText = text;
+      }
+
+      function drive() {
+        if (!started) setInterval(update, 5000);
+        started = true;
+        document.getElementById("driveButton").innerText = "Driving..."
+      }
+
+    </script>
+  </body>
+</html>

@@ -1,0 +1,239 @@
+[meta title:"Sample templates" description:"Templates for the workshop" /]
+
+[Header
+  title:"Sample templates"
+  subtitle:"Templates for the workshop"
+  author:"Scott Sherman"
+  authorLink:"http://loki3.com/flex" /]
+
+// [var name:'defaultColors' value:`[0x2E4172, 0x2B803E, 0xAA4439, 0x622870, 0xffff00, 0x553900, 0xdddddd, 0x999999]` /]
+[var name:'defaultColors' value:`[0x4e6ebf, 0x45cd62, 0xb4483c, 0xffff00, 0xb249cc, 0x805600, 0x70cce1, 0xffa231, 0xdddddd, 0x999999]` /]
+
+# F
+
+[Unfolded width:900 height:500 numPats:6 generator:'F+' endText:'F' angles:`[60,90]` options:`{rotation:120}` /]
+[Unfolded width:1000 height:600 numPats:8 generator:'F+' endText:'F' angles:`[45,90]` options:`{rotation:0}` /]
+
+[derived name:'makeBronze6F' value:`[
+{"numPats":6},{"angles":[60,90]},{"flexes":"F+"},
+{"leafProps":[
+  { "front":{ "label":"1", "color":defaultColors[0] }, "back":{ "label":"4", "color":defaultColors[3] } },
+  { "front":{ "label":"1", "color":defaultColors[0] }, "back":{ "label":"2", "color":defaultColors[1] } },
+  { "front":{ "label":"1", "color":defaultColors[0] }, "back":{ "label":"2", "color":defaultColors[1] } },
+  { "front":{ "label":"1", "color":defaultColors[0] }, "back":{ "label":"2", "color":defaultColors[1] } },
+  { "front":{ "label":"1", "color":defaultColors[0] }, "back":{ "label":"5", "color":defaultColors[4] } },
+  { "front":{ "label":"1", "color":defaultColors[0] }, "back":{ "label":"2", "color":defaultColors[1] } },
+  { "front":{ "label":"4", "color":defaultColors[3] }, "back":{ "label":"2", "color":defaultColors[1] } },
+  { "front":{ "label":"5", "color":defaultColors[4] }, "back":{ "label":"4", "color":defaultColors[3] } },
+  { "front":{ "label":"4", "color":defaultColors[3] }, "back":{ "label":"3", "color":defaultColors[2] } },
+  { "front":{ "label":"3", "color":defaultColors[2] }, "back":{ "label":"2", "color":defaultColors[1] } }
+]}
+]` /]
+[var name:'bronze6FScript' value:'' /]
+[Flexagon width:200 height:200 numPats:6 currentScript:bronze6FScript initialScript:makeBronze6F /]
+[Unfolded width:860 height:500 numPats:6 script:bronze6FScript endText:'F' options:`{content:2, rotation:120}` /]
+[Unfolded width:860 height:500 numPats:6 script:bronze6FScript options:`{content:3, rotation:300}` /]
+
+[derived name:'makeSilver8F' value:`[
+{"numPats":8},{"angles":[45,90]},{"flexes":"F+"},
+{"leafProps":[
+  { "front":{ "label":"1", "color":defaultColors[0] }, "back":{ "label":"4", "color":defaultColors[3] } },
+  { "front":{ "label":"1", "color":defaultColors[0] }, "back":{ "label":"2", "color":defaultColors[1] } },
+  { "front":{ "label":"1", "color":defaultColors[0] }, "back":{ "label":"2", "color":defaultColors[1] } },
+  { "front":{ "label":"1", "color":defaultColors[0] }, "back":{ "label":"2", "color":defaultColors[1] } },
+  { "front":{ "label":"1", "color":defaultColors[0] }, "back":{ "label":"2", "color":defaultColors[1] } },
+  { "front":{ "label":"1", "color":defaultColors[0] }, "back":{ "label":"2", "color":defaultColors[1] } },
+  { "front":{ "label":"1", "color":defaultColors[0] }, "back":{ "label":"5", "color":defaultColors[4] } },
+  { "front":{ "label":"1", "color":defaultColors[0] }, "back":{ "label":"2", "color":defaultColors[1] } },
+  { "front":{ "label":"4", "color":defaultColors[3] }, "back":{ "label":"2", "color":defaultColors[1] } },
+  { "front":{ "label":"5", "color":defaultColors[4] }, "back":{ "label":"4", "color":defaultColors[3] } },
+  { "front":{ "label":"4", "color":defaultColors[3] }, "back":{ "label":"3", "color":defaultColors[2] } },
+  { "front":{ "label":"3", "color":defaultColors[2] }, "back":{ "label":"2", "color":defaultColors[1] } }
+]}
+]` /]
+[var name:'silver8FScript' value:'' /]
+[Flexagon width:200 height:200 numPats:8 currentScript:silver8FScript initialScript:makeSilver8F /]
+[Unfolded width:770 height:600 numPats:8 script:silver8FScript endText:'F' options:`{content:2, rotation:0}` /]
+[Unfolded width:770 height:600 numPats:8 script:silver8FScript options:`{content:3, rotation:180}` /]
+
+# S
+
+[Unfolded width:900 height:500 numPats:6 generator:'S+' endText:'S' options:`{rotation:120}` /]
+[Unfolded width:900 height:600 numPats:7 generator:'S+' endText:'S' options:`{rotation:180}` /]
+[Unfolded width:900 height:600 numPats:8 generator:'S+' endText:'S1' angles:`[45,45]` options:`{rotation:0}` /]
+[Unfolded width:900 height:600 numPats:8 generator:'S+' endText:'S2' angles:`[45,90]` options:`{rotation:0}` /]
+
+[var name:'equi6SScript' value:'' /]
+[Flexagon width:200 height:200 numPats:6 currentScript:equi6SScript
+  initialScript:`[{flexAndColor: { flexes: "S+", colors: defaultColors }}]` /]
+[Unfolded width:750 height:500 numPats:6 script:equi6SScript endText:'S' options:`{content:2, rotation:120}` /]
+[Unfolded width:750 height:500 numPats:6 script:equi6SScript options:`{content:3, rotation:300}` /]
+
+[var name:'heptaSScript' value:'' /]
+[Flexagon width:200 height:200 numPats:7 currentScript:heptaSScript
+  initialScript:`[{flexAndColor: { flexes: "S+", colors: defaultColors }}]` /]
+[Unfolded width:790 height:600 numPats:7 script:heptaSScript endText:'S' options:`{content:2, rotation:180}` /]
+[Unfolded width:790 height:600 numPats:7 script:heptaSScript options:`{content:3, rotation:0}` /]
+
+[var name:'silver1SScript' value:'' /]
+[Flexagon width:200 height:200 numPats:8 currentScript:silver1SScript
+  initialScript:`[{angles:[45, 45]}, {flexAndColor: { flexes: "S+", colors: defaultColors }}]` /]
+[Unfolded width:740 height:600 numPats:8 script:silver1SScript endText:'S' options:`{content:2, rotation:0}` /]
+[Unfolded width:740 height:600 numPats:8 script:silver1SScript options:`{content:3, rotation:180}` /]
+
+[var name:'silver2SScript' value:'' /]
+[Flexagon width:200 height:200 numPats:8 currentScript:silver2SScript
+  initialScript:`[{angles:[45, 90]}, {flexAndColor: { flexes: "S+", colors: defaultColors }}]` /]
+[Unfolded width:740 height:600 numPats:8 script:silver2SScript endText:'S' options:`{content:2, rotation:0}` /]
+[Unfolded width:740 height:600 numPats:8 script:silver2SScript options:`{content:3, rotation:180}` /]
+
+# T
+
+[Unfolded width:900 height:500 numPats:6 generator:'T+' endText:'T' options:`{rotation:0}` /]
+[Unfolded width:900 height:500 numPats:6 generator:'T+' endText:'T' angles:`[60,30]` options:`{rotation:240}` /]
+[Unfolded width:1000 height:600 numPats:8 generator:'T2+' endText:'T' angles:`[45,45]` options:`{rotation:90}` /]
+
+[var name:'equi6TScript' value:'' /]
+[Flexagon width:200 height:200 numPats:6 currentScript:equi6TScript
+  initialScript:`[{flexAndColor: { flexes: "T+", colors: defaultColors }}]` /]
+[Unfolded width:670 height:500 numPats:6 script:equi6TScript options:`{content:2, rotation:0}` /]
+[Unfolded width:670 height:500 numPats:6 script:equi6TScript endText:'T' options:`{content:3, rotation:180}` /]
+
+[var name:'bronze6TScript' value:'' /]
+[Flexagon width:200 height:200 numPats:6 currentScript:bronze6TScript
+  initialScript:`[{angles:[60, 30]}, {flexAndColor: { flexes: "T+", colors: defaultColors }}]` /]
+[Unfolded width:575 height:500 numPats:6 script:bronze6TScript options:`{content:2, rotation:240}` /]
+[Unfolded width:575 height:500 numPats:6 script:bronze6TScript endText:'T' options:`{content:3, rotation:60}` /]
+
+[var name:'silver8TScript' value:'' /]
+[Flexagon width:200 height:200 numPats:8 currentScript:silver8TScript
+  initialScript:`[{angles:[45,45]}, {flexAndColor: { flexes: "T2+", colors: defaultColors }}]` /]
+[Unfolded width:1000 height:400 numPats:8 script:silver8TScript options:`{content:2, rotation:90}` /]
+[Unfolded width:1000 height:400 numPats:8 script:silver8TScript endText:'T' options:`{content:3, rotation:270}` /]
+
+# V
+
+[Unfolded width:900 height:400 numPats:6 generator:'V+' endText:'V' options:`{rotation:60}` /]
+[Unfolded width:1000 height:150 numPats:6 generator:'(V*>)4' endText:'(V>)4' options:`{rotation:-60}` /]
+[Unfolded width:1200 height:150 numPats:6 generator:'(V*<)7' endText:'(V<)7' options:`{rotation:60}` /]
+
+[var name:'equi6VScript' value:'' /]
+[Flexagon width:200 height:200 numPats:6 currentScript:equi6VScript
+  initialScript:`[{flexAndColor: { flexes: "V+", colors: defaultColors }}]` /]
+[Unfolded width:900 height:400 numPats:6 script:equi6VScript endText:'V' options:`{content:2, rotation:60}` /]
+[Unfolded width:900 height:400 numPats:6 script:equi6VScript endText:'V' options:`{content:3, rotation:240}` /]
+
+[var name:'equi6VRightScript' value:'' /]
+[Flexagon width:200 height:200 numPats:6 currentScript:equi6VRightScript
+  initialScript:`[{flexAndColor: { flexes: "(V*>)4(<V')4", colors: defaultColors }},{"searchFlexes":"P S V Ltf"}]` /]
+[Unfolded width:1000 height:150 numPats:6 script:equi6VRightScript endText:'(V>)4' options:`{content:2, rotation:-60}` /]
+[Unfolded width:1000 height:150 numPats:6 script:equi6VRightScript options:`{content:3, rotation:120}` /]
+
+[var name:'equi6VLeftScript' value:'' /]
+[Flexagon width:200 height:200 numPats:6 currentScript:equi6VLeftScript
+  initialScript:`[{flexAndColor: { flexes: "(V*<)7(>V')7", colors: defaultColors }},{"searchFlexes":"P S V Ltf"}]` /]
+[Unfolded width:1200 height:150 numPats:6 script:equi6VLeftScript options:`{content:2, rotation:60, captions: [{which:-2, text:'(V<)7'}]}` /]
+[Unfolded width:1200 height:150 numPats:6 script:equi6VLeftScript options:`{content:3, rotation:-120, captions: [{which:1, text:'(V<)7'}]}` /]
+
+# `P*P*^PP >P*P*>P*P*`
+
+## 6-faced bronze hexa
+
+[var name:'bronzeHexa6FaceScript' value:`[
+  {"numPats":6},{"angles":[60,30]},{flexAndColor: { flexes: "P*P*^PP >P*P*>P*P* P'P'<P'P'<^" }} ]` /]
+[Unfolded width:1000 height:500 numPats:6 script:bronzeHexa6FaceScript endText:'6-faces' options:`{content:4, rotation:60}` /]
+
+## 6-faced silver octa
+
+[var name:'silver6FaceScript' value:`[
+  {"numPats":8},{"angles":[45,45]},{flexAndColor: { flexes: "P*P*^PP >P*P*>P*P* P'P'<P'P'<^", colors: defaultColors }}, {searchFlexes:"P S F Tw T"} ]` /]
+[Unfolded width:1200 height:300 numPats:8 script:silver6FaceScript options:`{content:4, rotation:-45}` /]
+
+[Flexagon width:200 height:200 numPats:8 initialScript:silver6FaceScript /]
+[Unfolded width:1200 height:300 numPats:8 script:silver6FaceScript options:`{content:2, rotation:-45}` /]
+[Unfolded width:1200 height:300 numPats:8 script:silver6FaceScript options:`{content:3, rotation:135}` /]
+
+## 6-faced right deca
+
+[var name:'rightDeca6FaceScript' value:`[
+  {"numPats":10},{"angles":[36,54]},{flexAndColor: { flexes: "P*P*^PP >P*P*>P*P* P'P'<P'P'<^" }} ]` /]
+[Unfolded width:1100 height:600 numPats:10 script:rightDeca6FaceScript endText:'6-faces' options:`{content:4, rotation:36}` /]
+
+## 6-faced bronze dodeca
+
+[var name:'bronzeDodeca6FaceScript' value:`[
+  {"numPats":12},{"angles":[30,60]},{flexAndColor: { flexes: "P*P*^PP >P*P*>P*P* P'P'<P'P'<^" }} ]` /]
+[Unfolded width:1000 height:1000 numPats:12 script:bronzeDodeca6FaceScript endText:'6-faces' options:`{content:4, rotation:0}` /]
+
+# (F*<)4 hepta
+
+[Unfolded width:1200 height:450 numPats:7 generator:'(F*<)4' endText:'(F<)4' options:`{rotation:90}` /]
+
+[var name:'heptaF4Script' value:'' /]
+[Flexagon width:200 height:200 numPats:7 currentScript:heptaF4Script
+  initialScript:`[{flexAndColor: { flexes: "(F*<)4(>F')4", colors: defaultColors }}, {searchFlexes:"P S F"}]` /]
+[Unfolded width:1200 height:220 numPats:7 script:heptaF4Script options:`{content:2, rotation:77}` /]
+[Unfolded width:1200 height:220 numPats:7 script:heptaF4Script endText:'(F<)4' options:`{content:3, rotation:257}` /]
+
+# right deca
+
+[Unfolded width:1200 height:800 numPats:10 generator:'<<<<S+<S+<<F+<<St+<<St+' angles:`[36,54]`
+  options:`{rotation:90, captions:[{text:'S', which:-7}, {text:'S', which:-10}, {text:'St', which:6}, {text:'(F)', which:9}]}` /]
+
+[derived name:'makeDeca' value:`[
+{"numPats":10},{"angles":[36,90]},{"flexes":"<<<<S+<S+<<F+<<St+<<St+"},
+{"leafProps":[
+  { "front":{ "label":"1", "color":defaultColors[0] }, "back":{ "label":"2", "color":defaultColors[1] } },
+  { "front":{ "label":"1", "color":defaultColors[0] }, "back":{ "label":"5", "color":defaultColors[4] } },
+  { "front":{ "label":"1", "color":defaultColors[0] }, "back":{ "label":"2", "color":defaultColors[1] } },
+  { "front":{ "label":"1", "color":defaultColors[0] }, "back":{ "label":"6", "color":defaultColors[5] } },
+  { "front":{ "label":"1", "color":defaultColors[0] }, "back":{ "label":"6", "color":defaultColors[5] } },
+
+  { "front":{ "label":"1", "color":defaultColors[0] }, "back":{ "label":"4", "color":defaultColors[3] } },
+  { "front":{ "label":"1", "color":defaultColors[0] } },
+  { "front":{ "label":"1", "color":defaultColors[0] }, "back":{ "label":"4", "color":defaultColors[3] } },
+  { "front":{ "label":"1", "color":defaultColors[0] }, "back":{ "label":"2", "color":defaultColors[1] } },
+  { "front":{ "label":"1", "color":defaultColors[0] }, "back":{ "label":"4", "color":defaultColors[3] } },
+
+  { "back":{ "label":"2", "color":defaultColors[1] } },
+  { "front":{ "label":"6", "color":defaultColors[5] } },
+  null,
+  { "back":{ "label":"2", "color":defaultColors[1] } },
+  { "front":{ "label":"4", "color":defaultColors[3] }, "back":{ "label":"2", "color":defaultColors[1] } },
+
+  { "front":{ "label":"6", "color":defaultColors[5] } },
+  { "back":{ "label":"4", "color":defaultColors[3] } },
+  { "front":{ "label":"4", "color":defaultColors[3] }, "back":{ "label":"2", "color":defaultColors[1] } },
+  { "front":{ "label":"5", "color":defaultColors[4] }, "back":{ "label":"4", "color":defaultColors[3] } },
+  { "front":{ "label":"4", "color":defaultColors[3] }, "back":{ "label":"3", "color":defaultColors[2] } },
+
+  { "front":{ "label":"3", "color":defaultColors[2] }, "back":{ "label":"2", "color":defaultColors[1] } },
+  { "front":{ "label":"4", "color":defaultColors[3] }, "back":{ "label":"3", "color":defaultColors[2] } },
+  { "front":{ "label":"3", "color":defaultColors[2] }, "back":{ "label":"2", "color":defaultColors[1] } },
+  { "front":{ "label":"4", "color":defaultColors[3] }, "back":{ "label":"3", "color":defaultColors[2] } },
+  { "front":{ "label":"3", "color":defaultColors[2] }, "back":{ "label":"2", "color":defaultColors[1] } }
+]}
+]` /]
+[var name:'decaScript' value:'' /]
+[Flexagon width:200 height:200 numPats:10 currentScript:decaScript initialScript:makeDeca /]
+[Unfolded width:1120 height:800 numPats:10 script:decaScript options:`{content:2, rotation:90}` /]
+[Unfolded width:1120 height:800 numPats:10 script:decaScript options:`{content:3, rotation:270}` /]
+
+
+# ennea P333
+
+[Unfolded width:1200 height:300 numPats:9 generator:"P333+" endText:"P333" options:`{rotation:120}` /]
+
+[var name:'P333Script' value:'' /]
+[Flexagon width:200 height:200 numPats:9 currentScript:P333Script
+  initialScript:`[{flexAndColor: { flexes: "P333+", colors: defaultColors }}, {searchFlexes:"P333 S F"}]` /]
+[Unfolded width:1180 height:300 numPats:9 script:P333Script endText:'P333' options:`{content:2, rotation:120}` /]
+[Unfolded width:1180 height:300 numPats:9 script:P333Script options:`{content:3, rotation:300}` /]
+
+[Unfolded width:1200 height:800 numPats:9 generator:"(P333*<)4 (>P333')4" endText:"(P333<)4" options:`{rotation:90}` /]
+
+[var name:'P333x4Script' value:'' /]
+[Flexagon width:200 height:200 numPats:9 currentScript:P333x4Script
+  initialScript:`[{flexAndColor: { flexes: "(P333*<)4 (>P333')4", colors: defaultColors }}, {searchFlexes:"P333 S F"}]` /]
+[Unfolded width:920 height:800 numPats:9 script:P333x4Script options:`{content:2, rotation:90}` /]
+[Unfolded width:920 height:800 numPats:9 script:P333x4Script endText:'(P333<)4' options:`{content:3, rotation:270}` /]

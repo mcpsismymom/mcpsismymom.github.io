@@ -1,0 +1,5 @@
+Textures that still need editing (texture files and code in app.js):
+* water
+* lava
+
+After all textures are done, create the last file (BACKGROUND.JPG)

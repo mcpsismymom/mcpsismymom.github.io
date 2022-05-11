@@ -1,0 +1,3 @@
+Doomsday is a theoretical day in which every hosting service that is not impossible to use, doesn't have meaningful limits and that isn't bad in some other extreme way is blocked.
+We'd find more hosting sites, and we'd still use the ones that we know are bad, and there'd always be some bug to use the website anyway, but doomsday is still something we want to avoid.
+One of our main goals is delaying doomsday as much as possible by only using one hosting service at a time and keeping bugs secret until they are useful. We have many hosting sites besides Github, so Github being blocked is not Doomsday but it's only a matter of time.

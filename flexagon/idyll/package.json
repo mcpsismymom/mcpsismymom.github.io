@@ -1,0 +1,16 @@
+{
+  "name": "flexagonator",
+  "version": "0.0.1",
+  "license": "MIT",
+  "idyll": {
+    "theme": "github",
+    "layout": "blog",
+    "css": "styles.css"
+  },
+  "dependencies": {
+    "idyll": "^3.15.1"
+  },
+  "devDependencies": {
+    "gh-pages": "^0.12.0"
+  }
+}

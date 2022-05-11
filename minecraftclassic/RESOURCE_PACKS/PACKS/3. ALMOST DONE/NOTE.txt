@@ -1,0 +1,13 @@
+EXCEPT FOR DEFAULT...
+
+Need to create splash files, if needed...
+
+May need to convert fonts / get loading bar colors (in css?/RandomLevelWorker.js?)
+
+If there is altered music, then convert the music files too.
+
+Textures that still need editing (texture files and code in app.js):
+* water
+* lava
+
+After all textures are done, create the last file (BACKGROUND.JPG)

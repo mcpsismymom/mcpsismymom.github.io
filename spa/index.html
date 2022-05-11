@@ -1,0 +1,156 @@
+<html>
+
+<head>
+    <title>Spacebar Counter</title>
+    <link href='https://fonts.googleapis.com/css?family=Comfortaa' rel='stylesheet'>
+    <meta name="theme-color" content="#36393F">
+    <meta property="og:image:url" content="https://i.ibb.co/n0DbR7k/Untitled-28-modified.png">
+    <meta property="og:image:secure_url" content="https://i.ibb.co/n0DbR7k/Untitled-28-modified.png">
+    <meta name="description" content="Use a spacebar counter online for free, unblocked!">
+    <link rel="icon" type="image/jpeg" sizes="180x180" href="https://i.ibb.co/n0DbR7k/Untitled-28-modified.png">
+    <style>
+        body {
+            margin: 0;
+            font-family: Comfortaa;
+            position: absolute;
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+            display: table;
+        }
+        
+        #activity {
+            display: table-cell;
+            text-align: center;
+            vertical-align: middle;
+        }
+        
+        #activity:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 20vh;
+            background: rgb(66, 244, 244);
+        }
+        
+        #activity:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100vw;
+            height: 20vh;
+            background: rgb(51, 239, 4);
+        }
+        
+        #result {
+            text-transform: uppercase;
+        }
+        
+        .tryagain {
+            background-attachment: scroll;
+            background-clip: border-box;
+            background-color: rgb(127, 206, 119);
+            background-image: none;
+            background-origin: padding-box;
+            background-size: auto;
+            border-bottom-left-radius: 16px;
+            border-bottom-right-radius: 16px;
+            border-top-left-radius: 16px;
+            border-top-right-radius: 16px;
+            box-sizing: border-box;
+            color: rgb(255, 255, 255);
+            cursor: pointer;
+            display: inline-block;
+            font-family: 'Open Sans', sans-serif;
+            font-size: 32px;
+            font-stretch: normal;
+            font-style: normal;
+            font-variant: normal;
+            font-weight: normal;
+            height: 93px;
+            line-height: normal;
+            margin-bottom: 8px;
+            margin-left: 9.28px;
+            margin-right: 9.28px;
+            margin-top: 8px;
+            min-height: 0px;
+            min-width: 208px;
+            outline-width: 0px;
+            padding-bottom: 24px;
+            padding-left: 24px;
+            padding-right: 24px;
+            padding-top: 24px;
+            position: relative;
+            text-align: center;
+            text-transform: none;
+            transition-delay: 0s;
+            transition-duration: 0.28s;
+            transition-property: box-shadow;
+            transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+            width: 351.594px;
+            z-index: 0;
+        }
+        
+        a:link,
+        a:hover,
+        a:visited,
+        a:active {
+            text-decoration: none;
+        }
+        
+        .hits {
+            font-size: 2em;
+            font-weight: bolder;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="activity">
+        <a href="../index.html">home</a>
+        <h1 id="counter">You clicked the spacebar <span id="hits">0</span> times.</h1>
+        <a href="#" onclick="resetHits()" class="tryagain">Restart</a>
+    </div>
+
+    <script>
+        var hits = 0;
+        var hitElement = document.getElementById('hits');
+        document.body.onkeyup = function(e) {
+            if (e.keyCode == 32) {
+                addHit();
+            }
+        }
+
+        var addHit = function() {
+            hits++;
+            renderHits();
+        }
+
+        var renderHits = function() {
+            if (hits == 69 || hits == 420 || hits == 69420 || hits == 42069) {
+                hitElement.innerHTML = hits + " (nice)";
+            }
+            else {
+                hitElement.innerHTML = hits;
+            }
+            
+        }
+
+        function setHits(number) {
+            hits = number;
+            renderHits();
+            return "You have set the hit counter to " + number;
+        }
+
+        var resetHits = function() {
+            hits = 0;
+            renderHits();
+        }
+    </script>
+</body>
+
+</html>

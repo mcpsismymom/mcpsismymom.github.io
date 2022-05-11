@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>Work Simulator</title>
+    <link href="style.css" rel="stylesheet" type="text/css" />
+  </head>
+  <body>
+    <h1>Level 6-3</h1>
+    <p>Bob also seems to be done with watching TV. Oop - it's almost time for dinner! What should Bob have?</p>
+    <button onclick="text(0)">Spaghetti</button>
+    <button onclick="text(1)">Steak</button>
+    <button onclick="text(2)">Chicken Soup</button>
+    <p id="response"></p>
+    <p id="levelEndText" hidden>Wait, you can't choose any of them? Poor Bob's going to starve. Luckily, I have some leftover sandwiches from Level 4-1.</p>
+    <h2 id="moral" hidden>The Moral: Don't ask a question and give only wrong options.</h2>
+    <button id="next" onclick="window.location.href='stage6-4.html'" hidden>Next</button>
+
+    <script>
+      var responses = [
+        "Bob doesn't have tomato sauce in the kitchen.",
+        "Too many calories.",
+        "Takes too much time to make."
+      ]
+      var checked = [false, false, false];
+      function text(response) {
+        document.getElementById("response").innerText = responses[response];
+        checked[response] = true;
+        let checkedAll = true;
+        for (let i = 0; i < 3; i++) {
+          if (!checked[i]) checkedAll = false;
+        }
+        if (checkedAll) {
+          document.getElementById("levelEndText").hidden = false;
+          document.getElementById("moral").hidden = false;
+          document.getElementById("next").hidden = false;
+        }
+      }
+    </script>
+  </body>
+</html>

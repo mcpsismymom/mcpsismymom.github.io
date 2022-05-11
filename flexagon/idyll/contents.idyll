@@ -1,0 +1,201 @@
+[meta title:"Explorable Flexagons" description:"A tutorial for learning about flexagons" /]
+
+[Header
+  title:"Explorable Flexagons"
+  subtitle:"Learn to create and flex flexagons"
+  author:"Scott Sherman"
+  authorLink:"http://loki3.com/flex" /]
+
+[Preload images:`['static/F/F2.jpg', 'static/F/F3.jpg', 'static/F/F4.jpg', 'static/F/F5.jpg', 'static/F/F6.jpg',
+  'static/F/F7.jpg', 'static/F/F8.jpg', 'static/F/F9.jpg', 'static/F/F10.jpg', 'static/F/F11.jpg',
+  'static/F/F12.jpg', 'static/F/F13.jpg', 'static/F/F14.jpg', 'static/F/F15.jpg', 'static/F/F16.jpg']` /]
+[Preload images:`['static/P4-4-4/2.jpg', 'static/P4-4-4/3.jpg', 'static/P4-4-4/4.jpg', 'static/P4-4-4/5.jpg', 'static/P4-4-4/6.jpg',
+  'static/P4-4-4/7.jpg', 'static/P4-4-4/8.jpg', 'static/P4-4-4/9.jpg', 'static/P4-4-4/10.jpg', 'static/P4-4-4/11.jpg',
+  'static/P4-4-4/12.jpg', 'static/P4-4-4/13.jpg']` /]
+
+[hr /]
+
+
+[Aside]
+  [img src:'static/pinch-flex.jpg' /]
+  [br /][br /]
+  [PinchGraph width:300 height:100 generator:'(P*)5' flexes:'P*P*^>P*' /]
+[/Aside]
+
+[a href:'pinch-flex.html']
+  [div className:'heading'] Chapter 1: Flexagon Intro [/div]
+  [div className:'subname'] Exploring the hidden sides of hexaflexagons [/div]
+[/a]
+
+* Introduces the *hexaflexagon*, with 6 regular triangles per face, and the *pinch flex*, a way of folding a flexagon to reveal previously hidden faces
+* Let's you explore how to visit every face of a flexagon
+* Describes *flex notation*, which can be used to precisely describe a sequence of flexes
+* Introduces the *Tuckerman Traverse* as a technique for visiting every face of a flexagon using the pinch flex
+* Provides both a flexagon simulation and the unfolded template for all hexaflexagons with 3, 4, 5, 6, 7, and 8 faces so you can make your own
+* Shows flexagons made up of different shapes of triangles, like using angles of 30-60-90 or 54-54-72, and different numbers of triangles per face, like 4, 8, 10, or 12
+
+
+[hr /]
+
+
+[Aside]
+  [Slides width:320 height:240 pattern:'static/F/F*.jpg' start:1 end:16 /]
+[/Aside]
+
+[a href:'flexing.html']
+  [div className:'heading'] Chapter 2: Flexing Flexagons [/div]
+  [div className:'subname'] A short tour of different ways to flex a flexagon [/div]
+[/a]
+
+* Describes a naming convention for a wide variety of triangle flexagons, like *pentaflexagon* and *silver octaflexagon*
+* Defines a *minimal flexagon* as the simplest flexagon that supports a given flex
+* Demonstrates a sampling of interesting flexes on triangle flexagons: the pyramid shuffle, flip flex, tuck flex, v-flex, and silver tetra flex
+* Shows that once you generalize the types of flexes you use, the concept of "faces" of a flexagon is no longer sufficient for understanding all the states you can explore
+
+[hr /]
+
+
+[Aside]
+  [var name:'flexagonOptions' value:`{structure:true, showIds:false}`/]
+  [var name:'defaultColors' value:`[0x2E4172, 0x2B803E, 0xAA4439, 0x622870, 0xffff00, 0x553900, 0xdddddd, 0x999999]` /]
+  [derived name:'initial' value:`[
+    {searchFlexes: "SS'T1T1'T2T2'FF'"},
+    {flexAndColor: { flexes: 'S*>S*<', colors:defaultColors }},
+    {reverseFlexes: 'S*>S*<'}
+    ]` /]
+  [var name:'runInit' value:true /]
+
+  [Flexagon width:350 height:200 numPats:7 initialScript:initial runInitial:runInit options:flexagonOptions /]
+  [Unfolded width:300 height:150 numPats:7 generator:'S*>S*<' autoLabel:true /]
+[/Aside]
+
+[a href:'generators.html']
+  [div className:'heading'] Chapter 3: Generating Sequences [/div]
+  [div className:'subname'] Creating flexagons with flex sequences [/div]
+[/a]
+
+* Summarizes the *flex notation* that was previously introduced for describing sequences of flexes
+* Defines a *generating sequence* as a sequence of flexes used to create the structure necessary for performing them on a given flexagon
+* Shows how different flexes move you around a pinch flex diagram
+* Gives you an interactive tool for typing in generating sequences to see what pinch flex diagram is generated
+* Allows you to type in generating sequences consisting of any of the flexes introduced so far on a wide variety of triangle flexagons, giving you the unfolded template that can be used to construct a working flexagon
+
+[hr /]
+
+
+[Aside]
+  [Slides width:320 height:240 pattern:'static/P4-4-4/*.jpg' start:1 end:13 /]
+[/Aside]
+
+[a href:'pinch-variations.html']
+  [div className:'heading'] Chapter 4: Pinch Flex Variations [/div]
+  [div className:'subname'] Relatives of the pinch flex on different flexagons [/div]
+[/a]
+
+* Describes a class of flexes that are related to the standard pinch flex
+* Shows the minimal flexagon for a variety of flexes (e.g. P334 and P3333) on several flexagons (e.g. the enneaflexagon and decaflexagon)
+* Demonstrates generating sequences using these flexes to create interesting flexagons
+
+[hr /]
+
+
+[Aside]
+  [img src:"static/slot-example.jpg" /]
+[/Aside]
+
+[a href:'slot-flexes.html']
+  [div className:'heading'] Chapter 5: Slot Flexes [/div]
+  [div className:'subname'] Flexes that involve sliding leaves through slots [/div]
+[/a]
+
+* Describes a class of flexes called *slot flexes*
+* Demonstrates the related flexes called the *slot half* and *slot pocket*
+* Shows four *slot tuck flex* variants
+* Finishes with the *slot triple pocket flex* on a pentaflexagon
+
+[hr /]
+
+
+[Aside]
+[br/][br/][br/]
+*pre*: `[[[1,2],3], 4, 5, [6,7], 8, 9]`
+[br/]
+*post*: `[2, 4, 5, [6,7], 8, [-1,[9,-3]]]`
+[/Aside]
+
+[a href:'new-flexes.html']
+  [div className:'heading'] Chapter 6: New flexes [/div]
+  [div className:'subname'] How to define flexes with pat notation [/div]
+[/a]
+
+* Describes using *pat notation* for the internal structure of a flexagon
+* Shows how to define what a flex does by using pat notation to enumerate a flexagon's structure before and after a flex
+* Demonstrates using a flex definition to predict where you can do a flex and to predict exactly how a flexagon will change if you do the flex
+* Provides definitions of the flexes discussed so far for hexaflexagons
+* Lists additional details you need to fully understand when a flex can be performed
+* Walks through an example of how to define a new flex and how to add it to the flexagon simulator
+
+[hr /]
+
+
+[Aside]
+* `I ~= (S>T'>^T<<^) 2`
+* `I ~= (Ltb>P>P>) 12`
+* `P ~= T>>>V>>>` so `T' ~= >>>V>>>^P^`
+[/Aside]
+
+[a href:'flex-sequences.html']
+  [div className:'heading'] Chapter 7: Flex Sequences [/div]
+  [div className:'subname'] Cycles, traversals, primes, and equalities [/div]
+[/a]
+
+* Tools for finding cycles, flex sequences that end where they begin
+* Examples of traversals, cycles that visit every state of a flexagon
+* *Prime flexes* that can't be replaced by other flexes
+* Sequences of flexes that are equal or almost equal to each other
+
+[hr /]
+
+
+[a href:'playground.html']
+  [div className:'heading'] Appendix: Flexagon Playground [/div]
+  [div className:'subname'] General tools for exploring flexagons [/div]
+[/a]
+
+* Tools for creating new flexagons from generating sequences or scripts and exploring them using a variety of flexes
+* Get the unfolded template for any of your creations so you can try out the physical version
+* An explorer that can find all the states accessible with a specified set of flexes from any flexagon
+
+[hr /]
+
+
+[a href:'flex-compendium.html']
+  [div className:'heading'] Appendix: Flex Compendium [/div]
+  [div className:'subname'] Details about flexes on triangle flexagons [/div]
+[/a]
+
+* Reference guide to a wide variety of flexes on triangle flexagons
+* Shows sample slides and sample templates to fold on various triangle flexagons
+* Shows flex definitions in pat notation, etc.
+
+[hr /]
+
+
+[a href:'references.html']
+  [div className:'heading'] Flexagon References [/div]
+  [div className:'subname'] Sources for additional flexagon information [/div]
+[/a]
+
+* Bibliography for papers and publications
+* Additional references
+
+[hr /]
+
+
+For additional information, see [loki3.com](http://loki3.com/flex/).
+
+[FullWidth]
+  [img src:'static/flexagon-variety.jpg' /]
+[/FullWidth]
+
+[Copyright/]

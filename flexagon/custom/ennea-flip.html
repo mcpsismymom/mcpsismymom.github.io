@@ -1,0 +1,118 @@
+<meta charset="UTF-8">
+<html>
+
+<head>
+  <title>flip enneaflexagon</title>
+  <script src="../build/out.js"></script>
+  <script type="text/javascript">
+    var creator = [
+      { pats: [1, 2, 3, 4, 5, 6, 7, 8, 9] },
+      {
+        addFlex: {
+          shorthand: "F3", name: "flip3",
+          input: [[1, 2], 3, 4, 5, 6, 7, [[8, 9], [10, 11]], 12, 13],
+          output: [9, 12, [[-1, 3], [13, -2]], 4, 5, 6, 7, 10, [-8, -11]]
+        }
+      },
+      { searchFlexes: "F F3" },
+      { flexes: "F+ < < < F+ < < < F+" },
+      { setFace: { front: { label: "1", color: 0x2E4172 }, back: { label: "2", color: 0x2B803E } } },
+      { flexes: "F > > > F > > > F > > F > > > F > > > F > > F > > > F > > > F" },
+      { setFace: { front: { label: "3", color: 0xAA4439 }, back: { label: "4", color: 0x622870 } } },
+      { flexes: "^ F > > > F > > > F > > F > > > F > > > F > > F > > > F > > > F ^" },
+      { history: "clear" }
+    ];
+    var fm = Flexagonator.createFromScript(creator);
+    var buttons = null;
+
+    function updateUI() {
+      var regions = Flexagonator.drawEntireFlexagon('interface', fm, { structure: true });
+      buttons = Flexagonator.drawScriptButtons('interface', fm.flexagon, fm.getAngleInfo(), true, regions);
+
+      var historyBox = document.getElementById('history');
+      if (historyBox !== null) {
+        var history = fm.getFlexHistory().join(' ');
+        historyBox.value = history;
+      }
+    }
+
+
+    function applySequence(key, sequence) {
+      if (key == 13) {
+        var result = fm.applyFlexes(sequence, true);
+        if (result === true) {
+          updateUI();
+        } else {
+          console.log(result);
+        }
+      }
+    }
+
+    function reset() {
+      fm.undoAll();
+      updateUI();
+    }
+
+    function undo() {
+      fm.undo();
+      updateUI();
+    }
+
+    function redo() {
+      fm.redo();
+      updateUI();
+    }
+
+    function interfaceMouseMove(event) {
+      var script = Flexagonator.getScriptItem(event, 'interface', buttons);
+      event.target.style.cursor = script == null ? 'default' : 'pointer';
+    }
+
+    function interfaceMouseClick(event) {
+      var script = Flexagonator.getScriptItem(event, 'interface', buttons);
+      if (script != null) {
+        var result = Flexagonator.runScriptItem(fm, script);
+        if (!Flexagonator.isError(result)) {
+          fm = result;
+          updateUI();
+        }
+      }
+    }
+  </script>
+</head>
+
+<body>
+  <h1>Flexagonator: applying the flip flex to an enneaflexagon</h1>
+  <h3>generating sequence: (F+&lt;&lt;&lt;)x3</h3>
+
+  <p>
+    If you stick to the flip flex (F), you'll always make it from blue/1 to red/3 in either 6 or 9 moves. Once you add in F3
+    (same as the flip, but using 3 leaves instead of 2), you may find red or get stuck in a cycle or reach a dead-end. If
+    you get stuck, hit the <em>reset</em> button to start over, or <em>undo</em> to back up.
+  </p>
+
+  <p>
+    <div>
+      <label>enter flex sequence</label>
+      <input onkeypress="applySequence(event.keyCode, event.target.value)" id="enterFlexes" size="75" />
+    </div>
+  </p>
+  <p>
+    <input onclick="reset();" type="button" value="reset" />
+    <input onclick="undo();" type="button" value="undo" />
+    <input onclick="redo();" type="button" value="redo" />
+    <textarea id="history" readonly=true cols="70" rows="1"></textarea>
+  </p>
+
+  <canvas id="interface" width="800" height="500"></canvas>
+
+  <script type="text/javascript">
+    updateUI();
+    var canvas = document.getElementById('interface');
+    canvas.addEventListener('mousemove', interfaceMouseMove, false);
+    canvas.addEventListener('click', interfaceMouseClick, false);
+  </script>
+
+</body>
+
+</html>

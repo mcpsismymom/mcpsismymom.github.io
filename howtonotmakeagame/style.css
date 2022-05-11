@@ -1,0 +1,16 @@
+button {
+  background: cornflowerblue;
+  border-color: cornflowerblue;
+  text-align: center;
+  font-size: 18px;
+  color: white;
+}
+
+p {
+  font-size: 20px;
+}
+
+textarea {
+  width: 200px;
+  height: 100px;
+}

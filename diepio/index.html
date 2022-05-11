@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Meta Properties -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=yes">
+    <meta name="description" content="arras.io, but the tanks drank milk.">
+  <meta name="robots" content="index, follow">
+   <meta name="author" content="seaguli">
+    <meta name="keywords" content="arras.io, arras, game, arras mayhem, arras moe, arrasio">
+    <meta property="og:image" content="https://cloud-cube.s3.amazonaws.com/m660o440l0wv/public/appicon.png">
+  <meta property="og:site_name" content="arras-mayhem">
+  <meta property="og:image:width" content="80">
+  <meta property="og:image:height" content="80">
+  <meta property="og:type" content="website">
+  <meta name="mobile-web-app-capable" content="yes">
+    <meta name="theme-color" content="#b493d3">
+  <title>arras.io</title>
+    <!-- Apple Web App stuff -->
+  <link rel="apple-touch-icon" href="https://cloud-cube.s3.amazonaws.com/m660o440l0wv/public/app.png" />
+  <link rel="apple-touch-startup-image" href="https://cloud-cube.s3.amazonaws.com/m660o440l0wv/public/splash.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+<link rel="apple-touch-startup-image" media="(device-width: 768px)" href="https://cloud-cube.s3.amazonaws.com/m660o440l0wv/public/splashtablet.png">
+   <link rel="apple-touch-startup-image" media="(device-width: 1536px)" href="https://cloud-cube.s3.amazonaws.com/m660o440l0wv/public/splashtablet.png">
+ <link href="https://cloud-cube.s3.amazonaws.com/m660o440l0wv/public/splash.png" media="(device-width: 375px) and (-webkit-device-pixel-ratio: 2)" rel="apple-touch-startup-image" />
+    <!-- Windows App Pin -->
+   <meta name="msapplication-TileColor" content="#b493d3">
+    <meta name="msapplication-TileImage" content="https://cloud-cube.s3.amazonaws.com/m660o440l0wv/public/appicon.png">
+  <!-- CSS -->
+  <link href="https://fonts.googleapis.com/css?family=Ubuntu:400,700" rel="stylesheet">
+  <link rel="stylesheet" href="https://chromebooksareracist.github.io/diepio/main.css">
+  <!-- Favicons -->
+  <link rel="icon" type="image/png" sizes="256x256" href="https://cloud-cube.s3.amazonaws.com/m660o440l0wv/public/arras.png">
+    <link rel="shortcut icon" href="https://cloud-cube.s3.amazonaws.com/m660o440l0wv/public/arraslogo.png" type="image/x-icon">
+</head>
+<body oncontextmenu="return event.target.tagName === 'A'">
+    <!-- Music and Audio -->
+  <script>
+var hover = new Audio();
+hover.src = ("https://cloud-cube.s3.amazonaws.com/m660o440l0wv/public/syt.ogg");
+function PlaySound1() {
+  hover.load();   
+    hover.play();
+}
+</script>
+    <script>
+var animevoice = new Audio();
+animevoice.src = ("https://cloud-cube.s3.amazonaws.com/m660o440l0wv/public/arras-mayhem.wav");
+function PlaySound5() {
+  animevoice.load();   
+   animevoice.play();
+}
+</script>
+      <script>
+var music2 = new Audio();
+ const pmusic = ["https://cdn.glitch.me/fca666a2-8235-47b6-a711-c9926dc2248f/bgm05.ogg?v=1640768277837", "https://cdn.glitch.com/fca666a2-8235-47b6-a711-c9926dc2248f%2Fbgm_39.ogg?v=1612744179994", "https://cdn.glitch.me/fca666a2-8235-47b6-a711-c9926dc2248f/bgm11.ogg?v=1640767898906","https://cdn.glitch.me/fca666a2-8235-47b6-a711-c9926dc2248f/bgm02.ogg?v=1640767732812"];
+var rand = pmusic[~~(Math.random() * pmusic.length)];
+music2.src = (rand);
+function PlayMusic() {
+  music2.load();   
+    music2.play();
+}
+</script>
+    <script>   
+   function switchAudio() {
+      if (document.getElementById("optSound").checked === true) {
+           music2.play()
+    music2.addEventListener('ended', function() {this.currentTime = 0; this.play();}, false);
+     } else if (document.getElementById("optSound").checked === false) {
+          music2.pause()
+            }
+         return; } 
+  </script>
+       <script>
+var gears = new Audio();
+gears.src = ("https://cloud-cube.s3.amazonaws.com/m660o440l0wv/public/gear.wav");
+function PlaySound3() {
+    gears.play();
+}
+</script> 
+    <script>
+var click = new Audio();
+click.src = ("https://cloud-cube.s3.amazonaws.com/m660o440l0wv/public/sysse_ok.ogg");
+function PlaySound() {
+  click.load();   
+    click.play();
+}
+</script>
+      <audio id ="bflat" src="https://cloud-cube.s3.amazonaws.com/m660o440l0wv/public/sysse_ok.ogg"></audio>
+    <!-- Main Code-->
+   <div id="gameAreaWrapper">
+    <canvas id="gameCanvas" tabindex="1"></canvas>
+    <div id="respawn-banner" class="respawn-banner"><div id="arras-io_728x90"></div></div>
+  </div>
+  <div id="mainWrapper">
+    <div id="startMenuWrapper">
+      <div class="menuTabs">
+        <a class="menuTab discord" onclick="PlaySound()" onmouseover="PlaySound1()" title="Join our Discord server" href="https://discord.gg/yTZdDPA" target="_blank" rel="noopener noreferrer">Discord</a>
+        <a class="menuTab catto" onclick="PlaySound()" onmouseover="PlaySound1()" title="View the client's source code" href="https://glitch.com/~arras-mayhem" target="_blank" rel="noopener noreferrer">View Source</a>
+        <a class="menuTab stat" onclick="PlaySound()" onmouseover="PlaySound1()" title="Check the status of the servers" href="https://arras-moe.herokuapp.com/status" target="_blank" rel="noopener noreferrer">Status</a>
+      </div>
+      <div id="startMenu">
+        <div class="startMenuHolder">
+          <div class="sliderHolder">
+            <div class="slider startMenuSlidingContent">
+              <center><img src="https://cloud-cube.s3.amazonaws.com/m660o440l0wv/public/arras.png" onmouseover="PlaySound1()" onclick="PlaySound()" title="arras.io" class="icon" alt="arras icon"></center>
+               <h1 onclick="PlaySound5()">arras.io</h1>
+               <noscript>
+                <h4>Please enable JavaScript to play!</h4>
+                 </noscript>
+                  <div class="serverSelector shadowScroll"><table><tbody id="serverSelector"></tbody></table></div>
+              <input type="text" autofocus tabindex="1" title="Your name"  spellcheck="false" placeholder="Start the mayhem as" id="playerNameInput" maxlength="28">
+              <input type="password" tabindex="1"  title="Use this field if you have a Token for Testbed access" placeholder="Token" id="playerKeyInput" maxlength="48">
+            </div>
+            <div class="slider" id="startMenuSlidingTrigger" onmouseover="PlaySound1()" title="Options, controls and more links">
+              <h3>
+                <span id="viewOptionText" >view options</span>&nbsp;&nbsp;<i class="arrow" id="optionArrow" style="transform:rotate(-45deg);-webkit-transform:rotate(-45deg)"></i>
+              </h3>
+            </div>
+            <div class="slider startMenuSlidingContent">
+              <div class="controlTable optionsHeader" title="More Controls" onclick="PlaySound3()" >Advanced Controls <i id="resetControls" class="reset resetControls" title="Reset controls"></i><i id="moreControls" class="moreControls cross" title="More controls"></i></div>
+              <table class="controlTable" id="controlTable">
+                <tbody>
+                  <tr>
+                    <td><div><b data-key="KEY_AUTO_FIRE">E</b><span> - </span>auto-fire</div></td>
+                    <td><div><b data-key="KEY_AUTO_SPIN">C</b><span> - </span>auto-spin</div></td>
+                    <td><div><b data-key="KEY_OVER_RIDE">R</b><span> - </span>disable AI</div></td>
+                  </tr>
+                  <tr>
+                    <td><div><b data-key="KEY_LEVEL_UP">N</b><span> - </span>level up</div></td>
+                    <td><div><b data-key="KEY_KILL_YOURSELF">O</b><span> - </span>suicide</div></td>
+                    <td><div><b data-key="KEY_REVERSE_MOUSE">B</b><span> - </span>god mode</div></td>
+                  </tr>
+                  <tr>
+                    <td><div><b data-key="KEY_SCREENSHOT">Q</b><span> - </span>screenshot</div></td>
+                    <td><div><b data-key="KEY_UPGRADE_MAX">M</b><span> - </span>maximize stat</div></td>
+                    <td><div><b data-key="KEY_CLASS_TREE">T</b><span> - </span>show class tree</div></td>
+                  </tr>
+                  <tr class="hidden">
+                    <td><div><b data-key="KEY_RECORD">Z</b><span> - </span>record video</div></td>
+                    <td><div><b data-key="KEY_UP">W</b><span> - </span>move up</div></td>
+                    <td><div><b data-key="KEY_PING">L</b><span> - </span>show latency</div></td>
+                  </tr>
+                  <tr class="hidden">
+                    <td><div><b data-key="KEY_LEFT">A</b><span> - </span>move left</div></td>
+                    <td><div><b data-key="KEY_DOWN">S</b><span> - </span>move down</div></td>
+                    <td><div><b data-key="KEY_RIGHT">D</b><span> - </span>move right</div></td>
+                               </tr>
+                  <tr class="hidden">
+                    <td><div><b data-key="KEY_CHOOSE_1" data-help="KEY_CHOOSE_1">Y</b><span> - </span>upgrade 1</div></td>
+                    <td><div><b data-key="KEY_CHOOSE_2" data-help="KEY_CHOOSE_2">U</b><span> - </span>upgrade 2</div></td>
+                    <td><div><b data-key="KEY_CHOOSE_3" data-help="KEY_CHOOSE_3">I</b><span> - </span>upgrade 3</div></td>
+                  </tr>
+                  <tr class="hidden">
+                    <td><div><b data-key="KEY_CHOOSE_4" data-help="KEY_CHOOSE_4">H</b><span> - </span>upgrade 4</div></td>
+                    <td><div><b data-key="KEY_CHOOSE_5" data-help="KEY_CHOOSE_5">J</b><span> - </span>upgrade 5</div></td>
+                    <td><div><b data-key="KEY_CHOOSE_6" data-help="KEY_CHOOSE_6">K</b><span> - </span>upgrade 6</div></td>
+                  </tr>
+                  <tr class="hidden">
+                    <td><div><b data-key="KEY_CHOOSE_7" data-help="KEY_CHOOSE_7"></b><span> - </span>upgrade 7</div></td>
+                    <td><div><b data-key="KEY_CHOOSE_8" data-help="KEY_CHOOSE_8"></b><span> - </span>upgrade 8</div></td>
+                    <td><div><b data-key="KEY_CHOOSE_9" data-help="KEY_CHOOSE_9"></b><span> - </span>upgrade 9</div></td>
+                  </tr>
+                     <tr class="hidden">
+                    <td><div><b data-key="KEY_CHAT" data-help="KEY_CHAT">/</b><span> - </span>chat</div></td>
+                    <td><div><b data-key="KEY_ABILITY" data-help="KEY_ABILITY">F</b><span> - </span>ability</div></td>
+                    <td><div><b data-key="KEY_FUCK_YOU" data-help="KEY_FUCK_YOU">`</b><span> - </span>testbed</div></td>
+                  </tr>
+                       <tr class="hidden">
+                    <td><div><b data-key="KEY_CHUNGUS" data-help="KEY_CHUNGUS">&gt;</b><span> - </span>grow</div></td>
+                    <td><div><b data-key="KEY_TELEPORT" data-help="KEY_TELEPORT">T</b><span> - </span>teleport</div></td>
+                    <td><div><b data-key="KEY_REVERSE_TANK" data-help="KEY_REVERSE_TANK">V</b><span> - </span>vanish</div></td>
+                  </tr>
+                </tbody>
+              </table>
+              <div class="optionsHeader">Themes & Graphics</div>
+              <select id="optColors" tabindex="-1" onchange="document.getElementById('optCustom').style.display = this.value === 'custom' ? 'block' : 'none'" onfocus="document.getElementById('optCustom').style.display = this.value === 'custom' ? 'block' : 'none'">
+                <option value="normal">Light Colors</option>
+                <option value="dark">Dark Colors</option>
+                <option value="natural">Natural</option>
+                <option value="classic">Classic</option>
+                                 <option value="obstar">Obstar</option>
+                                                <option value="diep">Diep.io</option>
+                <option value="pumpkin">Pumpkin Skeleton (Fan-made)</option>
+                <option value="forest">Forest (Fan-made)</option>
+                <option value="midnight">Midnight (Fan-made)</option>
+                <option value="pastel">Snow (Fan-made)</option>
+                <option value="ocean">Coral Reef (Fan-made)</option>
+                <option value="badlands">Badlands (Fan-made)</option>
+                <option value="bleach">Bleach (Fan-made)</option>
+                 <option value="confusion">Confusion (Fan-made)</option>
+                 <option value="nebula">Nebula (Fan-made)</option>
+                  <option value="space">Space (Fan-made)</option>
+                <option value="candy">Cotton Candy (Fan-made)</option>
+                              <option value="nightmare">Nightmare (Fan-made)</option>
+                    <option value="bubblegum">Bubblegum (Fan-made)</option>
+                 <option value="terminal">Terminal (Fan-made)</option>
+                <option value="borderless">Borderless (Fan-made)</option>
+                <option value="bordered">Bordered (Fan-made)</option>
+                <option value="custom">Custom</option>
+              </select>
+              <select id="optMobile" tabindex="-1">
+                <option value="joysticks">Joysticks</option>
+                <option value="desktop">Desktop</option>
+              </select>
+              <select id="optBorders" tabindex="-1">
+                <option value="normal">Soft Borders</option>
+                <option value="dark">Dark Borders</option>
+                <option value="neon">Neon Mode</option>
+                <option value="glass">Glass Mode</option>
+              </select> 
+              <input id="optCustom"  style="display:none" placeholder="Enter your theme code here">
+              <table>
+                <tr>
+                  <td><div>
+                    <label class="container"><input id="optScreenshotMode" onmouseover="PlaySound1()" onclick="PlaySound()" tabindex="-1" class="checkbox" type="checkbox"><span class="checkmark"></span>Screenshot Mode</label>
+                  </div></td>
+                  <td><div>
+                    <label class="container"><input id="optNoPointy" onclick="PlaySound()" tabindex="-1" class="checkbox" type="checkbox"><span class="checkmark"></span>Classic Traps</label>
+                  </div></td>
+                </tr><tr>
+                  <td><div>
+                    <label class="container"><input id="optFancy" onclick="PlaySound()" tabindex="-1" class="checkbox" type="checkbox"><span class="checkmark"></span>Low Graphics</label>
+                  </div></td>
+                  <td><div>
+                    <label class="container"><input id="optShield" onclick="PlaySound()" tabindex="-1" class="checkbox" type="checkbox"><span class="checkmark"></span>Separate Shield Bar</label>
+                  </div></td>
+                </tr><tr>
+                  <td><div>
+                    <label class="container"><input id="optAutoLevel" onclick="PlaySound()" tabindex="-1" class="checkbox" type="checkbox"><span class="checkmark"></span>Auto-Level Up</label>
+                  </div></td>
+                  <td><div>
+                    <label class="container"><input id="optPrediction" onclick="PlaySound()" tabindex="-1" class="checkbox" type="checkbox"><span class="checkmark"></span>Use New Interpolation</label>
+                  </div></td>
+                </tr><tr>
+                  <td><div>
+                    <label class="container"><input id="optPointy" onclick="PlaySound()" tabindex="-1" class="checkbox" type="checkbox"><span class="checkmark"></span>Sharp Edges</label>
+             </div></td>
+                  <td><div>
+                    <label class="container"><input id="optSound" tabindex="-1" class="checkbox" type="checkbox" onclick="switchAudio()"><span class="checkmark"></span>Music</label>
+                  </div></td> <!-- Toggleable audio via checkbox -->
+                </tr>
+              </table>
+              <div id="bottomHolder">
+            <a style="background:#ffa500" onclick="PlaySound()" onmouseover="PlaySound1()" title="A link to the developer's patreon" href="https://www.patreon.com/arrasio" target="_blank" rel="noopener noreferrer">Support The Dev!</a>
+                 <a style="background:#ffa500" onclick="PlaySound()" onmouseover="PlaySound1()" title="A custom theme creator" href="https://codepen.io/road-to-100k/full/MPyOeQ/" target="_blank" rel="noopener noreferrer">Theme Creator</a>
+                       <a style="background:#ffa500" onclick="PlaySound()" onmouseover="PlaySound1()" title="A link to the Glitch beta server" href="https://arras-moe.glitch.me/" target="_blank" rel="noopener noreferrer">Beta Server</a>
+                 <a style="background:#C98913" onclick="PlaySound()" onmouseover="PlaySound1()" href="https://arras.io/#host=arrasio5.glitch.me" title="Use the offical arras.io client" target="_blank" rel="noopener noreferrer">Arras.io</a>
+                    <a style="background:#C98913" onclick="PlaySound()" onmouseover="PlaySound1()" href="https://drive.google.com/drive/folders/1htLxrKc8_GuQFpPhiCKMC7wzjJPyQE80?usp=sharing" title="Arras Mayhem's screenshot and video gallery" target="_blank" rel="noopener noreferrer">Gallery</a>
+            <a style="background:#C98913" onclick="PlaySound()" onmouseover="PlaySound1()" href="https://glitch.com/~arras-template" title="Create your own private server" target="_blank" rel="noopener noreferrer">Template</a>
+          </div>
+            </div>
+          </div>
+          <div style="position: relative; bottom: -10px;">
+            <button id="startButton" onmouseover="PlaySound1()" title="Start the mayhem" tabindex="2">Play</button>
+          </div>
+        </div>
+        <div class="startMenuHolder shrinkable">
+          <div class="changelogSelectorContainer">
+          <div class="changelogSelector" id="changelogSelector">
+              <span data-type="changelog" onmouseover="PlaySound1()" title="More bullets than Touhou">Changelog</span>
+            </div>
+          </div>
+          <div id="patchNotes" class="shadowScroll updates"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- JS -->
+  <script>
+  window.onerror = function(message, source, lineno, colno, error) {
+    window.onerror = null
+    if (error) error = error.toString()
+    console.warn('The game crashed, refreshing page to recover from the error')
+    if (error == null && lineno == 0 && colno == 0) return
+    var e = JSON.stringify({
+      message: message,
+      source: source,
+      lineno: lineno,
+      colno: colno,
+      error: error
+    })
+    prompt('The game may have crashed, refresh the page to recover from the error. Error information:', e)
+  }
+  </script>
+  <script src="./bundle.js"></script>
+</body>
+</html>

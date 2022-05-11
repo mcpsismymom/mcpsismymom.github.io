@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+        <title>Tunnel Glider</title>
+        <link rel="icon" type="image/png" href="assets/icons/icon.png" />
+
+        <!-- Babylon.js -->
+        <script type="text/javascript" src="libraries/babylon.max.js"></script>
+        <script type="text/javascript" src="libraries/cannon.js"></script>
+        <script type="text/javascript" src="libraries/babylonjs.loaders.js"></script>
+        <script type="text/javascript" src="libraries/jquery.js"></script>
+
+        <!-- <link rel="stylesheet" type="text/css" href="css/temp.css"> -->
+
+        <link rel="stylesheet" type="text/css" href="css/main.css">
+        <link rel="stylesheet" type="text/css" href="css/ingame.css">
+        <link rel="stylesheet" type="text/css" href="css/popup.css">
+    </head>
+<body>
+
+    <div id="menu_btn">
+        <img src="assets/svgs/list.svg">
+    </div>
+
+    <div id="ingame_settings_btn">
+        <img src="assets/svgs/settings.svg">
+    </div>
+
+    <div id="fullscreen_btn">
+        <img src="assets/svgs/fullscreen.svg">
+    </div>
+
+
+    <div class="screen" id="screen_loading">
+        <h1>Loading....</h1>
+        <h1 style="color:red;">Loading....</h1>
+    </div>
+
+
+    <div class="screen screen_wide" id="screen_playing">
+        <div id="overlay_score">
+            10km
+        </div>
+        <div id="overlay_high">
+            High:<br>...
+        </div>
+        <canvas id="renderCanvas"></canvas>
+        <img src="assets/textures/controls.png" id="controls_overlay">
+    </div>
+
+
+    <div class="screen" id="screen_main_menu">
+        <img src="assets/textures/topbanner.png" id="topbanner">
+
+        <div class="button big_btn" id="play_btn">
+            Play!
+        </div>
+        <br>
+        <div class="button" id="levels_btn">
+            All game modes
+        </div>
+        <br>
+
+
+        <div class="main_menu_row">
+            <div class="button_light main_menu_btn" id="settings_btn">
+                Settings
+            </div>
+
+            <a class="button_light main_menu_btn_wide" target="_blank" href="https://onionfist.com/extensions/#referrer=tungli">More Games</a>
+            
+            <div class="button_light main_menu_btn" id="credits_btn">
+                Credits
+            </div>
+        </div>
+
+        <!-- <div class="button" id="credits_btn">
+            Credits
+        </div>
+        <div class="button" id="settings_btn">
+            Settings
+        </div> -->
+
+        <br>
+        <br>
+
+        <div style="color: #808080; font-family: Arial; font-size: 14px;">
+            2021 Onionfist Studio. All Rights Reserved. Contact: flyingdodo9000@gmail.com <br>
+            By using Tunnel Glider, you agree to our <a href="https://onionfist.com/privacy_policy/" target="_blank" style="color: #808080; text-decoration: underline !important; color: #b5b5b5; border: none !important;">Privacy Policy</a> and 
+            <a href="https://onionfist.com/terms_of_service/" target="_blank" style="color: #808080; text-decoration: underline !important; color: #b5b5b5; border: none !important;">Terms of Service</a>
+        </div>
+    </div>
+
+    <div class="screen" id="screen_levels">
+        <h1>Game Modes</h1>
+        <div id="levels">
+            
+        </div>
+        <div id="locked_from">
+            <div id="locked_from_inner">
+                <h1 id="locked_from_h1"></h1>
+                <br>
+                <div class="progress_outer">
+                    <div class="progress_inner" id="locked_progress"></div>
+                </div>
+                <br>
+                <h1 id="locked_from_h1_2"></h1>
+            </div>
+        </div>
+    </div>
+
+    <div class="screen" id="screen_credits">
+        <h1>Credits</h1>
+        <p>Music by ColBreakz and EnV, included with their permission.</p>
+    </div>
+
+
+
+
+    <div class="screen" id="screen_death">
+        <h1 id="death_results_h1">You died!</h1>
+        <p id="death_results_p">
+            
+        </p>
+        <div class="button" id="death_respawn_btn">
+            Re-spawn
+        </div>
+        <br>
+        <div class="button" id="death_quit_btn">
+            Quit to menu
+        </div>
+    </div>
+
+    <div class="screen" id="screen_settings">
+        <h1>Settings</h1>
+        <div id="settings">
+            
+        </div>
+        <h2>Dangerous:</h2>
+        <div class="button" id="erase_data_btn">
+            Erase player data
+        </div>
+    </div>
+
+    <div class="screen" id="screen_data_erase_ask">
+        <h1>Erase data?</h1>
+        <p>Do you want to permanently erase your game data, such as levels completed, items unlocked, and more? This process is irreversable and you can not get your data back.</p>
+        <div class="button" id="erase_yes">
+            Erase data
+        </div>
+        <div class="button" id="erase_no">
+            Cancel
+        </div>
+    </div>
+
+    <div class="screen" id="screen_data_erase_confirm">
+        <h1>Data erased!</h1>
+        <div class="button" id="erase_done">
+            OK
+        </div>
+    </div>
+
+    <div class="screen" id="screen_afk">
+        <h1>Are you still here?</h1>
+        <div class="button big_btn" id="afk_button">
+            Yes, I'm here!
+        </div>
+    </div>
+
+
+
+    <audio controls id = "audio">
+    <source src="" id="audiosource">
+    </audio>
+
+    <audio controls id = "sound_die">
+    <source src="assets/sounds/die.wav" type="audio/wav">
+    </audio>
+
+    <!-- SPLIT -->
+    <script type="text/javascript" src="js/sync.js"></script>
+    <script type="text/javascript" src="js/map_info.js"></script>
+    <script type="text/javascript" src="js/setup.js"></script>
+    <script type="text/javascript" src="js/update.js"></script>
+    <script type="text/javascript" src="js/motion.js"></script>
+    <script type="text/javascript" src="js/settings.js"></script>
+    <script type="text/javascript" src="js/controls.js"></script>
+    <script type="text/javascript" src="js/audio.js"></script>
+    <script type="text/javascript" src="js/state.js"></script>
+    <script type="text/javascript" src="js/webadd.js"></script>
+    <script type="text/javascript" src="js/score.js"></script>
+    <script type="text/javascript" src="js/deployment.js"></script>
+    <script type="text/javascript" src="js/size.js"></script>
+    <script type="text/javascript" src="js/join_params.js"></script>
+    <script type="text/javascript" src="js/popup.js"></script>
+    <script type="text/javascript" src="js/webext.js"></script>
+    <script type="text/javascript" src="js/objects.js"></script>
+    <script type="text/javascript" src="js/scorekeeper.js"></script>
+    <script type="text/javascript" src="js/cleanup.js"></script>
+    <script type="text/javascript" src="js/loader.js"></script>
+    
+    <script type="text/javascript" src="js/collision.js"></script>
+    <script type="text/javascript" src="js/decorations.js"></script>
+    <script type="text/javascript" src="js/maker.js"></script>
+
+
+    <script type="text/javascript" src="js/boot.js"></script>
+    <!-- SPLIT -->
+
+
+</body>
+</html>
+

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>Work Simulator</title>
+    <link href="style.css" rel="stylesheet" type="text/css" />
+  </head>
+  <body>
+    <div>
+      <h1>Level 4-2</h1>
+      <p>Bob finally thinks he has enough sandwiches to enjoy his lunch. Bob also wants to listen to something, so why not listen to some calming music?</p>
+      <p>Note: This isn't a rickroll. I already did that in Level 2-2.</p>
+      <button onclick="music()">Calming Music</button>
+      <p id="musicText" hidden>Ahhh... On days like these, Bob wonders what could possibly go wrong.</p>
+    </div>
+    <script>
+      var strad = new Audio("strad.oga");
+      function music() {
+        strad.play();
+        document.getElementById("musicText").hidden = false;
+        setTimeout(function () {
+          strad.pause();
+          strad = new Audio("rickRoll.mp3");
+          strad.play();
+          document.querySelector('div').innerHTML = "<h1>ERROR<\/h1>\r\n    <p>THIS WEBSITE INFRINGES THE MOJANG UELA (USER END LICENSE AGREEMENT) AND TERMS OF SERVICE. PLEASE ENJOY LISTENING TO RICK ASTLEY\'S \"NEVER GONNA GIVE YOU UP\" INSTEAD.<\/p>\r\n    <h2>The Moral: Please consider copyright licenses before including images\/audio in your programs.<\/h2>\r\n    <button onclick=\"window.location.href=\'stage4-3.html\'\">Next<\/button>\r\n\r\n"
+        }, 10000);
+      }
+    </script>
+  
+  </body>
+</html>

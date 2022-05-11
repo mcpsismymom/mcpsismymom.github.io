@@ -1,0 +1,109 @@
+#ingame {
+    height: 100%;
+}
+#renderCanvas {
+    width: 100%;
+    height: 100%;
+    touch-action: none;
+}
+.screen {
+    font-family: 'pressstart';
+    visibility: hidden;
+    color: white;
+    background: rgba(0,0,0,0.3);
+    text-align: center;
+    position: fixed;
+    left: 0px;
+    top: 0px;
+    width: 100%;
+    height: 100%;
+    z-index: 5;
+}
+.map_name {
+    font-size: 26px;
+    margin-top: 60px;
+}
+.maker_name {
+    font-size: 18px;
+}
+.screen_msg {
+    font-size: 26px;
+    background: black;
+    line-height: 100px;
+}
+
+#main_to_menu , #respawn , #next_level {
+    font-size: 26px;
+    padding: 20px;
+}
+
+.screen_table {
+    display: inline-block;
+}
+
+#overlay {
+    visibility: hidden;
+}
+#overlay * {
+    z-index: 100;
+    font-family: 'pressstart';
+    color: var(--white);
+    
+}
+#swings {
+    position: fixed;
+    left: 20px;
+    top: 20px;
+    font-size: 20px;
+    user-select: none;
+}
+#power_text {
+    position: fixed;
+    left: 20px;
+    bottom: 60px;
+}
+
+#punch_outer {
+    position: fixed;
+    left: 20px;
+    bottom: 20px;
+    display: inline-block;
+    width: 200px;
+    height: 20px;
+    padding: 5px;
+    background: black;
+}
+
+#punch_inner {
+    width: 20%;
+    height: 20px;
+    background: var(--white);
+}
+
+#overlay_restart, #overlay_menu {
+    position: fixed;
+    bottom: 20px;
+    font-size: 14px;
+}
+
+#overlay_restart {
+    right: 20px;
+}
+
+#overlay_menu {
+    right: 180px;
+}
+
+#win_text {
+    font-size: 40px;
+    margin: 0;
+}
+
+#win_text_n , #win_text_h {
+    font-size: 16px;
+    line-height: 16px;
+    color: white;
+}
+#win_text_n {
+    padding-bottom: 15px;
+}

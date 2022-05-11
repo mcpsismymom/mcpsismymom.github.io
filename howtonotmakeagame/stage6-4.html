@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>Work Simulator</title>
+    <link href="style.css" rel="stylesheet" type="text/css" />
+  </head>
+  <body>
+    <h1>Level 6-4</h1>
+    <p>Congratulations! Even through all of the annoying mistakes, clicker games, and painful reading, you're still here! One last task though - let's help Bob go to sleep.</p>
+    <p>This stage is identical to the one in Level 2-1, but this time, I made sure to tell Bob not to be so stubborn.</p>
+    <button onclick="sleep()">Help Bob Sleep</button>
+    <p id="awakenessMeter">Awakeness Meter: ====================|</p>
+    <p id="levelEndText" hidden>One click sleepiness? If only this existed in real life...</p>
+    <h2 id="moral" hidden>The Moral: Don't make one-click puzzles.</h2>
+    <button id="next" onclick="window.location.href='end.html'" hidden>END</button>
+  
+    <script>
+      var awakeness = 20;
+      function sleep() {
+        awakeness -= 25;
+        document.getElementById("levelEndText").hidden = false;
+        document.getElementById("moral").hidden = false;
+        document.getElementById("next").hidden = false;
+      }
+      function update() {
+        awakeness++;
+        if (awakeness > 20) awakeness = 20;
+        let innerText = "Awakeness Meter: ";
+        for (let i = 0; i < awakeness; i++) { innerText += "=" }
+        innerText += "|"
+        if (awakeness <= 0) {
+          clearInterval(interval);
+          innerText = "zzZzzZzZzzZz...";
+        }
+        document.getElementById("awakenessMeter").innerText = innerText;
+      }
+
+      var interval = setInterval(update, 25);
+    </script>
+  </body>
+</html>

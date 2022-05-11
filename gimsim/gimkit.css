@@ -1,0 +1,188 @@
+body {
+  background: #1B2B8B;
+  color: white;
+
+  font-family: sans-serif;
+  font-size: 30px;
+  text-align: center;
+}
+
+.gimQuestion {
+  cursor: pointer;
+  width: 100%;
+  height: 300px;
+  margin: 0 auto;
+  color: white;
+
+  font-family: sans-serif;
+  text-align: center;
+}
+
+.gimWaiting {
+  font-size: 70px;
+  background: #303F9F;
+}
+
+.gimCorrect {
+  font-size: 50px;
+  background: #388E3C;
+}
+
+.gimWrong {
+  font-size: 50px;
+  background: #B71C1C;
+}
+
+.gimShop {
+  background: #E8E8E8;
+  border-style: solid;
+  border-width: 5px;
+  border-color: #C3C3C3;
+  cursor: pointer;
+  width: 49%;
+  height: 430px;
+  font-size: 18px;
+  float: right;
+  color: green;
+  text-align: center;
+
+  font-family: sans-serif;
+}
+
+
+.gimUpgrade {
+  border-style: solid;
+  border-width: 2px;
+  cursor: pointer;
+  width: 500px;
+  height: 35px;
+  font-size: 18px;
+  color: white;
+  
+  font-family: sans-serif;
+}
+
+.grayButton {
+  background: darkgray;
+  border-color: gray;
+}
+
+
+
+.gimAnswer {
+  border-style: solid;
+  border-width: 5px;
+  cursor: pointer;
+  width: 50%;
+  height: 110px;
+  font-size: 30px;
+  color: white;
+
+  font-family: sans-serif;
+}
+
+
+
+.gimSetting {
+  border-style: solid;
+  border-width: 3px;
+  cursor: pointer;
+  width: 150px;
+  height: 40px;
+  font-size: 20px;
+  color: white;
+
+  font-family: sans-serif;
+}
+
+.blueButton {
+  background: #076296;
+  border-color: #054569;
+}
+
+.blueButton:hover {
+  background: #0982C7;
+  border-color: #065B8B;
+}
+
+.redButton {
+  background: #771322;
+  border-color: #530D18;
+}
+
+.redButton:hover {
+  background: #A31A2F;
+  border-color: #721221;
+}
+
+.yellowButton {
+  background: #A85C15;
+  border-color: #75400F;
+}
+
+.yellowButton:hover {
+  background: #D5751B;
+  border-color: #955213;
+}
+
+.greenButton {
+  background: #0D6B33;
+  border-color: #094B24;
+}
+
+.greenButton:hover {
+  background: #139849;
+  border-color: #0D6A33;
+}
+
+.limeButton {
+  background: limegreen;
+  border-color: green;
+}
+
+.deepRedButton {
+  background: red;
+  border-color: maroon;
+}
+
+
+
+
+
+
+.fadeIn {
+  animation: fadeIn 8s;
+  -webkit-animation: fadeIn 8s;
+  -moz-animation: fadeIn 8s;
+  -o-animation: fadeIn 8s;
+  -ms-animation: fadeIn 8s;
+}
+@keyframes fadeIn {
+  0% {opacity:0;}
+  100% {opacity:1;}
+}
+
+@-moz-keyframes fadeIn {
+  0% {opacity:0;}
+  100% {opacity:1;}
+}
+
+@-webkit-keyframes fadeIn {
+  0% {opacity:0;}
+  100% {opacity:1;}
+}
+
+@-o-keyframes fadeIn {
+  0% {opacity:0;}
+  100% {opacity:1;}
+}
+
+@-ms-keyframes fadeIn {
+  0% {opacity:0;}
+  100% {opacity:1;}
+}
+
+
+button {
+  color: white;
+}

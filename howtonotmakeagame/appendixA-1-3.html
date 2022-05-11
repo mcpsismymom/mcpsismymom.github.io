@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>Work Simulator</title>
+    <link href="style.css" rel="stylesheet" type="text/css" />
+  </head>
+  <body>
+    <h1>Appendix A - Carne-Bob Hall</h1>
+    <p>You finally break free of the Bob Astleys, but the exit is blocked by... ANGRY MUSICAL BOSS?!?!? Bob, how do you survive this every night?</p>
+    <button onclick="escape()">RUN!</button>
+    <p id="levelEndText" hidden>GET ME OUT OF THIS NIGHTMARE!!!</p>
+    <button id="next" onclick="window.location.href='appendixA-main.html'" hidden>ESCAPE!!!!!</button>
+    <script>
+      var music = new Audio("beethovenCoffee.wav")
+      music.loop = true;
+      music.play();
+      setInterval(function() {
+        let roll = new Audio("rickRoll.mp3");
+        roll.play();
+      }, 100);
+
+      var attempts = 10;
+      function escape() {
+        attempts--;
+        if (attempts == 5) {
+          alert("Oh no! ANGRY MUSICAL BOSS was so aggravated, he started screeching. Like a cat.");
+          var screech = new Audio("screech.mp3");
+          screech.loop = true;
+          screech.play();
+        }
+        else if (attempts > 0) alert("You try to run, but ANGRY MUSICAL BOSS blocks you! Try again.");
+        else {
+          document.getElementById("levelEndText").hidden = false;
+          document.getElementById("next").hidden = false;
+        }
+      }
+    </script>
+  </body>
+</html>

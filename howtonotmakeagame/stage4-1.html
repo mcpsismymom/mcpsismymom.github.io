@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>Work Simulator</title>
+    <link href="style.css" rel="stylesheet" type="text/css" />
+  </head>
+  <body>
+    <h1>Level 4-1</h1>
+    <p>After clumsily dragging ourselves through Bob's morning, it's finally time for his lunch break! Unfortunately, Bob only brought one sandwich with him. But wait! The sandwich is... a magically duplicating sandwich! Yeah, those things <em>TOTALLY</em> exist.</p>
+    <button onclick="update()">Click For More Sandwiches</button>
+    <p id="sandwiches">Sandwiches: 0</p>
+    <p id="levelEndText" hidden>Hang on! This is just a clicker game in disguise! There aren't even any upgrades!</p>
+    <h2 id="moral" hidden>The Moral: Users HATE Awful Clicker Games.</h2>
+    <button id="next" onclick="window.location.href='stage4-2.html'" hidden>Next</button>
+
+    <script>
+      var sandwiches = 0;
+      var update = function() {
+        sandwiches++;
+        if (sandwiches == 69 || sandwiches == 420 || sandwiches == 69420 || sandwiches == 42069) {
+            document.getElementById("sandwiches").innerText = "Sandwiches: " + sandwiches + " (nice)";
+        }
+        else {
+            document.getElementById("sandwiches").innerText = "Sandwiches: " + sandwiches;
+        }
+        
+        if (sandwiches > 20) {
+          document.getElementById("levelEndText").hidden = false;
+          document.getElementById("moral").hidden = false;
+          document.getElementById("next").hidden = false;
+        }
+      }
+    </script>
+  
+  </body>
+</html>

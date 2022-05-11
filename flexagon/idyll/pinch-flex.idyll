@@ -1,0 +1,439 @@
+[meta title:"Flexagon Intro" description:"Using the Tuckerman Traverse to explore the hidden faces of a hexaflexagon" /]
+
+[Aside]
+  [br/]
+  A chapter from[br/]
+  [Explorable Flexagons](index.html)
+
+  Next chapter:[br/]
+  [Flexing Flexagons](flexing.html)
+[/Aside]
+
+[Header
+  title:"Flexagon Intro"
+  subtitle:"Exploring the hidden faces of hexaflexagons"
+  author:"Scott Sherman"
+  authorLink:"http://loki3.com/flex" /]
+
+[var name:'drawOptions' value:`{structure:true, showIds:false, both:true}`/]
+[var name:'drawOptionsN' value:`{structure:true, showIds:false, both:true, stats:true}`/]
+[var name:'defaultPats' value:6 /]
+[var name:'defaultColors' value:`[0x2E4172, 0x2B803E, 0xAA4439, 0x622870, 0xffff00, 0x553900, 0xdddddd, 0x999999]` /]
+
+
+[Aside]
+  Applying the *pinch flex* to a *hexaflexagon:*
+  [img src:'static/pinch-flex.jpg' /]
+
+  Some triangle flexagons:
+  [div]
+    [Inline][Flexagon width:150 height:150 numPats:6 options:`{showIds: false}` /][/Inline]
+    [Inline][Flexagon width:150 height:150 numPats:9 options:`{showIds: false}` /][/Inline]
+  [/div]
+  [div]
+    [Inline][Flexagon width:150 height:150 numPats:7 options:`{showIds: false}` /][/Inline]
+    [Inline][Flexagon width:150 height:150 numPats:10 options:`{showIds: false}` initialScript:`{angles: [36, 54]}` /][/Inline]
+  [/div]
+[/Aside]
+
+Flexagons are interesting puzzles made from folding strips of paper.
+You can make them from a wide variety of polygons: various triangles, quadrilaterals, pentagons, and so on.
+Once assembled, you *flex* them, i.e. fold them in different ways, in order to find new faces and rearrange the polygons.
+
+The most common flexagons are made up of 6 regular triangles arranged in a hexagon; thus they're called *hexaflexagons*.
+And the most commonly described flex is the *pinch flex*, which can reveal previously hidden faces.
+But it's not obvious at first where to apply the pinch flex in order to find every face.
+
+This explorable will teach you how to make hexaflexagons and how to use the *Tuckerman Traverse* to find all the hidden faces.
+Along the way, it also introduces you to [flex notation](https://github.com/loki3/flexagonator/blob/master/docs/flex-notation.md),
+which is used to describe a series of flexes,
+and [pat notation](https://github.com/loki3/flexagonator/blob/master/docs/pat-notation.md),
+which is used to describe the internal structure of a flexagon.
+
+But, first off, if you haven't seen a flexagon before, watch this introduction by Vi Hart
+to learn their history and see what folding and flexing look like...
+[Youtube id:"VIVIegSt81k" width:500 height:300 /]
+
+
+# 3-faced hexaflexagon
+
+[derived name:'faces3' value:`[
+  {searchFlexes:"P"},
+  {flexAndColor: { flexes: 'P*', colors: defaultColors }},
+  {reverseFlexes: 'P*'},
+  {history: 'clear'}
+  ]` /]
+[var name:'history3' value:'' /]
+
+We'll start with the simple 3-faced hexaflexagon (or *trihexaflexagon*).
+The hexagon below has numbers and colors on each triangle, which change as you perform a flex.
+`P` is the *flex notation* for a *pinch flex*.
+The clickable buttons below labeled with a `P` indicate the hinges where you can perform a pinch flex.
+Since a pinch flex involves doing a mountain-valley fold alternating every other hinge,
+the exact same pinch flex can be achieved by picking hinge 1, 3, or 5 (numbered around the hexagon).
+`^` is the flex notation for turning the flexagon over, which is also represented with a button in the figure below.
+
+Try clicking on the buttons and watch how the flexagon changes and how this is tracked in the diagram on the right.
+
+
+[Aside]
+  This diagram tracks the faces you've visited as you pinch flex the flexagon.
+  The green circle marks the original face, and the red circle marks the current face.
+
+  [PinchGraph width:400 height:100 generator:'P*' flexes:history3 /]
+[/Aside]
+
+[Flexagon width:500 height:300 numPats:defaultPats initialScript:faces3 history:history3 options:drawOptions overButton:true /]
+
+But, of course, everything on this page is just a simulation of an actual model.
+The fun part is in creating and flexing the real thing.
+Following each simulation, you'll find a strip of triangles (AKA *template*, *frieze*, or *net*) you can print, fold, and optionally decorate to create a real flexagon.
+Here's the unfolded template for the 3-faced hexaflexagon.
+
+[Unfolded width:800 height:150 numPats:defaultPats generator:'P*' autoLabel:true /]
+
+[var name:"showFoldingHelp" value:false /]
+[Button onClick:` showFoldingHelp = !showFoldingHelp `]Show/hide folding instructions.[/Button]
+[Conditional if:` showFoldingHelp `]
+  These instructions apply to all the triangle templates on this page.
+  [HowToFold result:"a hexagon consisting of 6 regular triangles"/]
+[/Conditional]
+
+
+# 4-faced hexaflexagon
+
+[derived name:'faces4' value:`[
+  {searchFlexes:"P"},
+  {flexAndColor: { flexes: 'P*P*', colors:defaultColors }},
+  {reverseFlexes: 'P*P*'},
+  {history: 'clear'}
+  ]` /]
+[var name:'history4' value:'' /]
+[var name:'runScript4' value:'' /]
+[var name:'script4' value:'' /]
+
+[Aside]
+  Pick [Button onClick:` script4 = {history: 'reset'}; runScript4 = true `]reset[/Button] to start over,
+  or [Button onClick:` script4 = {history: 'undo'}; runScript4 = true `]undo[/Button] to undo the last flex.
+[/Aside]
+
+Next is the 4-faced hexaflexagon (or tetrahexaflexagon).
+After your first pinch flex, you find yourself in the middle of the diagram to the right, with multiple paths you can take.
+What happens when you try pinch flexing at different hinges?
+How can you visit every point in the diagram in the fewest number of flexes?
+Do you notice a pattern?
+
+[Aside]
+  [PinchGraph width:400 height:200 generator:'P*P*' flexes:history4 /]
+[/Aside]
+
+[Flexagon width:500 height:300 numPats:defaultPats initialScript:faces4 history:history4
+  runScript:runScript4 script:script4 options:drawOptions overButton:true /]
+
+*Pat notation:*
+Something else to pay attention to is the notation beside each edge of the flexagon above.
+This describes the internal structure of each *pat*, or stack of triangles.
+`-` indicates that there's only a single leaf in the pat, while `[- -]` indicates two leaves folded against each other in a pat.
+Three leaves can be arranged either as `[[- -] -]` or `[- [- -]]`.
+If you flex a real flexagon while you flex the simulation, you can start to get a feel for what this represents.
+And if you put a unique number on every leaf, you can use this notation to describe where each leaf is as you flex your flexagon.
+
+[Unfolded width:1000 height:250 numPats:defaultPats generator:'P*P*' autoLabel:true /]
+
+
+# 5-faced hexaflexagon
+
+[derived name:'faces5' value:`[
+  {searchFlexes:"P"},
+  {flexAndColor: { flexes: 'P*P*P*', colors:defaultColors }},
+  {reverseFlexes: 'P*P*P*'},
+  {history: 'clear'}
+  ]` /]
+[var name:'history5' value:'' /]
+[var name:'runScript5' value:'' /]
+[var name:'script5' value:'' /]
+
+[Aside]
+  [Button onClick:` script5 = {history: 'reset'}; runScript5 = true `]reset[/Button]
+  [Button onClick:` script5 = {history: 'undo'}; runScript5 = true `]undo[/Button]
+[/Aside]
+
+If you figured out a simple way to visit every state for the 4-faced version,
+does this same pattern work when you try to visit every state in the 5-faced variant?
+If not, perhaps a bit of experimentation can lead you to a simple pattern that works for both.
+
+[Aside]
+  [PinchGraph width:400 height:200 generator:'P*P*P*' flexes:history5 /]
+
+  History: [Display value:history5 /]
+
+  (This history description uses *flex notation* to describe the series of flexes you've performed.)
+[/Aside]
+
+[Flexagon width:500 height:300 numPats:defaultPats initialScript:faces5 history:history5
+  runScript:runScript5 script:script5 options:drawOptions overButton:true /]
+
+*Flex notation* is used to describe a series of flexes so that you can later reproduce the exact same sequence.
+Flexes are performed relative to the 'current hinge', which is indicated by a `*` in these flexagon simulations.
+Shifting the current hinge one hinge clockwise is represented by `>`, and shifting counterclockwise by `<`.
+Thus `P>P` says to do a pinch flex at one hinge, rotate so the hinge one step clockwise is the current hinge,
+then do another pinch flex.
+Recall from earlier that `^` indicates turning over the flexagon while keeping the same current hinge.
+
+[Unfolded width:900 height:400 numPats:defaultPats generator:'P*P*P*' autoLabel:true /]
+
+
+# 6-faced hexaflexagons
+
+[var name:'initFlex6' value:'' /]
+[derived name:'faces6' value:`[
+  {searchFlexes:"P"},
+  {flexAndColor: { flexes: initFlex6, colors:defaultColors }},
+  {reverseFlexes: initFlex6},
+  {history: 'clear'}
+  ]` /]
+[var name:'history6' value:'' /]
+[var name:'runScript6' value:false /]
+[var name:'runInit6' value:false /]
+[var name:'script6' value:'' /]
+
+There are three different ways to make a 6-faced hexaflexagon (or hexahexaflexagon), each made from different templates with different traversals.
+Try applying the same pattern you used for exploring every face of the 4 and 5-faced hexaflexagons to see if it works for the 6-faced variants.
+Click on
+[Button onClick:` initFlex6 = 'P* P* P+ > P P*'; runInit6=true; `]A[/Button],
+[Button onClick:` initFlex6 = '(P*^>)4'; runInit6=true; `]B[/Button], and
+[Button onClick:` initFlex6 = '(P*)4'; runInit6=true; `]C[/Button]
+to switch between variations.
+
+[Aside]
+  [Button onClick:` script6 = {history: 'reset'}; runScript6=true `]reset[/Button]
+  [Button onClick:` script6 = {history: 'undo'}; runScript6=true `]undo[/Button]
+
+  [PinchGraph width:300 height:250 generator:initFlex6 flexes:history6 /]
+
+  History: [Display value:history6 /]
+[/Aside]
+
+[Flexagon width:500 height:300 numPats:defaultPats initialScript:faces6 runInitial:runInit6 history:history6
+  runScript:runScript6 script:script6 options:drawOptions overButton:true /]
+
+[var name:"showTuckerman" value:false /]
+The *Tuckerman Traverse* is a general pattern that allows you to easily visit every face that's accessible using the pinch flex.
+Once you've tried finding a pattern, click on
+[Button onClick:` showTuckerman = !showTuckerman `]describe the Tuckerman Traverse[/Button]
+to see if you've found the same pattern.
+
+[Conditional if:` showTuckerman `]
+  Starting with any hinge, repeatedly do a pinch flex until the structure of the flexagon no longer permits it.
+  Switch to an adjacent hinge and repeat the same process, doing a pinch flex until you can't any longer.
+  This will eventually visit every part of the diagram associated with the flexagon, visiting every configuration in the process.
+  Furthermore, it's the shortest traversal of every state (though it isn't unique).
+[/Conditional]
+
+[Unfolded width:1000 height:500 numPats:defaultPats generator:initFlex6 autoLabel:true /]
+
+
+# 7 and 8-faced hexaflexagons
+
+[var name:'initFlex7' value:'' /]
+[derived name:'faces7' value:`[
+  {searchFlexes:"P"},
+  {flexAndColor: { flexes: initFlex7, colors:defaultColors }},
+  {reverseFlexes: initFlex7},
+  {history: 'clear'}
+  ]` /]
+[var name:'history7' value:'' /]
+[var name:'runScript7' value:false /]
+[var name:'runInit7' value:false /]
+[var name:'script7' value:'' /]
+[var name:'special7' value:0 /]
+[var name:'cheight7' value:500 /]
+
+[Aside]
+It's also interesting to watch how the *pat notation* (e.g. `[[- -] -]`) for the pats changes as you flex,
+and compare that to the actual flexagon.
+[/Aside]
+
+Now that you know the Tuckerman Traverse, you can try it on the four 7-faced hexaflexagons and twelve 8-faced hexaflexagons.
+Try out the 7-faced variation
+[Button onClick:` initFlex7 = '(P*^>)5'; runInit7=true; special7=0; cheight7=500 `]A[/Button],
+[Button onClick:` initFlex7 = 'P* P* P* P+ > P P*'; runInit7=true; special7=0; cheight7=500 `]B[/Button],
+[Button onClick:` initFlex7 = 'P* P* P* ^ > P* P*'; runInit7=true; special7=0; cheight7=500 `]C[/Button], or
+[Button onClick:` initFlex7 = '(P*)5'; runInit7=true; special7=1; cheight7=1 `]D[/Button],
+and 8-faced variation
+[Button onClick:` initFlex7 = '(P*^>)6'; runInit7=true; special7=0; cheight7=500 `]A[/Button],
+[Button onClick:` initFlex7 = 'P* P* P* P+ > P P* P*'; runInit7=true; special7=0; cheight7=500 `]B[/Button],
+[Button onClick:` initFlex7 = 'P*P*^>P*^>P*P+>PP*'; runInit7=true; special7=0; cheight7=500 `]C[/Button],
+[Button onClick:` initFlex7 = '(P*) x 3 (^ > P*) x 3'; runInit7=true; special7=0; cheight7=500 `]D[/Button],
+[Button onClick:` initFlex7 = '(P*) x 3 ^ > (P*) x 3'; runInit7=true; special7=0; cheight7=500 `]E[/Button],
+[Button onClick:` initFlex7 = 'P* P* ^>P* P+ <P P* P*'; runInit7=true; special7=0; cheight7=500 `]F[/Button],
+[Button onClick:` initFlex7 = 'P* ^>P* P+ >P ^>P* P+ >P ^>P*'; runInit7=true; special7=0; cheight7=500 `]G[/Button],
+[Button onClick:` initFlex7 = 'P* ^>P* ^>P* P* ^>P* ^>P*'; runInit7=true; special7=4; cheight7=1 `]H[/Button],
+[Button onClick:` initFlex7 = 'P* P* ^>P* P+ >P ^>P* P*'; runInit7=true; special7=0; cheight7=500 `]I[/Button],
+[Button onClick:` initFlex7 = 'P* P* P* P* P+ > P P*'; runInit7=true; special7=0; cheight7=500 `]J[/Button],
+[Button onClick:` initFlex7 = '(P*) x 4 ^ > (P*) x 2'; runInit7=true; special7=2; cheight7=1 `]K[/Button], or
+[Button onClick:` initFlex7 = '(P*)6'; runInit7=true; special7=3; cheight7=1 `]L[/Button].
+
+[Aside]
+  [Button onClick:` script7 = {history: 'reset'}; runScript7=true `]reset[/Button]
+  [Button onClick:` script7 = {history: 'undo'}; runScript7=true `]undo[/Button]
+
+  [PinchGraph width:300 height:250 generator:initFlex7 flexes:history7 /]
+
+  History: [Display value:history7 /]
+[/Aside]
+
+[Flexagon width:500 height:300 numPats:defaultPats initialScript:faces7 runInitial:runInit7 history:history7
+  runScript:runScript7 script:script7 options:drawOptions overButton:true /]
+
+[Conditional if:` special7 == 0 `]
+  The unfolded template:
+[/Conditional]
+[Unfolded width:1000 height:500 numPats:defaultPats generator:initFlex7 autoLabel:true special7:special7 changeHeight:cheight7 /]
+
+[Conditional if:` special7 == 1 `]
+  The following template takes a little bit of extra work to assemble.
+  Cut out each of the shapes, cutting along the solid lines.
+  Tape 'b' to 'b' and 'c' to 'c'.
+  Then you can follow the same folding rules as for the other templates,
+  finishing by taping 'a' to 'a'.
+
+  [var name:'hepta1' value:`{start:0, end:6, scale:150, rotation:60, captions:[{ text: 'a', which: 0 }, { text: 'b', which: -1 }] }` /]
+  [var name:'hepta2' value:`{start:7, end:13, scale:150, rotation:60, captions:[{ text: 'b', which: 0 }, { text: 'c', which: -1 }] }` /]
+  [var name:'hepta3' value:`{start:14, scale:150, rotation:60, captions:[{ text: 'c', which: 0 }, { text: 'a', which: -1 }] }` /]
+  [Unfolded width:400 height:300 numPats:defaultPats generator:'(P*)5' autoLabel:true options:hepta1 /]
+  [Unfolded width:400 height:300 numPats:defaultPats generator:'(P*)5' autoLabel:true options:hepta2 /]
+  [Unfolded width:400 height:300 numPats:defaultPats generator:'(P*)5' autoLabel:true options:hepta3 /]
+[/Conditional]
+
+[Conditional if:` special7 == 2 `]
+  The following template takes a little bit of extra work to assemble.
+  Cut out each of the shapes, cutting along the solid lines and the lines between 'a' and 'b'.
+  Tape one edge marked with 'b' to the other 'b' edge.
+  Then you can follow the same folding rules as for the other templates,
+  finishing by taping 'a' to 'a'.
+
+  [var name:'octa1a' value:`{start:0, end:13, scale:150, rotation:60, captions:[{ text: 'a', which: 0 }, { text: 'b', which: -1 }] }` /]
+  [var name:'octa2a' value:`{start:14, scale:150, rotation:60, captions:[{ text: 'b', which: 0 }, { text: 'a', which: -1 }] }` /]
+  [Unfolded width:400 height:520 numPats:defaultPats generator:'(P*) x 4 ^ > (P*) x 2' autoLabel:true options:octa1a /]
+  [Unfolded width:450 height:270 numPats:defaultPats generator:'(P*) x 4 ^ > (P*) x 2' autoLabel:true options:octa2a /]
+[/Conditional]
+
+[Conditional if:` special7 == 3 `]
+  The following template takes a little bit of extra work to assemble.
+  Cut out each of the shapes, cutting along the solid lines.
+  Tape 'b' to 'b', 'c' to 'c', and 'd' to 'd'.
+  Then you can follow the same folding rules as for the other templates,
+  finishing by taping 'a' to 'a'.
+
+  [var name:'octa1b' value:`{start:0, end:6, scale:150, rotation:60, captions:[{ text: 'a', which: 0 }, { text: 'b', which: -1 }] }` /]
+  [var name:'octa2b' value:`{start:7, end:14, scale:150, rotation:0, captions:[{ text: 'b', which: 0 }, { text: 'c', which: -1 }] }` /]
+  [var name:'octa3b' value:`{start:15, end:22, scale:150, rotation:60, captions:[{ text: 'c', which: 0 }, { text: 'd', which: -1 }] }` /]
+  [var name:'octa4b' value:`{start:23, scale:150, rotation:0, captions:[{ text: 'd', which: 0 }, { text: 'a', which: -1 }] }` /]
+  [Unfolded width:500 height:280 numPats:defaultPats generator:'(P*)6' autoLabel:true options:octa1b /]
+  [Unfolded width:500 height:280 numPats:defaultPats generator:'(P*)6' autoLabel:true options:octa2b /]
+  [Unfolded width:500 height:280 numPats:defaultPats generator:'(P*)6' autoLabel:true options:octa3b /]
+  [Unfolded width:500 height:130 numPats:defaultPats generator:'(P*)6' autoLabel:true options:octa4b /]
+[/Conditional]
+
+[Conditional if:` special7 == 4 `]
+  The following template takes a little bit of extra work to assemble.
+  Cut out each of the shapes, cutting along the solid lines.
+  Tape one edge marked with 'b' to the other 'b' edge.
+  Then you can follow the same folding rules as for the other templates,
+  finishing by taping 'a' to 'a'.
+
+  [var name:'octa1c' value:`{start:0, end:13, scale:150, rotation:60, captions:[{ text: 'a', which: 0 }, { text: 'b', which: -1 }] }` /]
+  [var name:'octa2c' value:`{start:14, scale:150, rotation:0, captions:[{ text: 'b', which: 0 }, { text: 'a', which: -1 }] }` /]
+  [Unfolded width:530 height:400 numPats:defaultPats generator:'P* ^>P* ^>P* P* ^>P* ^>P*' autoLabel:true options:octa1c /]
+  [Unfolded width:530 height:260 numPats:defaultPats generator:'P* ^>P* ^>P* P* ^>P* ^>P*' autoLabel:true options:octa2c /]
+[/Conditional]
+
+
+# Other triangles
+
+So far, all the flexagons we've looked at have 6 regular triangles per face,
+but there's no need to have exactly 6 per face, nor do we need to stick to regular triangles.
+We can carry out the Tuckerman Traverse on a wide variety of triangle flexagons.
+However, this may mean that the flexagon doesn't always lie flat because the central angles may not add up to 360 degrees.
+The following video demonstrates what the pinch flex looks like on a silver octaflexagon.
+
+[Youtube id:"6dJxwMXdv88" width:500 height:300 options:`{ start:114, end:158, rel:0, modestbranding:1 }` /]
+
+[var name:'initFlexesN' value:"P*P*" /]
+[var name:'patCountN' value:14 /]
+[var name:'anglesN' value:`undefined` /]
+[derived name:'facesN' value:`[
+  {angles:anglesN},
+  {searchFlexes:"P"},
+  {flexAndColor: { flexes: initFlexesN, colors:defaultColors }},
+  {reverseFlexes: initFlexesN},
+  {history: 'clear'}
+  ]` /]
+[var name:'historyN' value:'' /]
+[var name:'runScriptN' value:false /]
+[var name:'runInitN' value:false /]
+[var name:'scriptN' value:'' /]
+
+Try experimenting with using different types of triangles and different numbers of faces.
+
+Switch the type of triangles to an
+[Button onClick:` patCountN=8; anglesN=undefined; runInitN=true `]isosceles octaflexagon[/Button],
+[Button onClick:` patCountN=8; anglesN=[45,45]; runInitN=true `]silver octaflexagon[/Button],
+[Button onClick:` patCountN=10; anglesN=undefined; runInitN=true `]isosceles decaflexagon[/Button],
+[Button onClick:` patCountN=10; anglesN=[36,54]; runInitN=true `]right decaflexagon[/Button],
+[Button onClick:` patCountN=12; anglesN=undefined; runInitN=true `]isosceles dodecaflexagon[/Button], or
+[Button onClick:` patCountN=12; anglesN=[30,60]; runInitN=true `]right dodecaflexagon[/Button].
+
+Change the number of faces to
+[Button onClick:` initFlexesN='P*'; runInitN=true `]3[/Button],
+[Button onClick:` initFlexesN='P*P*'; runInitN=true `]4[/Button],
+[Button onClick:` initFlexesN='P*P*P*'; runInitN=true `]5[/Button],
+[Button onClick:` initFlexesN='P*P*P+>PP*'; runInitN=true `]6a[/Button],
+[Button onClick:` initFlexesN='(P*^>)4'; runInitN=true `]6b[/Button], or
+[Button onClick:` initFlexesN='(P*)4'; runInitN=true `]6c[/Button].
+
+[Aside]
+  [Button onClick:` scriptN = {history: 'reset'}; runScriptN=true `]reset[/Button]
+  [Button onClick:` scriptN = {history: 'undo'}; runScriptN=true `]undo[/Button]
+
+  [PinchGraph width:400 height:200 generator:initFlexesN flexes:historyN /]
+
+  History: [Display value:historyN /]
+[/Aside]
+
+[Flexagon width:500 height:300 numPats:patCountN initialScript:facesN runInitial:runInitN history:historyN
+  runScript:runScriptN script:scriptN options:drawOptionsN overButton:true /]
+
+Note that some of these templates may have overlapping triangles.
+Compare the number of leaves (triangles) in the template to the number listed above to see if you might need to print multiple copies.
+
+[Unfolded width:1000 height:400 numPats:patCountN generator:initFlexesN autoLabel:true angles:anglesN /]
+
+
+# What next?
+
+This intro showed you how to explore *hexaflexagons* using the *pinch flex* and the *Tuckerman Traverse*.
+It introduced [flex notation](https://github.com/loki3/flexagonator/blob/master/docs/flex-notation.md) for describing a series of flexes
+and [pat notation](https://github.com/loki3/flexagonator/blob/master/docs/pat-notation.md) for describing the internal structure of a flexagon.
+It then gave some examples of using different types of triangles
+to create [octaflexagons](http://loki3.com/flex/octa.html), [decaflexagons](http://loki3.com/flex/deca.html),
+and [dodecaflexagons](http://loki3.com/flex/dodeca.html).
+
+But that's just a quick taste of the large variety of flexagons and flexes.
+You can make flexagons out of any polygon, including [squares](http://loki3.com/flex/square.html)
+, [trapezoids](http://loki3.com/flex/trapezoid.html), [rhombuses](http://loki3.com/flex/rhombus.html), and [pentagons](http://loki3.com/flex/multi.html).
+And there are many other ways to flex them, with names like the [v-flex](http://loki3.com/flex/flex/v.html)
+, [pyramid shuffle](http://loki3.com/flex/flex/pyramid-shuffle.html), and [flip flex](http://loki3.com/flex/flex/flip.html).
+It can be fun to [decorate](http://flexagon.net) them, put [mazes](http://loki3.com/flex/maze/pyramid-maze.html) on them,
+or create [illusions](http://loki3.com/flex/maze/silver-tetra-illusion.html) with them.
+
+View the next chapter, [Flexing Flexagons](flexing.html), or look at the [Table of Contents](index.html).
+
+[FullWidth]
+  [a href:'http://loki3.com/flex/' ]
+  [img src:'static/flexagon-variety.jpg' /]
+  [/a]
+[/FullWidth]
+
+[Copyright/]

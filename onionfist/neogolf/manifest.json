@@ -1,0 +1,19 @@
+{
+"update_url": "https://clients2.google.com/service/update2/crx",
+
+    "manifest_version": 3,
+    "name": "Neo Golf",
+    "short_name": "Neo Golf",
+    "description": "Play 3D game easily by clicking the little icon at the top right corner of your browser.",
+    "version": "0.002",
+    "icons": {
+        "16": "assets/icons/icon16.png",
+        "48": "assets/icons/icon48.png",
+        "128": "assets/icons/icon128.png"
+    },
+    "action": {
+        "default_icon": "assets/icons/icon.png",
+        "default_popup": "index.html"
+    },
+    "permissions": ["storage"]
+}

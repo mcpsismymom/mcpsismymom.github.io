@@ -1,0 +1,309 @@
+[meta title:"Flexagon Terms" description:"Definitions for various flexagon terms" /]
+
+[Header
+  title:"Flexagon Terms"
+  subtitle:"Definitions for various flexagon terms"
+  author:"Scott Sherman"
+  authorLink:"http://loki3.com/flex" /]
+
+[Aside]
+Topics:
+
+* [link text:'Basic terms' url:'#basic' /]
+* [link text:'Useful concepts and notation' url:'#concepts' /]
+* [link text:'Naming of flexagon traits' url:'#naming' /]
+* [link text:'Flexes' url:'#flexes' /]
+* [link text:'Describing a specific flexagon and template' url:'#specific' /]
+* [link text:'Flexagon definition' url:'#definition' /]
+[/Aside]
+
+
+[a name:'basic'/]
+# Basic terms
+
+[dl]
+  [dt]leaf[/dt]
+  [dd]A single polygon in a flexagon[/dd]
+
+  [dt]rigid leaf[/dt]
+  [dd]A leaf that is not allowed to bend[/dd]
+
+  [dt]pat[/dt]
+  [dd]A stack of polygons in a flexagon[/dd]
+
+  [dt]main position[/dt]
+  [dd]The primary appearance of a flexagon when it isn't being flexed.[/dd]
+
+  [dt]face[/dt]
+  [dd]
+  One visible face of a flexagon in its *main position*.
+  [br/]
+  [img src:'static/terms/right-decaflexagon.jpg' height:150/]
+  [br/]
+  Note: The phrase "a flexagon has N faces" typically refers to unique faces
+  when exploring the flexagon using only the pinch flex.
+  [/dd]
+
+  [dt]mathematical face[/dt]
+  [dd]A unique arrangement and orientation of the *leaves* in a *face*[/dd]
+
+  [dt]template[/dt]
+  [dd]
+  An unfolded flexagon.
+  Alternate terms: frieze, net, plan, strip.
+  [Unfolded width:1000 height:260 numPats:9 generator:'P333+' /]
+  [/dd]
+
+  [dt]flex[/dt]
+  [dd]
+  A series of modifications to a flexagon that takes it from one valid state to another,
+  where the modifications consist of folding together, unfolding, and sliding pats
+  [/dd]
+
+  [dt]rigid flex[/dt]
+  [dd]
+  A flex with the restriction that there is no bending of leaves
+  [/dd]
+[/dl]
+
+[hr /]
+
+
+[a name:'concepts'/]
+# Useful concepts and notation
+
+[dl]
+  [dt]flex notation[/dt]
+  [dd]Describes a sequence of flexes, e.g. `P>F'>>^S`[/dd]
+
+  [dt]pat notation[/dt]
+  [dd]Describes the internal structure of a triangle flexagon, e.g. `[1, [2,3], [[4,5],6], 7]`[/dd]
+
+  [dt]minimal flexagon[/dt]
+  [dd]Simplest flexagon that supports a given flex or flex sequence[/dd]
+
+  [dt]generating sequence[/dt]
+  [dd]The flex sequence used to refer to the *minimal flexagon* for the sequence[/dd]
+
+  [dt]inverse flex[/dt]
+  [dd]
+  Doing a flex in reverse.
+  [br/][br/]
+  *Flex notation* adds `'` to a flex symbol to indicate its inverse, e.g. `P'` for the inverse of the pinch flex `P`.
+  [/dd]
+
+  [dt]current hinge[/dt]
+  [dd]
+  The hinge that a flex is performed relative to.
+  Especially useful in a sequence of flexes so you know where to apply the next flex.
+  [br/][br/]
+  *Flex notation* uses `>`, `<`, and `^` to indicate how to change the *current hinge*.
+  Sometimes *current vertex* or *current corner*.
+  [/dd]
+
+  [dt]flex definition[/dt]
+  [dd]
+  A description of the effects of a flex, listing the before and after states in *pat notation*
+
+* in: `[ [1,2], 3, ... i, ... [[n-4,n-3],[n-2,n-1]], n ]`
+* out: `[ n-3, [[-1,3],[n,-2]] ... i, ... n-2, [-(n-4),-(n-1)] ]`
+  [/dd]
+
+  [dt]prime flex[/dt]
+  [dd]
+  A flex that can't be decomposed into other flexes.
+  Or, more precisely, we can say a flex is *prime relative to* a given set of flexes
+  if the flex isn't exactly equal to any possible combination of those other flexes.
+  [/dd]
+[/dl]
+
+[hr /]
+
+
+[a name:'naming'/]
+# Naming of flexagon traits
+
+The following lists traits of flexagons I feel should have names, followed by my proposal.
+
+[dl]
+  [dt]The polygon used for *leaves*[/dt]
+  [dd]
+  Preface *flexagon* with the polygon, e.g. "triangle flexagon" or "hexagon flexagon".
+  [br/][br/]
+  For example, the following is called a *pentagon flexagon* because the leaves are pentagons.
+  [br/]
+  [img src:'static/terms/pentagon-flexagon.jpg' height:150/]
+  [/dd]
+
+  [dt]The number of *leaves* in the *main position*[/dt]
+  [dd]
+  Use a Greek prefix, e.g. "hexaflexagon" for any flexagon with 6 leaves in the main position
+  and "pentaflexagon" for any flexagon with 5 leaves in the main position.
+  [br/][br/]
+  For example, the first image below shows a "pentagon hexaflexagon"
+  and the second image shows a "triangle pentaflexagon".
+  [br/]
+  [img src:'static/terms/pentagon-hexaflexagon.jpg' height:150/]
+  [img src:'static/terms/pentaflexagon.jpg' height:150/]
+  [/dd]
+
+  [dt]The angles in the leaf polygons[/dt]
+  [dd]
+  For triangle flexagons, use terms that capture properties like symmetry and right angles
+  that impact the flexes that can be performed.
+  These include *regular* (60-60-60), *silver* (45-45-90), *bronze* (30-60-90), *isosceles*, and *right*.
+  [br/][br/]
+  Special quadrilaterals include *square*, *kite*, *rhombus*, and *trapezoid*.
+  [br/][br/]
+  In the general case, you can list the angles in the leaf polygon.
+  Since orientation matters, I list the angles in a well-defined order,
+  starting with the angle in the center of the flexagon and going clockwise.
+  [br/][br/]
+  For example, the following is a *right decaflexagon*.
+  [br/]
+  [img src:'static/terms/right-decaflexagon.jpg' height:150/]
+  [/dd]
+
+  [dt]The number of faces when every face can be visited with the pinch flex[/dt]
+  [dd]
+  Use a Greek prefix followed by a hyphen,
+  e.g. *tri-hexaflexagon" for the 3-faced hexaflexagon.
+  [br/][br/]
+  Note that I suggest this because it's widely used, though it's often not unique
+  (e.g. there are 3 different triangle hexa-hexaflexagons)
+  and doesn't apply to flexagons whose generating sequence has flexes other than the pinch flex.
+  [/dd]
+[/dl]
+
+[hr /]
+
+
+[a name:'flexes'/]
+# Flexes
+
+[dl]
+  [dt]Flexes used in publications[/dt]
+  [dd]
+  Pinch flex, v-flex, box flex, pass-through, reverse pass-through, snap flex, twist flex, interleaf flex
+  [/dd]
+
+  [dt]Flexes I've used for triangle flexes[/dt]
+  [dd]
+  Pocket flex, tuck, pyramid shuffle, flip, silver tetra, various slots, ticket, and variations of the pinch flex.
+  [br/][br/]
+  See the [Flex Compendium](flex-compendium.html) for a longer list.
+  [/dd]
+
+  [dt]Notation[/dt]
+  [dd]
+  For use in *flex notation*, each flex gets assigned shorthand to uniquely identify it.
+  A flex's shorthand starts with a capital letter, alternately followed by one or more lower case letters or numbers,
+  e.g. `P`, `S`, `P333`.
+  There are additional modifiers that can be added to the flex shorthand:
+* `'` for inverse, e.g. `P'`
+* `+` to indicate that the necessary internal structure should be created in the flexagon, e.g. `P+`
+* `*` is the equivalent of `+` followed by applying the flex, e.g. `P* = P+ P`
+  `>`, `<`, `^` are special symbols that indicate rotating the flexagon or turning it over to change the *current vertex*.
+  [/dd]
+[/dl]
+
+[hr /]
+
+
+[a name:'specific'/]
+# Describing a specific flexagon and template
+
+## Conrad & Hartline
+
+The [Conrad & Hartline paper](http://delta.cs.cinvestav.mx/~mcintosh/comun/flexagon/flexagon.html)
+describes every leaf in a template using +'s and -'s to tell you which edge to reflect the next leaf over
+plus numbers on the front and back of each leaf.
+The numbers also indicate how to fold the flexagon.
+If you add in the angles of the leaf polygon, this gives a complete description of a unique flexagon.
+
+See [Maps and Plans](http://delta.cs.cinvestav.mx/~mcintosh/comun/flexagon/node5.html)
+and [Proper Flexagons](http://delta.cs.cinvestav.mx/~mcintosh/comun/flexagon/node10.html)
+for discussion.
+
+## Flexagonator script
+
+A [Flexagonator script](https://github.com/loki3/flexagonator/blob/master/docs/script.md)
+has a couple different ways to describe a specific triangle flexagon.
+A unique template can be derived from these descriptions.
+
+You can specify the angles of a leaf by listing the angle in the center of the flexagon
+followed by the angle clockwise from the center on the first leaf.
+If the angles aren't specified, it's assumed to be an isosceles triangle flexagon
+with a central angle chosen such that the *main position* lies flat.
+
+One option is to specify the number of *pats* in the *main position* and a *generating sequence*.
+
+```javascript
+[
+  { "numPats": 6 },
+  { "flexes": "(P*^>)5" },
+  { "angles": [60, 30] }
+]
+```
+
+Another option is to describe the internal structure of one state of the flexagon using *pat notation*.
+
+```javascript
+[
+  { "pats": [[1, 2], 3, 4, 5, [[[6, 7], 8], 9], 10] }
+]
+```
+
+[hr /]
+
+
+[a name:'definition'/]
+# Flexagon definition
+
+Papers and publications on flexagons generally start out with a vague description of what a flexagon is,
+perhaps include the story of who first discovered them,
+and follow that with a discussion of some specific aspects.
+But I don't recall having seen a good definition of exactly what a flexagon is
+and how it differs from related mechanical paper folding constructs.
+
+Here are my definitions from my G4G10 paper on [Flex Theory](http://loki3.com/flex/g4g10/Flex-Theory.pdf):
+
+[dl]
+  [dt]leaf[/dt]
+  [dd]
+  A single polygon
+  [/dd]
+
+  [dt]f-linkage[/dt]
+  [dd]
+  A chain of leaves where every leaf is connected along exactly two edges to mirror images of itself
+  [/dd]
+
+  [dt]pat[/dt]
+  [dd]
+  A portion of an f-linkage where the leaves are folded along edges such that the mirrored edges of the leaves all align
+  [/dd]
+
+  [dt]leaf splitting[/dt]
+  [dd]
+  Consider a leaf l[sub]0[/sub] in a pat.
+  It’s connected to leaf l[sub]1[/sub] across edge e[sub]1[/sub] and to leaf l[sub]2[/sub] across edge e[sub]2[/sub],
+  leaving its third edge e[sub]3[/sub] unconnected.
+  If you think of the leaf as having a small amount of thickness, you can slice it in two,
+  leaving the two new leaves connected across e[sub]3[/sub].
+  One of the new leaves is connected across e[sub]1[/sub] to l[sub]1[/sub] while the other is connected across e[sub]2[/sub] to l[sub]2[/sub].
+
+  There are two ways to perform this leaf splitting,
+  with either the top leaf connected across e[sub]1[/sub] and the lower leaf across e[sub]2[/sub] or vice versa.
+  The choice you make for the first leaf splitting operation determines the handedness of the flexagon.
+  Every leaf splitting operation thereafter must use the same handedness; otherwise you no longer have a valid flexagon.
+  [/dd]
+
+  [dt]flexagon[/dt]
+  [dd]
+  An f-linkage of pats where every pat and sub-pat has been created through leaf splitting and has the same handedness
+  [/dd]
+[/dl]
+
+I also referred to [Maps and Plans](http://delta.cs.cinvestav.mx/~mcintosh/comun/flexagon/node5.html)
+in the Conrad & Hartline paper for more discussion around leaf splitting.

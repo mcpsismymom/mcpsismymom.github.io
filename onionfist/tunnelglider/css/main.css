@@ -1,0 +1,37 @@
+:root {
+  --bg: #0a1341;
+  --blue: #4C25E1;
+  --blue_alt: #3214a6;
+
+
+  /*--blue: #305AD9;
+  --blue_alt: #2949A6;*/
+  --cream: white;
+}
+
+@font-face {
+    font-family: 'righteous'; /*a name to be used later*/
+    src: url('../assets/fonts/righteous.ttf'); /*URL to font*/
+}
+
+
+html, body {
+    overflow: hidden;
+    /*width: 100%;*/
+    /*height: 100%;*/
+    /*height: 300px;
+    width: 300px;*/
+    margin: 0;
+    padding: 0;
+}
+body {
+    height: 300px;
+    width: 300px;
+    background: var(--bg);
+    color: white;
+    font-family: righteous, Ariel, Helvetica, sans-serif;
+}
+
+audio {
+    visibility: hidden;
+}

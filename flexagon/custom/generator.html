@@ -1,0 +1,206 @@
+<meta charset="UTF-8">
+<html>
+
+<head>
+  <title>generator</title>
+  <script src="../build/out.js"></script>
+  <script type="text/javascript">
+    var patCount = 6;
+    var flexagon = Flexagonator.Flexagon.makeFromTree(getSimplePats(patCount));
+    var fm = Flexagonator.FlexagonManager.make(flexagon);
+    makeNew("");
+    var buttons = null;
+
+    function makeNew(sequence) {
+      var creator = [
+        { pats: getSimplePats(patCount) },
+        { searchFlexes: Flexagonator.getUniqueFlexes(sequence, true).join(" ") },
+        // apply generating sequence, get back to original position, & call it the base state
+        { flexes: sequence },
+        { reverseFlexes: sequence },
+        { history: "clear" },
+        // color the start point
+        { setFace: { front: { label: "1", color: 0x2E4172 }, back: { label: "2", color: 0x2B803E } } },
+        // color anything from the end point that hasn't been colored yet
+        { flexes: sequence },
+        { unsetFace: { front: { label: "3", color: 0xAA4439 }, back: { label: "4", color: 0xffff00 } } },
+        // go back to base state
+        { history: "reset" },
+      ];
+      var newFM = Flexagonator.createFromScript(creator);
+      if (Flexagonator.isError(newFM)) {
+        reportError(newFM);
+        return false;
+      }
+      fm = newFM;
+      return true;
+    }
+
+    function updateUI() {
+      clearError();
+
+      var regions = Flexagonator.drawEntireFlexagon('interface', fm, { stats: true, structure: true });
+      buttons = Flexagonator.drawScriptButtons('interface', fm.flexagon, fm.getAngleInfo(), true, regions);
+      Flexagonator.drawEntireFlexagon('backside', fm, { back: true });
+
+      var statusDiv = document.getElementById('status');
+      if (statusDiv !== null) {
+        var str = fm.flexagon.getLeafCount() + " leaves";
+        str += " - in state " + (fm.getCurrentState() + 1) + " of " + fm.getTotalStates();
+        statusDiv.innerHTML = str;
+      }
+
+      var historyBox = document.getElementById('history');
+      if (historyBox !== null) {
+        var history = fm.getFlexHistory().join(' ');
+        historyBox.value = history;
+      }
+      reportAvailable();
+    }
+
+    function reportError(error) {
+      var str = Flexagonator.errorToString(error);
+      console.log(str);
+      var div = document.getElementById('error');
+      if (div !== null) {
+        div.innerHTML = str;
+      }
+    }
+    function clearError() {
+      var div = document.getElementById('error');
+      if (div !== null) {
+        div.innerHTML = "";
+      }
+    }
+
+    function reportAvailable() {
+      var availableDiv = document.getElementById('available');
+      if (availableDiv !== null) {
+        var str = "";
+        for (var f in fm.allFlexes) {
+          str += f.toString() + " ";
+        }
+        var available = "available flexes: " + str;
+        availableDiv.innerHTML = available;
+      }
+    }
+
+    function getSimplePats(patCount) {
+      var array = [];
+      for (var i = 1; i <= patCount; i++) {
+        array.push(i);
+      }
+      return array;
+    }
+
+    function generate(key, sequence) {
+      if (key == 13) {
+        if (makeNew(sequence)) {
+          updateUI();
+        }
+      }
+    }
+
+    function applySequence(key, sequence) {
+      if (key == 13) {
+        var result = fm.applyFlexes(sequence, true);
+        if (result === true) {
+          updateUI();
+        } else {
+          reportError(result);
+        }
+      }
+    }
+
+    function reset() {
+      fm.undoAll();
+      updateUI();
+    }
+
+    function undo() {
+      fm.undo();
+      updateUI();
+    }
+
+    function redo() {
+      fm.redo();
+      updateUI();
+    }
+
+    function interfaceMouseMove(event) {
+      var script = Flexagonator.getScriptItem(event, 'interface', buttons);
+      event.target.style.cursor = script == null ? 'default' : 'pointer';
+    }
+
+    function interfaceMouseClick(event) {
+      var script = Flexagonator.getScriptItem(event, 'interface', buttons);
+      if (script != null) {
+        var result = Flexagonator.runScriptItem(fm, script);
+        if (!Flexagonator.isError(result)) {
+          fm = result;
+          updateUI();
+        }
+      }
+    }
+
+    function newPatCount(newCount) {
+      patCount = newCount;
+      makeNew("");
+      updateUI()
+    }
+  </script>
+</head>
+
+<body>
+  <h1>Flexagonator: generators</h1>
+
+  <p>
+    number of pats:
+    <select onchange="newPatCount(event.target.value)">
+      <option value=4>4</option>
+      <option value=5>5</option>
+      <option value=6 selected>6</option>
+      <option value=7>7</option>
+      <option value=8>8</option>
+      <option value=9>9</option>
+      <option value=10>10</option>
+      <option value=12>12</option>
+    </select>
+    <div id="available"></div>
+  </p>
+
+  <p>
+    <div>
+      <label>enter generator for new flexagon:</label>
+      <input onkeypress="generate(event.keyCode, event.target.value)" size="70" />
+    </div>
+    <div id="error"></div>
+  </p>
+
+  <canvas id="interface" width="800" height="500"></canvas>
+  <canvas id="backside" width="300" height="300"></canvas>
+  <div id="status"></div>
+
+  <p>
+    <div>
+      <label>enter flex sequence</label>
+      <input onkeypress="applySequence(event.keyCode, event.target.value)" size="75" />
+    </div>
+  </p>
+  <p>
+    <input onclick="reset();" type="button" value="reset" />
+    <input onclick="undo();" type="button" value="undo" />
+    <input onclick="redo();" type="button" value="redo" />
+    <textarea id="history" readonly=true cols="70" rows="1"></textarea>
+  </p>
+
+  <script type="text/javascript">
+    updateUI();
+    var canvas = document.getElementById('interface');
+    canvas.addEventListener('mousemove', interfaceMouseMove, false);
+    canvas.addEventListener('click', interfaceMouseClick, false);
+  </script>
+
+</body>
+
+</html>

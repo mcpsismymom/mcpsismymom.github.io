@@ -1,0 +1,7 @@
+/node_modules
+/lib
+/*.sublime-*
+/build
+/tmp
+/package-lock.json
+/yarn.lock

@@ -1,0 +1,205 @@
+<meta charset="UTF-8">
+<html>
+
+<head>
+  <title>hexaflexagons</title>
+  <script src="../build/out.js"></script>
+  <script type="text/javascript">
+    var colors = [0x2E4172, 0x2B803E, 0xAA4439, 0x622870, 0xffff00, 0x553900, 0xdddddd, 0x999999];
+
+    var buttons = null;
+    var fm = null;
+    var traverse = null;
+
+    function updateUI() {
+      var regions = Flexagonator.drawEntireFlexagon('interface', fm, { structure: true });
+      buttons = Flexagonator.drawScriptButtons('interface', fm.flexagon, fm.getAngleInfo(), true, regions);
+      Flexagonator.drawEntireFlexagon('backside', fm, { back: true });
+
+      var flexes = fm.getFlexHistory().join('');
+      Flexagonator.drawPinchGraph('traversal', { flexes: flexes, traverse: traverse, drawEnds: true });
+
+      const numFaces = fm.flexagon.getLeafCount() / 3;
+      var message = "number of sides: " + numFaces;
+      message += " ----- in state " + (fm.getCurrentState() + 1) + " of " + fm.getTotalStates()
+      statusMessage(message);
+    }
+
+    function statusMessage(message) {
+      var statusDiv = document.getElementById('status');
+      if (statusDiv !== null) {
+        if (Flexagonator.isError(message)) {
+          message = Flexagonator.errorToString(message);
+        }
+        statusDiv.innerHTML = message;
+      }
+    }
+
+    function runGeneratingSequence(sequence) {
+      // script we'll build on
+      var script = [
+        { pats: [1, 2, 3, 4, 5, 6] },
+        { searchFlexes: "P" },
+        { flexAndColor: { flexes: sequence, colors: colors } },
+        { reverseFlexes: sequence },
+        { history: "clear" }
+      ];
+
+      fm = Flexagonator.createFromScript(script);
+
+      if (Flexagonator.isError(fm)) {
+        statusMessage(fm);
+      } else {
+        updateUI();
+
+        traverse = Flexagonator.findTuckermanTraverse(fm.flexagon);
+        Flexagonator.drawPinchGraph('traversal', { traverse: traverse, drawEnds: true });
+
+        const stripObjects = { flexagon: fm.getBaseFlexagon(), angleInfo: fm.getAngleInfo(), leafProps: fm.leafProps };
+        Flexagonator.drawUnfoldedObjects('unfolded', stripObjects, { content: Flexagonator.StripContent.Front });
+        Flexagonator.drawUnfoldedObjects('unfoldedBack', stripObjects, { content: Flexagonator.StripContent.Back });
+      }
+    }
+
+    function newSequence(sequence) {
+      var input = document.getElementById('enterFlexes');
+      if (input !== null) {
+        input.value = sequence;
+      }
+
+      runGeneratingSequence(sequence);
+    }
+
+    function applySequence(key, sequence) {
+      if (key == 13) {
+        runGeneratingSequence(sequence);
+      }
+    }
+
+    function interfaceMouseMove(event) {
+      var script = Flexagonator.getScriptItem(event, 'interface', buttons);
+      event.target.style.cursor = script == null ? 'default' : 'pointer';
+    }
+
+    function interfaceMouseClick(event) {
+      var script = Flexagonator.getScriptItem(event, 'interface', buttons);
+      if (script != null) {
+        fm = Flexagonator.runScriptItem(fm, script);
+        updateUI();
+      }
+    }
+
+    function backsideMouseMove(event) {
+      event.target.style.cursor = 'pointer';
+    }
+
+    function backsideMouseClick(event) {
+      var result = fm.applyFlex('^');
+      updateUI();
+    }
+  </script>
+</head>
+
+<body>
+  <h1>Flexagonator: creating standard hexaflexagons</h1>
+
+  <p>
+    This page allows you to create the standard hexaflexagons with 3 or more sides using a "flex generating sequence",
+    i.e. create the minimal necessary structure to allow the flexagon to carry out the given sequence of flexes.
+    See "More info" at the bottom for background.
+  </p>
+
+  <p>
+    <div>
+      <label>pick a flex generating sequence</label>
+      <select onchange="newSequence(event.target.value)">
+          <option value="P*">3: P*</option>
+          <option value="(P*) x 2">4: (P*) x 2</option>
+          <option value="(P*) x 3">5: (P*) x 3</option>
+          <option value="(P*) x 4">6: (P*) x 4</option>
+          <option value="(P* ^ >) x 4">6: (P* ^ >) x 4</option>
+          <option value="P* P* P+ > P P*">6: P* P* P+ > P P*</option>
+
+          <!-- needs multiple strips (0,5), (6,12), (13,19), (20) -->
+          <option value="(P*) x 5">7: (P*) x 5</option>
+          <option value="(P* ^ >) x 5">7: (P* ^ >) x 5</option>
+          <option value="P* P* P* P+ > P P*">7: P* P* P* P+ > P P*</option>
+          <option value="P* P* P* ^ > P* P*">7: P* P* P* ^ > P* P*</option>
+
+          <option value='(P*^>)6'>8: (P*^>)6</option>
+          <option value='P* P* P* P+ > P P* P*'>8: P* P* P* P+ > P P* P*</option>
+          <option value='P*P*^>P*^>P*P+>PP*'>8: P*P*^>P*^>P*P+>PP*</option>
+          <option value='(P*) x 3 (^ > P*) x 3'>8: (P*) x 3 (^ > P*) x 3</option>
+          <option value='(P*) x 3 ^ > (P*) x 3'>8: (P*) x 3 ^ > (P*) x 3</option>
+          <option value='P* P* ^>P* P+ <P P* P*'>8: P* P* ^>P* P+ <P P* P*</option>
+          <option value='P* ^>P* P+ >P ^>P* P+ >P ^>P*'>8: P* ^>P* P+ >P ^>P* P+ >P ^>P*</option>
+          <option value='P* ^>P* ^>P* P* ^>P* ^>P*'>8: P* ^>P* ^>P* P* ^>P* ^>P*</option>
+          <option value='P* P* ^>P* P+ >P ^>P* P*'>8: P* P* ^>P* P+ >P ^>P* P*</option>
+          <option value='P* P* P* P* P+ > P P*'>8: P* P* P* P* P+ > P P*</option>
+          <option value='(P*) x 4 ^ > (P*) x 2'>8: (P*) x 4 ^ > (P*) x 2'</option>
+          <option value='(P*)6'>8: (P*)6</option>
+        </select>
+    </div>
+  </p>
+
+  <p>
+    <div>
+      <label>enter flex generating sequence</label>
+      <input onkeypress='applySequence(event.keyCode, event.target.value)' id='enterFlexes' size='75' />
+
+    </div>
+  </p>
+
+  <canvas id="interface" width="800" height="500"></canvas>
+  <canvas id="backside" width="300" height="300"></canvas>
+  <div id="status"></div>
+  <canvas id="traversal" width="800" height="200"></canvas>
+  <br />
+  <canvas id="unfolded" width="800" height="600"></canvas>
+  <canvas id="unfoldedBack" width="800" height="600"></canvas>
+
+  <script type="text/javascript">
+    runGeneratingSequence("P*");
+    var canvas = document.getElementById('interface');
+    canvas.addEventListener('mousemove', interfaceMouseMove, false);
+    canvas.addEventListener('click', interfaceMouseClick, false);
+    var backside = document.getElementById('backside');
+    backside.addEventListener('mousemove', backsideMouseMove, false);
+    backside.addEventListener('click', backsideMouseClick, false);
+  </script>
+
+  <h2>More info</h2>
+  <p>
+    The technique used here is to apply a "flex generating sequence",
+    i.e. create the minimal necessary structure to allow the flexagon to carry out the given sequence of flexes.
+    This technique generalizes to a wide variety of flexagons and flexes.
+    See <a href="http://loki3.com/flex/g4g10/Flex-Theory.pdf">Flexagon Theory</a> for more background about flexes and
+    flex generating sequences.
+  </p>
+  <p>
+    Most flexagon theory has been aimed at hexaflexagons and the pinch flex. Here are several references for the theory
+    around pinch flexes:
+    <ul>
+      <li><a href="http://erikdemaine.org/flexagons/Conrad-Hartline-1962/flexagon.html">Flexagons</a> paper by Conrad
+        and Hartline</li>
+      <li><a href="http://www.drking.org.uk/hexagons/flexagons/theory1.html">Dr. King's Flexagon Theory</a></li>
+      <li><a href="http://www.coe.ufrj.br/~acmq/hexaflexagons/">Hexaflexagons</a> from Antonio Carlos M. de Queiroz</li>
+    </ul>
+  </p>
+
+  <p>
+    Figuring out a flex generating sequence from a diagram such as the ones linked from the
+    <a href="http://www.coe.ufrj.br/~acmq/hexaflexagons/">Hexaflexagons</a> page is relatively straight forward because
+    the diagrams capture a lot about how the pinch flex is applied.
+    Pick a vertex to start on, then step between vertices, visiting every little triangle at least once.
+    Every little triangle needs a P* in the sequence in order to create it, which basically means that you create the
+    structure necessary to perform a single pinch flex.
+    If you curve as you travel around the diagram, simply add "P*",
+    but if you're traveling in a straight line, add "^ > P*".
+    You may be able to visit every triangle once this way, but with some you may need to back up to a previous triangle
+    before continuing on.
+    One way to accomplish this is to follow a P* with P'.
+  </p>
+</body>
+
+</html>

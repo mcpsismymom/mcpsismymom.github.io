@@ -1,0 +1,394 @@
+[meta title:"Flex Sequences" description:"Cycles, traversals, primes, and equalities" /]
+
+[Aside]
+  [br/]
+  A chapter from[br/]
+  [Explorable Flexagons](index.html)
+[/Aside]
+
+[Header
+  title:"Flex Sequences"
+  subtitle:"Cycles, traversals, primes, and equalities"
+  author:"Scott Sherman"
+  authorLink:"http://loki3.com/flex" /]
+
+[var name:'flexagonOptions' value:`{structure:true, showIds:false, both:true, stats:true}`/]
+[var name:'defaultColors' value:`[0x2E4172, 0x2B803E, 0xAA4439, 0x622870, 0xffff00, 0x553900, 0xdddddd, 0x999999]` /]
+[var name:'unfoldedOptions' value:`{content:0}`/]
+
+Now that we have a wide variety of flexes (the [pinch flex](pinch-flex.html) and [variations](pinch-variations.html),
+the [pyramid shuffle, flip, tuck, and v](flexing.html), and [various slot flexes](slot-flexes.html))
+plus [flex notation](https://github.com/loki3/flexagonator/blob/master/docs/flex-notation.md) for describing sequences of flexes
+and [pat notation](new-flexes.html) for describing the internals of flexagons,
+we have a powerful set of tools for exploring some of the really interesting aspects of flexagons.
+
+In this chapter we'll cover the following:
+
+* Interesting cycles: flex sequences that end where they begin
+* Traversals: cycles that visit every state of a flexagon
+* *Prime flexes* that can't be replaced by other flexes
+* Sequences of flexes that are equal or almost equal to each other
+
+
+# Cycles
+
+A *cycle* is a flex sequence that returns a flexagon back to the state it started in.
+We'll start by looking at a couple examples before giving you the tools to experiment with other potential cycles.
+
+## Basic pinch flex cycle
+
+One of the simplest cycles is a sequence of 3 pinch flexes on the basic 3-faced hexaflexagon.
+You could write this sequence as `P>P>P>`.
+Alternately, you could write it as `(P>) 3`, where the sequence to be repeated is in parentheses, followed by the number of times it's repeated.
+Since you can do this on the minimal flexagon for the pinch flex, you can perform this sequence whenever you can do a pinch flex.
+
+[var name:historyP value:'' /]
+[var name:doHistoryP value:'' /]
+[derived name:'initP' value:`[
+  {numPats: 6},
+  {searchFlexes: "P"},
+  {flexAndColor: { flexes: "P+", colors: defaultColors }},
+  {history: 'clear'}
+  ]` /]
+
+[Flexagon width:700 height:400 numPats:6 initialScript:initP runInitial:false options:flexagonOptions overButton:true
+  history:historyP doHistory:doHistoryP /]
+
+[Button onClick:`doHistoryP='undo';`]Undo[/Button] [Button onClick:`doHistoryP='redo';`]Redo[/Button] [Button onClick:`doHistoryP='reset';`]Reset[/Button] [Display value:historyP /]
+
+[Unfolded width:1000 height:200 script:initP options:`{content:0, rotation:60}` endText:'P+' /]
+
+This raises an interesting question: are there other flexes that can be performed multiple times to return you to the original state?
+How about more complex sequences of flexes?
+You'll get to try for yourself in the *Experimenting with cycles* section below.
+
+
+## Pyramid shuffle cycle
+
+The following flexagon is the minimal flexagon for the pyramid shuffle.
+It supports a simple cycle of 6 flexes.
+Try clicking on the following: `S`, `T'`, `^`, `T`, `^`, `S`, `T'`, `^`, `T`, and `^`.
+You'll find that this takes you right back to the original state.
+
+[var name:historyS value:'' /]
+[var name:doHistoryS value:'' /]
+[derived name:'initS' value:`[
+  {numPats: 6},
+  {searchFlexes: "S T T'"},
+  {flexAndColor: { flexes: "S+", colors: defaultColors }},
+  {history: 'clear'}
+  ]` /]
+
+[Flexagon width:700 height:400 numPats:6 initialScript:initS runInitial:false options:flexagonOptions overButton:true
+  history:historyS doHistory:doHistoryS /]
+
+[Button onClick:`doHistoryS='undo';`]Undo[/Button] [Button onClick:`doHistoryS='redo';`]Redo[/Button] [Button onClick:`doHistoryS='reset';`]Reset[/Button] [Display value:historyS /]
+
+[Unfolded width:1000 height:500 script:initS options:unfoldedOptions endText:'S+' /]
+
+Looking at the flex sequence that was recorded, you'll see the sequence `S>T'>^T<<^` repeated twice
+(well, the trailing `>` and `^` might look different, but that's just an artifact of how the simulator tracks the current hinge).
+This can be written as `(S>T'>^T<<^) 2`.
+Whenever you can do a pyramid shuffle, you can run through this cycle of 6 flexes.
+
+
+## Experimenting with cycles
+
+The following simulator lets you experiment with different sequences to see if they cycle.
+Type in a sequence such as `V*<` or `F*>>>`, including the `*` on the flex so that it'll generate the needed structure if it doesn't already exist.
+Then try hitting the *apply* button repeatedly, watching to see if it adds new leaves.
+If it stops adding leaves, then you've found a cycle.
+Or you may notice that it consistently needs to add a certain number of leaves every time, in which case it will never return to the starting state.
+Push *reset* when you want to try a new sequence.
+
+[var name:'tempSequence' value:'V*<' /]
+[var name:'cycleSequence' value:'' /]
+[var name:'cycleNumPats' value:6 /]
+[var name:'cycleScript' value:'' /]
+[var name:'cycleCurrent' value:1 /]
+[var name:'cycleTotal' value:1 /]
+[var name:'cycleDoHistory' value:'' /]
+[var name:'cycleError' value:'' /]
+[var name:'cycleOptions' value:`{structure:true, showIds:false, both:true, stats:true}`/]
+
+[Aside]
+  Number of pats:
+  [Select value:cycleNumPats options:`[
+    {value:5, label:'5'}, {value:6, label:'6'}, {value:7, label:'7'}, {value:8, label:'8'},
+    {value:9, label:'9'}, {value:10, label:'10'}, {value:11, label:'11'}, {value:12, label:'12'}
+    ]` /]
+
+  Flexes to try:
+  [br/]
+  **5:** S Lk Ltf L3
+  [br/]
+  **6:** F P S St T V Lh Lk Ltf Ltb Lbf Lbb
+  [br/]
+  **7:** F S T1 T2 Lk Ltf
+  [br/]
+  **8:** F P P44 S St Tw T1 T2 T3 Lk Ltf
+  [br/]
+  **9:** F P333 S St T1 T2 T3 Lk Ltf
+  [br/]
+  **10:** F P334 P55 S St Tw T1 T2 T3 Lk Ltf
+  [br/]
+  **11:** F S St T1 T2 T3 Lk Ltf
+  [br/]
+  **12:** F P P3333 P444 P66 S St Tw T1 T2 T3 Lk Ltf
+[/Aside]
+
+Flex sequence: [TextInput value:tempSequence /]
+[Button onClick:` cycleSequence=tempSequence; `]apply[/Button] [Button onClick:` cycleDoHistory='reset'; `]reset[/Button]  [Display value:cycleError /]
+
+[Flexagon width:700 height:360 numPats:cycleNumPats flexes:cycleSequence currentScript:cycleScript doHistory:cycleDoHistory
+  currentState:cycleCurrent totalStates:cycleTotal error:cycleError overButton:true options:cycleOptions /]
+
+Currently in state [Display value:cycleCurrent format:'0' /] of [Display value:cycleTotal format:'0' /]
+
+[Unfolded width:1000 height:500 numPats:cycleNumPats script:cycleScript /]
+
+What happens when you try a single flex (e.g. `P`, `V`, `S`, or `Ltb`) with 0 or more rotations (e.g. `V*`, `V*>`, `V*>>`)?
+Which single flexes can form a cycle and which ones can't?
+Is there anything about the flex definition that can help you predict whether or not a single flex can lead to a cycle?
+
+What if you also include `^` (e.g. `V*^V*>>>`)?
+What interesting cycles can you find that involve multiple flexes (e.g. `V*<S*<<`)?
+How do the sequences change as you change the number of pats?
+
+
+# Traversals
+
+In the [Flexagon Intro](pinch.html), you learned about the Tuckerman Traverse.
+This is a recipe for how to do a sequence of pinch flexes to see all the faces of a hexaflexagon.
+However, other than on the 3-faced hexaflexagon, it doesn't show you all the different *states*
+that are possible if you use any of the many flexes that rearrange those faces.
+
+We'll look at one example to give you a flavor of what a complete traversal of every state might look like.
+The following hexaflexagon has 12 leaves and 36 different states.
+You can visit all 36 states using flexes such as `P`, `V`, `T`, `S`, and `Ltb`.
+
+One way to traverse every state is through the flex sequence `(Ltb>P>P>) 12`.
+Each time you click *apply* with that sequence, you can see that it visits 3 more states
+(this is listed next to the Undo/Redo/Reset buttons).
+Or you can travel clockwise around the flexagon repeatedly clicking on `Ltb`, `P`, and `P`.
+Can you find other simple sequences that visit all 36 states?
+
+[var name:'typedSequence' value:'Ltb>P>P>' /]
+[var name:'twelveSequence' value:'' /]
+[var name:'twelveScript' value:'' /]
+[var name:'twelveDoHistory' value:'' /]
+[var name:'twelveHistory' value:'' /]
+[var name:'twelveCurrent' value:1 /]
+[var name:'twelveTotal' value:1 /]
+[var name:'twelveError' value:'' /]
+[var name:'twelveOptions' value:`{structure:true, showIds:false, both:true, stats:true}`/]
+[derived name:'twelveInit' value:`[
+  { numPats: 6 },
+  { searchFlexes: "P S T T' V Lh Lk Ltf Ltb Lbf Lbb" },
+  { flexAndColor: { flexes: "Ltb*>P*>P*>Ltb*>P*" , colors: defaultColors } },
+  { reverseFlexes: "Ltb*>P*>P*>Ltb*>P*" },
+  { history: "clear" }
+]`/]
+
+Flex sequence: [TextInput value:typedSequence /]
+[Button onClick:` twelveSequence=typedSequence; `]apply[/Button] [Display value:twelveError /]
+
+[Flexagon width:700 height:360 numPats:6 flexes:twelveSequence currentScript:twelveScript doHistory:twelveDoHistory
+  initialScript:twelveInit history:twelveHistory error:twelveError overButton:true options:twelveOptions
+  currentState:twelveCurrent totalStates:twelveTotal /]
+
+[Button onClick:`twelveDoHistory='undo';`]Undo[/Button] [Button onClick:`twelveDoHistory='redo';`]Redo[/Button] [Button onClick:`twelveDoHistory='reset';`]Reset[/Button]
+Currently in state [Display value:twelveCurrent format:'0' /] of [Display value:twelveTotal format:'0' /]
+
+[Display value:twelveHistory /]
+
+[Unfolded width:1000 height:150 numPats:6 script:twelveInit /]
+
+
+# Prime flexes
+
+In mathematics, a number is prime if it isn't the product of two other numbers (more precisely, *positive integers* greater than 1).
+
+We can adapt this idea to flexes, defining a *prime flex* as a flex that can't be decomposed into other flexes.
+Or, more precisely, we can say a flex is *prime relative to* a given set of flexes
+if the flex isn't exactly equal to any possible combination of those other flexes.
+
+Intuitively, a prime flex can get you to states that you can't get to even if you combined all the other flexes in every possible way.
+
+To illustrate this concept, let's start with a small set of flexes: `{T', Lh, Ltb}`.
+These are the *inverse tuck*, introduced in the [Flexing Flexagons chapter](flexing.html),
+and, from the [Slot Flexes chapter](slot-flexes.html), the *slot half flex* and *slot tuck top back*.
+Which flexes in that list are prime relative to the others?
+
+Let's start with the flex definitions from the [New Flexes chapter](new-flexes.html).
+Note that for `T'`, we simply apply the definition of `T` in reverse.
+
+[FullWidth]
+* **T':** `[2, 4, 5, [6, 7], 8, [-1, [9, -3]]]` -> `[[[1, 2], 3], 4, 5, [6, 7], 8, 9]`
+* **Ltb:** `[[[1, [2, 3]], 4], 5, 6, 7, [8, 9], 10]` -> `[-4, 1, -3, [-5, 2], [[7, -9], -6], [-10, 8]]`
+* **Lh:** `[[[1, [2, 3]], 4], 5, 6, 7, [[8, 9], 10], 11]` -> `[[[11, -4], -9], 1, -3, [-5, 2], [[7, -10], -6], 8]`
+[/FullWidth]
+
+The first thing to note here is that `T'` only needs 9 leaves, `Ltb` needs 10, and `Lh` needs 11.
+Obviously you can't do `Ltb` or `Lh` on a flexagon with only 9 leaves, so `T'` *must* be prime relative to the other flexes.
+
+Similarly, you can't do `Lh` on the `Ltb` minimal flexagon because there aren't enough leaves.
+But is it possible to do a `T'` flex on the minimal `Ltb`?
+Well, we know the minimal `Ltb` has at least two states and that you can alternate between them using `Ltb` and `Ltb`.
+Neither of those states permit the `Ltb`, `Ltb'`, `Lh`, or `Lh'`, so there aren't additional states to examine.
+If you look carefully at the structure of the two states, you'll see that neither one matches what `T` or `T'` requires.
+Thus we can conclude that `Ltb` is prime relative to the other flexes.
+
+The one remaining question is whether or not `Lh` is prime.
+You can find the answer by starting from the initial state given above for the `Lh` flex and applying `Ltb T'`.
+
+* `[[[1, [2, 3]], 4], 5, 6, 7, [[8, 9], 10], 11]`
+* apply `Ltb`: `[-4, 1, -3, [-5, 2], [[7, -10], -6], [-11, [8, 9]]]`
+* apply `T'`: `[[[11, -4], -9], 1, -3, [-5, 2], [[7, -10], -6], 8]`
+
+When you look at that final result, you can see that it's exactly what you'd get if you had applied `Lh` instead.
+Thus `Lh = Ltb T'` and we know `Lh` is not prime relative to `T'` and `Ltb`.
+
+The following flexagon has a generating sequence of `Lh+` and supports both `T'` and `Ltb`.
+
+[var name:historyLh value:'' /]
+[var name:doHistoryLh value:'' /]
+[derived name:'initLh' value:`[
+  {numPats: 6},
+  {searchFlexes: "P S T T' V Lh Lh' Lk Lk' Ltf Ltf' Ltb Ltb' Lbf Lbf' Lbb Lbb'"},
+  {flexAndColor: { flexes: "Lh+", colors: defaultColors }},
+  {history: 'clear'}
+  ]` /]
+
+[Flexagon width:700 height:400 numPats:6 initialScript:initLh runInitial:false options:flexagonOptions overButton:true
+  history:historyLh doHistory:doHistoryLh /]
+
+[Button onClick:`doHistoryLh='undo';`]Undo[/Button] [Button onClick:`doHistoryLh='redo';`]Redo[/Button] [Button onClick:`doHistoryLh='reset';`]Reset[/Button] [Display value:historyLh /]
+
+[Unfolded width:1000 height:500 script:initLh options:unfoldedOptions endText:'Lh+' /]
+
+Note that typically we assume that we can rotate the flexagon and turn it over (i.e. `>`, `<`, and `^`) unless otherwise stated.
+In the case above, we didn't need to rotate or turn it over.
+
+For a hexaflexagon, we have discussed the following flexes:
+`F`, `P`, `S`, `St`, `T`, `V`, `Lh`, `Lk`, `Ltf`, `Ltb`, `Lbf`, and `Lbb`.
+Relative to that set of flexes, which ones are prime?
+How does it change if you include `Tf`, the *forced tuck*?
+
+The answers to those questions are interesting because we only need to try the prime flexes
+to most efficiently find all the states of a flexagon reachable with any flex.
+We don't need to try any flex that's not a prime, because we know that we won't find anything new.
+
+However, if our goal is to find the *shortest sequence* between two states, then *every* flex is useful.
+
+
+# Equalities and almost equalities
+
+In the section on *prime flexes*, we saw that doing a slot half flex, `Lh`, was the equivalent
+of doing a slot tuck top back, `Ltb`, followed by an inverse tuck, `T'`.
+We wrote that as `Lh = Ltb T'`.
+This *also* implies that *every* time you can do `Lh`, you could have instead used `Ltb T'` *and vice versa*.
+
+Let's look at a different case where this sort of equality isn't always true.
+The following flexagon contains 11 leaves and has a generating sequence of `T*>>>V*`.
+In other words, there's no simpler flexagon where you could do the sequence `T>>>V`.
+
+[Aside]
+  Try doing `T>>>V` and looking at the resulting state.
+  If you reset and try `P` instead, you'll see that it takes you to the exact same state.
+
+  We already saw from the [Flexagon Intro chapter](pinch-flex.html) that you only need 9 leaves in order to do the pinch flex.
+  This means that every time the structure of a flexagon allows you to perform `T>>>V`,
+  you could have instead done `P`, but the reverse isn't true.
+  You can't always do `T>>>V` when you can do `P`.
+  Thus you can't say that those two sequences are always equal.
+
+  We indicate this with `~=` instead of `=`, so we write `P ~= T>>>V>>>`.
+  We pronounce `~=` as *sometimes equal*.
+[/Aside]
+
+[var name:historyPTV value:'' /]
+[var name:doHistoryPTV value:'' /]
+[derived name:'initPTV' value:`[
+  {numPats: 6},
+  {searchFlexes: "P T T' V"},
+  {flexAndColor: { flexes: "T*>>>V*V'>>>T'", colors: defaultColors }},
+  {history: 'clear'}
+  ]` /]
+
+[Flexagon width:700 height:400 numPats:6 initialScript:initPTV runInitial:false options:flexagonOptions overButton:true
+  history:historyPTV doHistory:doHistoryPTV /]
+
+[Button onClick:`doHistoryPTV='undo';`]Undo[/Button] [Button onClick:`doHistoryPTV='redo';`]Redo[/Button] [Button onClick:`doHistoryPTV='reset';`]Reset[/Button] [Display value:historyPTV /]
+
+[Unfolded width:1000 height:380 script:initPTV endText:'PTV' /]
+
+We can use `=` and `~=` to make interesting statements about how different sequences of flexes compare,
+adding in `!=` to mean *never equal*.
+Here are equalities for various flex inverses:
+
+* `^' = ^`
+* `<' = >`
+* `>' = <`
+* `F' = ^F^`
+* `P' = ^P^`
+* `S' = ^>S<^` (note that this is different from most other flexes)
+* `St' = ^St^`
+* `Lh' != ^Lh^` (note that this is different from many other flexes)
+* `Lk' = ^Lk^`
+* `Ltf' = ^Ltf^`
+* `T' ~= ^T^` (note the use of ~= rather than =)
+* `V' = ^V^`
+
+The *identity flex*, represented by `I`, is a flex where nothing changes,
+much like `0` in addition (`n + 0 = n`) or `1` in multiplication (`n * 1 = n`).
+Here are some useful identities and rules:
+
+* `I ~= AA'` : doing a flex followed by its inverse takes you back to where you started
+* `(AB)' = B'A'` : you can undo a sequence of two flexes by undoing the second then undoing the first
+* if `I ~= AB`, then `A = B'`
+* if `I ~= ABC`, then `A ~= C'B'` and `C ~= B'A'`
+
+[Aside]
+  Take `Lh = Ltb T'` and treat it as `A ~= C'B'`.
+  This means that `A` is `Lh`, `B'` is `T'` and hence `B` is `T`, and `C'` is `Ltb` and hence `C` is `Ltb'`.
+  Now substitute those into `I ~= ABC` and `C ~= B'A'`.
+[/Aside]
+
+These formulas give us the ability to derive new equalities.
+For example, earlier we saw that `Lh = Ltb T'`.
+When we apply the facts from above, we can infer the following formulas:
+
+* `I ~= Lh T Ltb'`
+* `Ltb' ~= T' Lh'`
+* `T ~= Lh' Ltb`
+
+[Aside]
+  We need to apply a few more identities when we have more than two flexes,
+  e.g. if `B' = V>>>`, then  `B = (>>>)' V' = <<<V'`.
+[/Aside]
+
+Likewise, we can derive new equalities from `P ~= T>>>V>>>`.
+
+* `I ~= P <<<V' <<<T'`
+* `<<<T' ~= V>>> P'` or `T' ~= >>>V>>> P'` or `T' ~= >>>V>>> ^P^`
+
+
+# What next?
+
+This chapter was filled with all sorts of open problems to explore and tools you can use for those explorations.
+
+* Which single flexes can turn into a cycle when combined with rotating and turning over the flexagon?
+* How do cycles change when you change the number of pats?
+* What more complex cycles exist?
+* How can you traverse every state in a given flexagon?
+* Which flexes are prime relative to a set of flexes?
+* Can you use the various identities, flexes, cycles, and traversals to derive interesting new flex sequences?
+
+Return to the [Table of Contents](index.html).
+
+[FullWidth]
+  [img src:'static/flexagon-variety.jpg' /]
+[/FullWidth]
+
+[Copyright/]

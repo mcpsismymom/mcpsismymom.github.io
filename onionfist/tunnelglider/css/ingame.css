@@ -1,0 +1,103 @@
+
+
+#renderCanvas {
+    width: 100%;
+    height: 100%;
+    /*touch-action: none;*/
+}
+
+#menu_btn {
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    z-index: 10;
+    cursor: pointer;
+}
+
+#menu_btn img {
+    width: 60px;
+    filter: invert(100%);
+}
+
+#menu_btn:hover {
+    opacity: 0.7;
+}
+
+
+#fullscreen_btn {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 10;
+    cursor: pointer;
+}
+
+#fullscreen_btn img {
+    width: 40px;
+    filter: invert(100%);
+}
+
+#fullscreen_btn:hover {
+    opacity: 0.7;
+}
+
+
+
+#ingame_settings_btn {
+    position: fixed;
+    top: 80px;
+    left: 20px;
+    z-index: 10;
+    cursor: pointer;
+}
+
+#ingame_settings_btn img {
+    width: 40px;
+    filter: invert(100%);
+}
+
+#ingame_settings_btn:hover {
+    opacity: 0.7;
+}
+
+
+
+
+
+#overlay_score {
+    position: fixed;
+    top: 53px;
+    z-index: 10;
+    font-size: 40px;
+    text-align: center;
+    left: 0px;
+    right: 0px;
+    font-family: 'righteous', sans-serif;
+}
+
+#overlay_high {
+    position: fixed;
+    top: 23px;
+    z-index: 10;
+    font-size: 20px;
+    text-align: center;
+    left: 0px;
+    right: 0px;
+    font-family: 'righteous', sans-serif;
+
+}
+
+#controls_overlay {
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+    z-index: 10;
+    user-select: none;
+}
+
+
+
+
+
+
+

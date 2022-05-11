@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>Work Simulator</title>
+    <link href="style.css" rel="stylesheet" type="text/css" />
+  </head>
+  <body>
+    <h1>Level 3-3</h1>
+    <p>We've easily logged into Bob's computer. Bob needs to type a report for his boss, so let's help him do that.</p>
+    <textarea id="textareabox" autofocus>Type a report for Bob here.</textarea>
+    <button onclick="submit()" id="submit">Submit Report</button>
+    <p id="levelEndText" hidden>Whew, I'm done typing up my 5-page report on American unemployment! Wait, what? It doesn't matter what you type there? Seriously?!?!?!?</p>
+    <p id="alttext" hidden>Seriously? You didn't type anything in the box at all?</p>
+    <h2 id="moral" hidden>The Moral: Don't ask questions that don't have any impact on the game itself.</h2> 
+    <button onclick="window.location.href='stage3-4.html'" hidden id="next">Next</button>
+
+    <script>
+      function submit() {
+        if (document.getElementById("textareabox").value == "Type a report for Bob here." || document.getElementById("textareabox").value == "") {
+          document.getElementById("alttext").hidden = false;
+        } else {
+          document.getElementById("levelEndText").hidden = false;
+        }
+        document.getElementById("moral").hidden = false;
+        document.getElementById("next").hidden = false;
+        document.getElementById("submit").innerText = "Submitted!";
+      }
+      
+    </script>
+  </body>
+</html>
