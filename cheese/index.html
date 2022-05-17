@@ -1,0 +1,292 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="shortcut icon" href="/favicon.ico"/>
+    <title>cheese</title>
+    </head>
+<body>
+  <div class="w3-container">
+<p id="cash">money: $0</p><p id="typetext">cheesetype: cheese</p><p id="hi">cheese: 0</p>
+<button onclick="myFunction()">make cheese</button><button onclick="mySell()">sell cheese</button><button id="cheeseupgrade" onclick="myUpgrade()">upgrade cheese type for 500 ???</button>
+<p id="cool"></p>
+<button id="converter" onclick="myCheddar()">convert 20 cheese into ???</button>
+<button id="converter2" onclick="myMaxcheddar()">convert all cheese into ???</button>
+<p id="clicktext">clickpower: 1</p>
+<button id="clickupgrade" onclick="myClickpower()">convert 5 ??? to upgrade clickpower by 1</button>
+<p id="autotext">autocheesemaker10000: 0</p>
+<button id="buyauto" onclick="myCheesemaker()">buy autocheesemaker10000 for $1000</button>
+<br>
+<br>
+<button onclick="mySave()">save data</button>
+<button onclick="myLoad()">load data</button>
+<br>
+<br>
+<p id="rebirthtext">Current Rebirth Boost:</p>
+  <button id="rebirth" onclick="myRebirth()"> </button>
+  <br>
+  <br>
+<br>
+<p> changelog <br><br> update 0.5: <br> added cheesetypes and rebirth <br><br> update 0.4 <br> changed javascript to not be dogwater and allow future updates <br><br> update 0.3: <br> added save/load and convert all <br><br> update 0.2: <br> added money and autobuy <br><br> update 0.1: <br> added cheese cheddar and clickpower
+</p>
+<br>
+<br>
+<p>an offline download version is available <a href="/cheese/index.html" download="cheeseclicker.html">here</a> </p>
+</div>
+<script>
+
+   document.getElementById("rebirth").style.visibility = "hidden";
+   document.getElementById("rebirthtext").style.visibility = "hidden";   
+var cheese = 0;
+var cheddar = 0;
+var clickpower = 1;
+var money = 0;
+var cheesevalue = 1;
+var clickupgradecost = 5;
+var upgradecost = 500;
+var autoprice = 1000;
+var cheesemakers = 0;
+var rebirthbonus = 0;
+var rebirthgain = 0;
+var t=setInterval(myRebirthupdate,10000);
+var t=setInterval(myAuto,250);
+function myFunction() {
+  cheese += clickpower;
+  cheese += clickpower*rebirthbonus;
+  document.getElementById("hi").innerHTML = "cheese: " + cheese;
+}
+function myCheddar() {
+if (cheese >= 20) {
+cheddar++;
+cheese -= 20;
+  document.getElementById("cool").innerHTML ="cheddar: " + cheddar;
+  document.getElementById("hi").innerHTML = "cheese: " + cheese;
+  document.getElementById("converter").innerHTML ="convert 20 cheese into cheddar";
+  document.getElementById("converter2").innerHTML ="convert all cheese into cheddar";
+    document.getElementById("clickupgrade").innerHTML ="convert " + clickupgradecost + " cheddar to upgrade clickpower by 1";
+    document.getElementById("cheeseupgrade").innerHTML ="upgrade cheese type for " + upgradecost + " cheddar";
+}
+}
+function myMaxcheddar() {
+if (cheese >= 20) {
+cheddar += Math.floor(cheese/20);
+cheese -= 20*Math.floor(cheese/20);
+  document.getElementById("cool").innerHTML ="cheddar: " + cheddar;
+  document.getElementById("hi").innerHTML = "cheese: " + cheese;
+  document.getElementById("converter").innerHTML ="convert 20 cheese into cheddar";
+    document.getElementById("converter2").innerHTML ="convert all cheese into cheddar";
+    document.getElementById("clickupgrade").innerHTML ="convert " + clickupgradecost + " cheddar to upgrade clickpower by 1";
+   document.getElementById("cheeseupgrade").innerHTML ="upgrade cheese type for " + upgradecost + " cheddar";
+}
+}
+function myClickpower() {
+if (cheddar >= clickupgradecost) {
+cheddar -= clickupgradecost;
+clickupgradecost++;
+document.getElementById("clickupgrade").innerHTML ="convert " + clickupgradecost + " cheddar to upgrade clickpower by 1";
+document.getElementById("cool").innerHTML ="cheddar: " + cheddar;
+clickpower++;
+document.getElementById("clicktext").innerHTML ="clickpower: " + clickpower;
+}
+}
+function mySell() {
+money += cheese*0.25*cheesevalue;
+document.getElementById("cash").innerHTML ="money: $" + money;
+document.getElementById("hi").innerHTML ="cheese: 0";
+cheese = 0;
+}
+function myUpgrade() {
+if (cheddar >= upgradecost && cheesevalue < 8){
+cheddar -= upgradecost;
+upgradecost += 500;
+cheesevalue++;
+  document.getElementById("cool").innerHTML ="cheddar: " + cheddar;
+    document.getElementById("cheeseupgrade").innerHTML ="upgrade cheese type for " + upgradecost + " cheddar";
+if (cheesevalue == 2) {
+document.getElementById("typetext").innerHTML = "cheesetype: peperjack";
+}
+if (cheesevalue == 3) {
+document.getElementById("typetext").innerHTML = "cheesetype: swiss";
+}
+if (cheesevalue == 4) {
+document.getElementById("typetext").innerHTML = "cheesetype: parmesan";
+}
+if (cheesevalue == 5) {
+document.getElementById("typetext").innerHTML = "cheesetype: mozzarella";
+}
+if (cheesevalue == 6) {
+document.getElementById("typetext").innerHTML = "cheesetype: string";
+}
+if (cheesevalue == 7) {
+document.getElementById("typetext").innerHTML = "cheesetype: ricota";
+}
+if (cheesevalue == 8) {
+document.getElementById("typetext").innerHTML = "cheesetype: muenster";
+}
+}
+}
+function myCheesemaker() {
+if (money >= autoprice) {
+ money -= autoprice;
+ document.getElementById("cash").innerHTML ="money: $" + money;
+ cheesemakers++;
+ document.getElementById("autotext").innerHTML = "autocheesemaker10000: " + cheesemakers;
+ autoprice += 1000;
+  document.getElementById("buyauto").innerHTML = "buy autocheesemaker10000 for $" + autoprice;
+ }
+}
+ function myAuto() {
+cheese += cheesemakers*clickpower;
+cheese += cheesemakers*clickpower*rebirthbonus;
+ document.getElementById("hi").innerHTML = "cheese: " + cheese;
+ }
+ function myRebirthupdate() {  
+   document.getElementById("rebirth").innerHTML = "lose everything for a " + rebirthgain + "% bonus";
+   document.getElementById("rebirthtext").innerHTML = "Current Rebirth Boost: " + rebirthbonus*100 + "%";
+      if (clickpower + cheesemakers >= 1000) {
+    rebirthgain = Math.round(clickpower/1000 + cheesemakers/(2000/3)) * 100;
+   document.getElementById("rebirth").style.visibility = "visible";
+   document.getElementById("rebirthtext").style.visibility = "visible"; 
+ }
+ }
+ function myRebirth() {
+   rebirthbonus += rebirthgain/100;
+ cheese = 0;
+ cheddar = 0;
+ clickpower = 1;
+ money = 0;
+ cheesevalue = 1;
+ clickupgradecost = 5;
+ upgradecost = 500;
+ autoprice = 1000;
+ cheesemakers = 0;
+   rebirthgain = 0;
+      document.getElementById("rebirth").style.visibility = "hidden";  
+   document.getElementById("rebirthtext").innerHTML = "Current Rebirth Boost: " + rebirthbonus*100 + "%";
+    document.getElementById("hi").innerHTML = "cheese: " + cheese;
+    document.getElementById("cash").innerHTML ="money: $" + money;
+    document.getElementById("clicktext").innerHTML ="clickpower: " + clickpower;
+    document.getElementById("autotext").innerHTML = "autocheesemaker10000: " + cheesemakers;
+    document.getElementById("buyauto").innerHTML = "buy autocheesemaker10000 for $" + autoprice;
+    document.getElementById("typetext").innerHTML = "cheesetype: cheese";
+    document.getElementById("clickupgrade").innerHTML ="convert " + clickupgradecost + " cheddar to upgrade clickpower by 1";
+ document.getElementById("cool").innerHTML ="cheddar: " + cheddar;
+  document.getElementById("converter").innerHTML ="convert 20 cheese into cheddar";
+  document.getElementById("converter2").innerHTML ="convert all cheese into cheddar";
+      document.getElementById("cheeseupgrade").innerHTML ="upgrade cheese type for " + upgradecost + " cheddar";
+ }
+  function mySave() {
+localStorage.setItem('cheese', cheese);
+localStorage.setItem('cheddar', cheddar);
+localStorage.setItem('money', money);
+localStorage.setItem('clickpower', clickpower);
+localStorage.setItem('cheesemakers', cheesemakers);
+localStorage.setItem('clickupgradecost', clickupgradecost);
+localStorage.setItem('autoprice', autoprice);
+localStorage.setItem('upgradecost', upgradecost);
+localStorage.setItem('cheesevalue', cheesevalue);
+localStorage.setItem('rebirthbonus', rebirthbonus);
+localStorage.setItem('rebirthgain', rebirthgain);
+}
+ function myLoad() {
+     if (parseInt(localStorage.getItem('cheese')) > 0) { 
+ cheese = parseInt(localStorage.getItem('cheese'));
+     } else {
+       cheese = 0;
+     }
+  document.getElementById("hi").innerHTML = "cheese: " + cheese;
+    if (parseInt(localStorage.getItem('cheddar')) > 0) { 
+ cheddar = parseInt(localStorage.getItem('cheddar'));
+    } else {
+       cheddar = 0;
+     }
+   if (parseInt(localStorage.getItem('money')) > 0) { 
+ money = parseInt(localStorage.getItem('money'));
+   } else {
+       money = 0;
+     }
+  document.getElementById("cash").innerHTML ="money: $" + money;
+    if (parseInt(localStorage.getItem('clickpower')) > 0) { 
+ clickpower = parseInt(localStorage.getItem('clickpower'));
+    } else {
+       clickpower = 1;
+     }
+ document.getElementById("clicktext").innerHTML ="clickpower: " + clickpower;
+   if (parseInt(localStorage.getItem('cheesemakers')) > 0) { 
+ cheesemakers = parseInt(localStorage.getItem('cheesemakers'));
+   } else {
+       cheesemakers = 0;
+     }
+ document.getElementById("autotext").innerHTML = "autocheesemaker10000: " + cheesemakers;
+   if (parseInt(localStorage.getItem('clickupgradecost')) > 0) { 
+ clickupgradecost = parseInt(localStorage.getItem('clickupgradecost'));
+   } else {
+       clickupgradecost = 5;
+     }
+     if (parseInt(localStorage.getItem('autoprice')) > 0) { 
+ autoprice = parseInt(localStorage.getItem('autoprice'));
+     } else {
+       autoprice = 1000;
+     }
+ document.getElementById("buyauto").innerHTML = "buy autocheesemaker10000 for $" + autoprice;
+  if (parseInt(localStorage.getItem('upgradecost')) > 0) { 
+    upgradecost = parseInt(localStorage.getItem('upgradecost'));
+  } else {
+       upgradecost = 500;
+     }
+  if (parseInt(localStorage.getItem('cheesevalue')) > 0) {
+   cheesevalue = parseInt(localStorage.getItem('cheesevalue'));
+  } else {
+       cheesevalue = 1;
+     }
+     if (cheesevalue == 1) {
+document.getElementById("typetext").innerHTML = "cheesetype: cheese";
+}
+   if (cheesevalue == 2) {
+document.getElementById("typetext").innerHTML = "cheesetype: pepperjack";
+}
+if (cheesevalue == 3) {
+document.getElementById("typetext").innerHTML = "cheesetype: swiss";
+}
+if (cheesevalue == 4) {
+document.getElementById("typetext").innerHTML = "cheesetype: parmesan";
+}
+if (cheesevalue == 5) {
+document.getElementById("typetext").innerHTML = "cheesetype: mozzarella";
+}
+if (cheesevalue == 6) {
+document.getElementById("typetext").innerHTML = "cheesetype: string";
+}
+if (cheesevalue == 7) {
+document.getElementById("typetext").innerHTML = "cheesetype: ricota";
+}
+if (cheesevalue == 8) {
+document.getElementById("typetext").innerHTML = "cheesetype: muenster";
+}
+ if (cheddar > 0 || clickupgradecost > 5 || cheesevalue > 1) {
+  document.getElementById("clickupgrade").innerHTML ="convert " + clickupgradecost + " cheddar to upgrade clickpower by 1";
+ document.getElementById("cool").innerHTML ="cheddar: " + cheddar;
+  document.getElementById("converter").innerHTML ="convert 20 cheese into cheddar";
+  document.getElementById("converter2").innerHTML ="convert all cheese into cheddar";
+      document.getElementById("cheeseupgrade").innerHTML ="upgrade cheese type for " + upgradecost + " cheddar";
+ }
+ if (parseInt(localStorage.getItem('rebirthbonus')) > 0) { 
+ rebirthbonus = parseInt(localStorage.getItem('rebirthbonus'));
+     } else {
+       rebirthbonus = 0;
+     }
+     if (parseInt(localStorage.getItem('rebirthgain')) > 0) { 
+ rebirthgain = parseInt(localStorage.getItem('rebirthgain'));
+     } else {
+       rebirthgain = 0;
+     }
+ myRebirthupdate();
+ if(rebirthbonus > 0) {
+   document.getElementById("rebirthtext").style.visibility = "visible"; 
+ }
+ } 
+</script>
+
+</body>
+</html>
